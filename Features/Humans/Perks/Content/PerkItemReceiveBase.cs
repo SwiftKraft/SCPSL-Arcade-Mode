@@ -20,6 +20,13 @@ namespace SwiftUHC.Features.Humans.Perks.Content
                 GiveItem();
         }
 
+        public override void Tick()
+        {
+            base.Tick();
+
+            Trigger();
+        }
+
         public int GetCount() => Player.Items.Count((i) => i.Type == ItemType);
 
         public virtual Item GiveItem() => Player.AddItem(ItemType, ItemAddReason.PickedUp);
