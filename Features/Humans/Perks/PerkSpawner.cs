@@ -41,7 +41,7 @@ namespace SwiftUHC.Features.Humans.Perks
 
             Type type = PerkPickups[ev.Pickup.Serial];
             PerkManager.PerkProfile prof = PerkManager.Profiles.ContainsKey(type) ? PerkManager.Profiles[type] : default;
-            ev.Player.SendHint($"Picking Up Perk: <color={prof.Rarity.GetColor()}><b>{prof.Name}</b></color>\n{prof.Description}", [HintEffectPresets.FadeOut()], 2f);
+            ev.Player.SendHint($"Picking Up Perk: <color={prof.Rarity.GetColor()}><b>{prof.Name}</b></color>\n{prof.Description}", [HintEffectPresets.FadeOut()], 5f);
         }
 
         private static void OnPickedUpItem(PlayerPickedUpItemEventArgs ev)
@@ -54,7 +54,7 @@ namespace SwiftUHC.Features.Humans.Perks
 
             Type type = PerkPickups[ev.Item.Serial];
             PerkManager.PerkProfile prof = PerkManager.Profiles.ContainsKey(type) ? PerkManager.Profiles[type] : default;
-            ev.Player.SendHint($"Acquired Perk: <color={prof.Rarity.GetColor()}><b>{prof.Name}</b></color>\n{prof.Description}", [HintEffectPresets.FadeOut()], 4f);
+            ev.Player.SendHint($"Acquired Perk: <color={prof.Rarity.GetColor()}><b>{prof.Name}</b></color>\n{prof.Description}\n\nPress \"~\" and type \".sp\" to see what perks you have!", [HintEffectPresets.FadeOut()], 10f);
 
             PerkPickups.Remove(ev.Item.Serial);
         }
