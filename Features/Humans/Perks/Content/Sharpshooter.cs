@@ -20,6 +20,8 @@ namespace SwiftUHC.Features.Humans.Perks.Content
             PlayerEvents.PickedUpItem += OnPickedUpItem;
             PlayerEvents.ChangedItem += OnChangedItem;
             PlayerEvents.DroppingItem += OnDroppingItem;
+
+            Player.AddAmmo(ItemType.Ammo44cal, 50);
         }
 
         public override void Remove()
