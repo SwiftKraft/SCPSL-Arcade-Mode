@@ -23,7 +23,6 @@ namespace SwiftUHC.Features.Humans.Perks.Content
         public override void Tick()
         {
             base.Tick();
-
             Trigger();
         }
 
