@@ -15,7 +15,7 @@ namespace SwiftUHC.Features.Humans.Perks.Content
 
         public virtual float Duration => 10f;
 
-        public override float Cooldown => 60f;
+        public override float Cooldown => 120f;
 
         private readonly Timer activationTimer = new();
 
@@ -23,13 +23,17 @@ namespace SwiftUHC.Features.Humans.Perks.Content
         {
             base.Init();
             activationTimer.OnTimerEnd += OnTimerEnd;
+            CooldownTimer.OnTimerEnd += OnCooldownEnd;
         }
 
         public override void Remove()
         {
             base.Remove();
             activationTimer.OnTimerEnd -= OnTimerEnd;
+            CooldownTimer.OnTimerEnd -= OnCooldownEnd;
         }
+
+        private void OnCooldownEnd() => SendMessage("Ready!");
 
         protected virtual void OnTimerEnd() => Player.DisableEffect<Invisible>();
 

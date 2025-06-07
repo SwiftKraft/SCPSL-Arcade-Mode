@@ -18,7 +18,12 @@ namespace SwiftUHC.Features.Humans.Perks
                 return;
 
             PerkBase perk = Perks.FirstOrDefault((p) => p.GetType() == type);
-            RemovePerk(perk);
+            
+            if (perk != null)
+            {
+                Perks.Remove(perk);
+                perk.Remove();
+            }
 
             PerkBase p = (PerkBase)Activator.CreateInstance(type, this);
             p.Rarity = PerkManager.Profiles.ContainsKey(type) ? PerkManager.Profiles[type].Rarity : Rarity.Secret;

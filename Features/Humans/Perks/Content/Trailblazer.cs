@@ -32,14 +32,24 @@ namespace SwiftUHC.Features.Humans.Perks.Content
         {
             base.Init();
 
+            WarheadEvents.Detonated += OnWarheadDetonated;
             PlayerEvents.UsingItem += OnUsingItem;
             PlayerEvents.UsedItem += OnUsedItem;
+        }
+
+        private void OnWarheadDetonated(LabApi.Events.Arguments.WarheadEvents.WarheadDetonatedEventArgs ev)
+        {
+            Player.Position = TeleportPoint;
+            TrackedType = ItemType.None;
+            TeleportExists = false;
+            SendMessage("Warhead detonated! Teleport point destroyed.");
         }
 
         public override void Remove()
         {
             base.Remove();
 
+            WarheadEvents.Detonated -= OnWarheadDetonated;
             PlayerEvents.UsingItem -= OnUsingItem;
             PlayerEvents.UsedItem -= OnUsedItem;
         }
