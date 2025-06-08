@@ -1,4 +1,5 @@
-﻿using LabApi.Features.Wrappers;
+﻿using Hints;
+using LabApi.Features.Wrappers;
 using SwiftUHC.Utils.Extensions;
 using System;
 using System.Collections.Generic;
@@ -12,23 +13,32 @@ namespace SwiftUHC.Features.Humans.Perks
         public readonly Player Parent = targetPlayer;
         public readonly List<PerkBase> Perks = [];
 
-        public void AddPerk(Type type)
+        public int Limit = 5;
+
+        public bool AddPerk(Type type)
         {
             if (type == null || type.IsAbstract || (type != typeof(PerkBase) && !type.IsSubclassOf(typeof(PerkBase))))
-                return;
+                return false;
+
+            PerkManager.PerkProfile prof = PerkManager.Profiles.ContainsKey(type) ? PerkManager.Profiles[type] : default;
 
             PerkBase perk = Perks.FirstOrDefault((p) => p.GetType() == type);
             
             if (perk != null)
             {
-                Perks.Remove(perk);
-                perk.Remove();
+                RemovePerk(perk);
+                return true;
             }
+
+            if (Perks.Count >= Limit)
+                return false;
 
             PerkBase p = (PerkBase)Activator.CreateInstance(type, this);
             p.Rarity = PerkManager.Profiles.ContainsKey(type) ? PerkManager.Profiles[type].Rarity : Rarity.Secret;
             Perks.Add(p);
             p.Init();
+            Parent.SendHint($"Acquired Perk ({Perks.Count}/{Limit}): <color={prof.Rarity.GetColor()}><b>{prof.Name}</b></color>\n{prof.Description}\n\nPress \"~\" and type \".sp\" to see what perks you have!", [HintEffectPresets.FadeOut()], 10f);
+            return true;
         }
 
         public void RemovePerk(Type type)
@@ -44,6 +54,8 @@ namespace SwiftUHC.Features.Humans.Perks
             RemovePerk(perk);
         }
 
+        public bool HasPerk(Type t) => Perks.FirstOrDefault((p) => p.GetType() == t) != null;
+
         public void ClearPerks() => Perks.Clear();
 
         public void RemovePerk(PerkBase perk)
@@ -53,7 +65,7 @@ namespace SwiftUHC.Features.Humans.Perks
 
             Perks.Remove(perk);
             perk.Remove();
-            Parent.SendBroadcast($"{perk.Name} has been removed from you!", 5, Broadcast.BroadcastFlags.Normal, false);
+            Parent.SendHint($"Removed Perk: <color={perk.Rarity.GetColor()}><b>{perk.Name}</b></color>\n\nPress \"~\" and type \".sp\" to see what perks you have!", [HintEffectPresets.FadeOut()], 10f);
         }
 
         public PerkBase RemoveRandom()

@@ -10,6 +10,18 @@ namespace SwiftUHC.Features.Humans.Perks.Content
         public virtual float Cooldown => 10f;
         protected Timer CooldownTimer = new();
 
+        public override void Init()
+        {
+            base.Init();
+            CooldownTimer.OnTimerEnd += OnCooldownEnd;
+        }
+
+        public override void Remove()
+        {
+            base.Remove();
+            CooldownTimer.OnTimerEnd -= OnCooldownEnd;
+        }
+
         public virtual void Trigger()
         {
             if (!CooldownTimer.Ended)
@@ -18,6 +30,8 @@ namespace SwiftUHC.Features.Humans.Perks.Content
             Effect();
             CooldownTimer.Reset(Cooldown);
         }
+
+        protected virtual void OnCooldownEnd() => SendMessage("Ready!");
 
         public abstract void Effect();
 

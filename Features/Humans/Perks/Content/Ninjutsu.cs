@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace SwiftUHC.Features.Humans.Perks.Content
 {
-    [Perk("Ninjutsu", Rarity.Common)]
+    [Perk("Ninjutsu", Rarity.Rare)]
     public class Ninjutsu(PerkInventory inv) : PerkCooldownBase(inv)
     {
         public override string Name => "Ninjutsu";
@@ -13,7 +13,7 @@ namespace SwiftUHC.Features.Humans.Perks.Content
 
         public virtual float HealthThreshold => 20f;
 
-        public virtual float Duration => 10f;
+        public virtual float Duration => 5f;
 
         public override float Cooldown => 120f;
 
@@ -23,17 +23,13 @@ namespace SwiftUHC.Features.Humans.Perks.Content
         {
             base.Init();
             activationTimer.OnTimerEnd += OnTimerEnd;
-            CooldownTimer.OnTimerEnd += OnCooldownEnd;
         }
 
         public override void Remove()
         {
             base.Remove();
             activationTimer.OnTimerEnd -= OnTimerEnd;
-            CooldownTimer.OnTimerEnd -= OnCooldownEnd;
         }
-
-        private void OnCooldownEnd() => SendMessage("Ready!");
 
         protected virtual void OnTimerEnd() => Player.DisableEffect<Invisible>();
 

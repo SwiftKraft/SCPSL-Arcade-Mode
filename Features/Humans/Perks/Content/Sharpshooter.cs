@@ -1,8 +1,8 @@
 ﻿using InventorySystem.Items;
-using InventorySystem.Items.Firearms.Modules;
 using LabApi.Events.Arguments.PlayerEvents;
 using LabApi.Events.Handlers;
 using LabApi.Features.Wrappers;
+using PlayerStatsSystem;
 
 namespace SwiftUHC.Features.Humans.Perks.Content
 {
@@ -11,15 +11,21 @@ namespace SwiftUHC.Features.Humans.Perks.Content
     {
         public override string Name => "Sharpshooter";
 
-        public override string Description => "Every weapon you pick up turns into a revolver. No running inaccuracy when using a revolver.";
+        public override string Description => "Every weapon you pick up turns into a revolver. Kills with the revolver grant you AHP.";
+
+        public virtual float Amount => 20f;
+        public virtual float Efficacy => 1f;
+
+        AhpStat.AhpProcess ahp;
 
         public override void Init()
         {
             base.Init();
 
             PlayerEvents.PickedUpItem += OnPickedUpItem;
-            PlayerEvents.ChangedItem += OnChangedItem;
-            PlayerEvents.DroppingItem += OnDroppingItem;
+            PlayerEvents.Dying += OnPlayerDying;
+
+            ahp = Player.CreateAhpProcess(0f, 75f, 0f, Efficacy, 1f, true);
 
             Player.AddAmmo(ItemType.Ammo44cal, 50);
         }
@@ -29,54 +35,17 @@ namespace SwiftUHC.Features.Humans.Perks.Content
             base.Remove();
 
             PlayerEvents.PickedUpItem -= OnPickedUpItem;
-            PlayerEvents.ChangedItem -= OnChangedItem;
-            PlayerEvents.DroppingItem -= OnDroppingItem;
+            PlayerEvents.Dying -= OnPlayerDying;
+
+            Player.ServerKillProcess(ahp);
         }
 
-        float originalBaseBulletInaccuracy;
-        float originalMinPenalty;
-        float originalMaxPenalty;
-        float originalBaseDamage;
-
-        private void OnChangedItem(PlayerChangedItemEventArgs ev)
+        private void OnPlayerDying(PlayerDyingEventArgs ev)
         {
-            if (ev.Player != Player)
+            if (ev.Attacker != Player || Player.CurrentItem.Type != ItemType.GunRevolver)
                 return;
 
-            if (ev.NewItem != null && ev.NewItem.Type == ItemType.GunRevolver && ev.NewItem is FirearmItem f && f.Base.TryGetModule(out SingleBulletHitscan mod) && f.Base.TryGetModule(out MovementInaccuracyModule mod2))
-            {
-                originalBaseBulletInaccuracy = mod.BaseBulletInaccuracy;
-                originalMinPenalty = mod2.MinPenalty;
-                originalMaxPenalty = mod2.MaxPenalty;
-                originalBaseDamage = mod.BaseDamage;
-
-                mod.BaseBulletInaccuracy = 0f;
-                mod2.MinPenalty = 0f;
-                mod2.MaxPenalty = 0f;
-                mod.BaseDamage = 500f;
-            }
-
-            if (ev.OldItem != null && ev.OldItem.Type == ItemType.GunRevolver && ev.OldItem is FirearmItem f2 && f2.Base.TryGetModule(out mod) && f2.Base.TryGetModule(out mod2))
-            {
-                mod.BaseBulletInaccuracy = originalBaseBulletInaccuracy;
-                mod2.MinPenalty = originalMinPenalty;
-                mod2.MaxPenalty = originalMaxPenalty;
-                mod.BaseDamage = originalBaseDamage;
-            }
-        }
-
-        private void OnDroppingItem(PlayerDroppingItemEventArgs ev)
-        {
-            if (ev.Player != Player || ev.Item != Player.CurrentItem || ev.Item.Category != ItemCategory.Firearm || ev.Item.Type != ItemType.GunRevolver)
-                return;
-
-            if (ev.Item.Type == ItemType.GunRevolver && ev.Item is FirearmItem f && f.Base.TryGetModule(out SingleBulletHitscan mod) && f.Base.TryGetModule(out MovementInaccuracyModule mod2))
-            {
-                mod.BaseBulletInaccuracy = originalBaseBulletInaccuracy;
-                mod2.MinPenalty = originalMinPenalty;
-                mod2.MaxPenalty = originalMaxPenalty;
-                mod.BaseDamage = originalBaseDamage;
-            }
+            ahp.CurrentAmount += Amount;
         }
 
         private void OnPickedUpItem(PlayerPickedUpItemEventArgs ev)
