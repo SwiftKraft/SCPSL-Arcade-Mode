@@ -43,9 +43,9 @@ namespace SwiftUHC.Features.Humans.Perks
 
     public enum Rarity : int
     {
-        Common = 15,
-        Uncommon = 13,
-        Rare = 11,
+        Common = 25,
+        Uncommon = 18,
+        Rare = 15,
         Epic = 9,
         Legendary = 5,
         Secret = 1

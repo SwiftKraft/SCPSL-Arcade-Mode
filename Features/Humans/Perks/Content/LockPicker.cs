@@ -16,10 +16,10 @@ namespace SwiftUHC.Features.Humans.Perks.Content
 
         public override void OnDoorAction(DoorVariant door, DoorAction act, ReferenceHub hub)
         {
-            if (hub != Player.ReferenceHub || act == DoorAction.Destroyed)
+            if (hub != Player.ReferenceHub || act == DoorAction.Destroyed || act == DoorAction.Opened || act == DoorAction.Closed)
                 return;
 
-            door.NetworkTargetState = !door.TargetState;
+            door.NetworkTargetState = true;
         }
     }
 }

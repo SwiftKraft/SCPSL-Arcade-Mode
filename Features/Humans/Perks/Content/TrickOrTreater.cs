@@ -7,6 +7,8 @@
 
         public override string Description => "Receive a candy. " + base.Description;
 
+        public override float Cooldown => 30f;
+
         public override ItemType ItemType => ItemType.SCP330;
     }
 }
