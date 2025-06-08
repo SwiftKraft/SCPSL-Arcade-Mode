@@ -8,17 +8,20 @@ namespace SwiftUHC.Features.Humans.Perks.Content
     {
         public override string Name => "Door Technician";
 
-        public override string Description => "Repair every door you walk through.";
+        public override string Description => "Repair every door near you.";
 
-        public virtual float Range => 2f;
+        public virtual float Range => 5f;
 
         public override void Tick()
         {
             base.Tick();
 
             Door d = GetClosestDoor();
-            if ((d.Position - Player.Position).sqrMagnitude <= Range * Range && d.Base is IDamageableDoor door)
+            if ((d.Position - Player.Position).sqrMagnitude <= Range * Range && d.Base is IDamageableDoor door && door.IsDestroyed)
+            {
                 door.ServerRepair();
+                d.IsOpened = true;
+            }
         }
     }
 }

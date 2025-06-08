@@ -80,6 +80,9 @@ namespace SwiftUHC.Features.Humans.Perks
 
         public void Tick()
         {
+            if (!Parent.IsAlive)
+                return;
+
             for (int i = 0; i < Perks.Count; i++)
                 Perks[i]?.Tick();
         }

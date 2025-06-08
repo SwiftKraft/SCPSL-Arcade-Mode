@@ -1,5 +1,7 @@
 ﻿using LabApi.Events.Arguments.PlayerEvents;
 using LabApi.Events.Handlers;
+using MEC;
+using UnityEngine;
 using Utils;
 
 namespace SwiftUHC.Features.Humans.Perks.Content
@@ -14,21 +16,22 @@ namespace SwiftUHC.Features.Humans.Perks.Content
         public override void Init()
         {
             base.Init();
-            PlayerEvents.Death += OnPlayerDeath;
+            PlayerEvents.Dying += OnPlayerDying;
         }
 
         public override void Remove()
         {
             base.Remove();
-            PlayerEvents.Death -= OnPlayerDeath;
+            PlayerEvents.Dying -= OnPlayerDying;
         }
 
-        private void OnPlayerDeath(PlayerDeathEventArgs ev)
+        private void OnPlayerDying(PlayerDyingEventArgs ev)
         {
             if (ev.Player != Player)
                 return;
 
-            ExplosionUtils.ServerExplode(ev.Player.Position, new(ev.Player.ReferenceHub), ExplosionType.Grenade);
+            Vector3 position = Player.Position;
+            Timing.CallDelayed(0.1f, () => { ExplosionUtils.ServerExplode(position, new(ev.Player.ReferenceHub), ExplosionType.Grenade); });
         }
     }
 }

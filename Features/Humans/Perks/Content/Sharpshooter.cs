@@ -7,7 +7,7 @@ using PlayerStatsSystem;
 namespace SwiftUHC.Features.Humans.Perks.Content
 {
     [Perk("Sharpshooter", Rarity.Rare)]
-    public class Sharpshooter(PerkInventory inv) : PerkBase(inv)
+    public class Sharpshooter(PerkInventory inv) : PerkKillBase(inv)
     {
         public override string Name => "Sharpshooter";
 
@@ -23,7 +23,6 @@ namespace SwiftUHC.Features.Humans.Perks.Content
             base.Init();
 
             PlayerEvents.PickedUpItem += OnPickedUpItem;
-            PlayerEvents.Dying += OnPlayerDying;
 
             ahp = Player.CreateAhpProcess(0f, 75f, 0f, Efficacy, 1f, true);
 
@@ -35,12 +34,11 @@ namespace SwiftUHC.Features.Humans.Perks.Content
             base.Remove();
 
             PlayerEvents.PickedUpItem -= OnPickedUpItem;
-            PlayerEvents.Dying -= OnPlayerDying;
 
             Player.ServerKillProcess(ahp);
         }
 
-        private void OnPlayerDying(PlayerDyingEventArgs ev)
+        protected override void OnPlayerDying(PlayerDyingEventArgs ev)
         {
             if (ev.Attacker != Player || Player.CurrentItem.Type != ItemType.GunRevolver)
                 return;

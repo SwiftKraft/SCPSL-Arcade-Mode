@@ -88,7 +88,7 @@ namespace SwiftUHC.Features.Humans.Perks
         {
             foreach (Room r in Room.List)
             {
-                if ((r == null || Random.Range(0f, 1f) > 0.5f) && !SpawnRooms.Contains(r.Name))
+                if ((r == null || Random.Range(0f, 1f) > 0.3f) && !SpawnRooms.Contains(r.Name))
                     continue;
 
                 SpawnPerk(PerkManager.GetRandomPerk(), r.Position + Vector3.up * 2f);
