@@ -1,5 +1,4 @@
 ﻿using LabApi.Events.Arguments.PlayerEvents;
-using LabApi.Events.Handlers;
 using LabApi.Features.Wrappers;
 
 namespace SwiftUHC.Features.Humans.Perks.Content
