@@ -40,7 +40,7 @@ namespace SwiftUHC.Features.Humans.Perks.Content
 
         protected override void OnPlayerDying(PlayerDyingEventArgs ev)
         {
-            if (ev.Attacker != Player || Player.CurrentItem.Type != ItemType.GunRevolver)
+            if (ev.Attacker != Player || Player.CurrentItem == null || Player.CurrentItem.Type != ItemType.GunRevolver)
                 return;
 
             ahp.CurrentAmount += Amount;

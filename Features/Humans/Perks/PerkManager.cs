@@ -6,6 +6,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
+using System.Text;
 
 namespace SwiftUHC.Features.Humans.Perks
 {
@@ -27,13 +28,26 @@ namespace SwiftUHC.Features.Humans.Perks
             FindPerks();
 
             PlayerEvents.Death += OnPlayerDeath;
+            PlayerEvents.ChangedSpectator += OnChangedSpectator;
             ServerEvents.RoundRestarted += OnRoundRestarted;
         }
 
         public static void Disable()
         {
             PlayerEvents.Death -= OnPlayerDeath;
+            PlayerEvents.ChangedSpectator -= OnChangedSpectator;
             ServerEvents.RoundRestarted -= OnRoundRestarted;
+        }
+
+        private static void OnChangedSpectator(PlayerChangedSpectatorEventArgs ev)
+        {
+            if (!Inventories.ContainsKey(ev.NewTarget))
+                return;
+
+            StringBuilder builder = new("Perks\n");
+
+            foreach (PerkBase perk in Inventories[ev.NewTarget].Perks)
+                builder.AppendLine($"- <color={perk.Rarity.GetColor()}>{perk.Name}");
         }
 
         private static void OnRoundRestarted() => Inventories.Clear();

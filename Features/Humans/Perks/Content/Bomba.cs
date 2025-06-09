@@ -1,5 +1,6 @@
 ﻿using LabApi.Events.Arguments.PlayerEvents;
 using LabApi.Events.Handlers;
+using LabApi.Features.Wrappers;
 using MEC;
 using UnityEngine;
 using Utils;
@@ -11,7 +12,7 @@ namespace SwiftUHC.Features.Humans.Perks.Content
     {
         public override string Name => "Bomba";
 
-        public override string Description => "You explode upon death.";
+        public override string Description => "You drop a short fused grenade upon death.";
 
         public override void Init()
         {
@@ -30,8 +31,7 @@ namespace SwiftUHC.Features.Humans.Perks.Content
             if (ev.Player != Player)
                 return;
 
-            Vector3 position = Player.Position;
-            Timing.CallDelayed(0.1f, () => { ExplosionUtils.ServerExplode(position, new(ev.Player.ReferenceHub), ExplosionType.Grenade); });
+            TimedGrenadeProjectile.SpawnActive(Player.Position, ItemType.GrenadeHE, Player, 0.5f);
         }
     }
 }
