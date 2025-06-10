@@ -60,12 +60,12 @@ namespace SwiftUHC.Features.Humans.Perks.Content
                 return;
 
             if (TeleportExists && ev.UsableItem.Type == TrackedType)
-                SendMessage("You will be teleported! Cancel to abort.");
+                SendMessage($"{(CooldownTimer.Ended ? "<color=#00FF00>You will be teleported!</color>" : "<color=#FF0000>On cooldown, you will NOT be teleported!</color>")} Cancel to abort.");
         }
 
         protected virtual void OnUsedItem(PlayerUsedItemEventArgs ev)
         {
-            if (ev.Player != Player || !CooldownTimer.Ended)
+            if (ev.Player != Player)
                 return;
 
             if (TeleportExists)
@@ -78,7 +78,7 @@ namespace SwiftUHC.Features.Humans.Perks.Content
             TeleportPoint = Player.Position;
             TrackedType = ev.UsableItem.Type;
             TeleportExists = true;
-            SendMessage("Teleport point has been created! Tracked type: " + Translations.Get(TrackedType));
+            SendMessage($"Teleport point has been created{(!CooldownTimer.Ended ? " (teleport on cooldown)" : "")}! Tracked type: " + Translations.Get(TrackedType));
         }
     }
 }
