@@ -65,7 +65,7 @@ namespace SwiftUHC.Features.Humans.Perks.Content
 
         protected virtual void OnUsedItem(PlayerUsedItemEventArgs ev)
         {
-            if (ev.Player != Player)
+            if (ev.Player != Player || !CooldownTimer.Ended)
                 return;
 
             if (TeleportExists)
