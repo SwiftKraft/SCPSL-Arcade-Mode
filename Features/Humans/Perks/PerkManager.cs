@@ -90,7 +90,7 @@ namespace SwiftUHC.Features.Humans.Perks
             return t != null;
         }
 
-        public static bool GivePerk(Player p, Type t)
+        public static bool GivePerk(Player p, PerkAttribute t)
         {
             if (!Inventories.ContainsKey(p))
                 Register(p);

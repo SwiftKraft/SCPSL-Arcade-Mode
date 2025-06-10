@@ -27,7 +27,7 @@ namespace SwiftUHC.Commands
             if (arguments.Array.Length > 2)
                 p = int.TryParse(arguments.Array[2], out int id) ? Player.Get(id) : Player.Get(arguments.Array[2]);
 
-            PerkManager.GivePerk(p, t.Perk);
+            PerkManager.GivePerk(p, t);
 
             response = "Added perk: " + t.ID + " to " + p.Nickname;
             return true;

@@ -54,7 +54,7 @@ namespace SwiftUHC.Features.Humans.Perks
 
             ev.Player.RemoveItem(ev.Item);
 
-            if (!PerkManager.GivePerk(ev.Player, PerkPickups[ev.Item.Serial].Perk))
+            if (!PerkManager.GivePerk(ev.Player, PerkPickups[ev.Item.Serial]))
             {
                 SpawnPerk(PerkPickups[ev.Item.Serial], ev.Player.Position);
                 return;

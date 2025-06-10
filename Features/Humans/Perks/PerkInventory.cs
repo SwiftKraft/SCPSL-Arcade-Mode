@@ -15,14 +15,20 @@ namespace SwiftUHC.Features.Humans.Perks
 
         public int Limit = 5;
 
-        public bool AddPerk(Type type)
+        public bool AddPerk(PerkAttribute type)
         {
-            if (type == null || type.IsAbstract || (type != typeof(PerkBase) && !type.IsSubclassOf(typeof(PerkBase))))
+            if (type == null || type.Perk.IsAbstract || (type.Perk != typeof(PerkBase) && !type.Perk.IsSubclassOf(typeof(PerkBase))))
                 return false;
 
-            PerkManager.PerkProfile prof = PerkManager.Profiles.ContainsKey(type) ? PerkManager.Profiles[type] : default;
+            PerkManager.PerkProfile prof = PerkManager.Profiles.ContainsKey(type.Perk) ? PerkManager.Profiles[type.Perk] : default;
 
-            PerkBase perk = Perks.FirstOrDefault((p) => p.GetType() == type);
+            if (type.HasConflicts(this, out PerkBase conf))
+            {
+                Parent.SendHint($"<color={prof.Rarity.GetColor()}><b>{prof.Name}</b></color> conflicts with <color={conf.Rarity.GetColor()}><b>{conf.Name}</b></color>!", [HintEffectPresets.FadeOut()], 5f);
+                return false;
+            }
+
+            PerkBase perk = Perks.FirstOrDefault((p) => p.GetType() == type.Perk);
             
             if (perk != null)
             {
@@ -33,8 +39,8 @@ namespace SwiftUHC.Features.Humans.Perks
             if (Perks.Count >= Limit)
                 return false;
 
-            PerkBase p = (PerkBase)Activator.CreateInstance(type, this);
-            p.Rarity = PerkManager.Profiles.ContainsKey(type) ? PerkManager.Profiles[type].Rarity : Rarity.Secret;
+            PerkBase p = (PerkBase)Activator.CreateInstance(type.Perk, this);
+            p.Rarity = PerkManager.Profiles.ContainsKey(type.Perk) ? PerkManager.Profiles[type.Perk].Rarity : Rarity.Secret;
             Perks.Add(p);
             p.Init();
             Parent.SendHint($"Acquired Perk ({Perks.Count}/{Limit}): <color={prof.Rarity.GetColor()}><b>{prof.Name}</b></color>\n{prof.Description}\n\nPress \"~\" and type \".sp\" to see what perks you have!", [HintEffectPresets.FadeOut()], 10f);
