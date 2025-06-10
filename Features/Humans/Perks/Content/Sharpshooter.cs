@@ -53,6 +53,7 @@ namespace SwiftUHC.Features.Humans.Perks.Content
 
             Player.RemoveItem(ev.Item);
             Player.AddItem(ItemType.GunRevolver, ItemAddReason.PickedUp);
+            Player.AddAmmo(ItemType.Ammo44cal, 30);
         }
     }
 }
