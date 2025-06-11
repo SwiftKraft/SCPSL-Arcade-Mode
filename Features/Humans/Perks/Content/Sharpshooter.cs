@@ -1,4 +1,5 @@
 ﻿using InventorySystem.Items;
+using InventorySystem.Items.Firearms.Attachments;
 using LabApi.Events.Arguments.PlayerEvents;
 using LabApi.Events.Handlers;
 using LabApi.Features.Wrappers;
@@ -6,12 +7,12 @@ using PlayerStatsSystem;
 
 namespace SwiftUHC.Features.Humans.Perks.Content
 {
-    [Perk("Sharpshooter", Rarity.Rare)]
+    [Perk("Sharpshooter", Rarity.Uncommon)]
     public class Sharpshooter(PerkInventory inv) : PerkKillBase(inv)
     {
         public override string Name => "Sharpshooter";
 
-        public override string Description => "Every weapon you pick up turns into a revolver. Kills with the revolver grant you AHP.";
+        public override string Description => "Every firearm you pick up turns into a revolver. Kills with the revolver grant you AHP.";
 
         public virtual float Amount => 20f;
         public virtual float Efficacy => 1f;
@@ -52,8 +53,9 @@ namespace SwiftUHC.Features.Humans.Perks.Content
                 return;
 
             Player.RemoveItem(ev.Item);
-            Player.AddItem(ItemType.GunRevolver, ItemAddReason.PickedUp);
+            FirearmItem it = Player.AddItem(ItemType.GunRevolver, ItemAddReason.PickedUp) as FirearmItem;
             Player.AddAmmo(ItemType.Ammo44cal, 30);
+            it.Base.ApplyAttachmentsCode(AttachmentsServerHandler.PlayerPreferences[Player.ReferenceHub][ItemType.GunRevolver], true);
         }
     }
 }

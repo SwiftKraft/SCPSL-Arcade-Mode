@@ -16,6 +16,12 @@ namespace SwiftUHC.Commands
 
         public bool Execute(ArraySegment<string> arguments, ICommandSender sender, out string response)
         {
+            if (sender.CheckPermission(PlayerPermissions.Effects))
+            {
+                response = "No permission! ";
+                return false;
+            }
+
             Player p = Player.Get(sender);
 
             if (arguments.Array.Length < 2 || !PerkManager.TryGetPerk(arguments.Array[1].ToLower(), out PerkAttribute t))

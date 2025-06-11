@@ -43,8 +43,8 @@ namespace SwiftUHC.Features.Humans.Perks
                 return;
 
             Type type = PerkPickups[ev.Pickup.Serial].Perk;
-            PerkManager.PerkProfile prof = PerkManager.Profiles.ContainsKey(type) ? PerkManager.Profiles[type] : default;
-            ev.Player.SendHint($"Picking Up Perk: <color={prof.Rarity.GetColor()}><b>{prof.Name}</b></color>\n{prof.Description}{(PerkManager.HasPerk(ev.Player, type) ? "\n\n<color=#FF0000><b>WARNING: Picking this up will remove the perk of the same type.</b></color>" : "")}", [HintEffectPresets.FadeOut()], 5f);
+            PerkManager.PerkProfile prof = PerkPickups[ev.Pickup.Serial].Profile;
+            ev.Player.SendHint($"Picking Up Perk: {prof.FancyName}\n{prof.Description}{(PerkManager.HasPerk(ev.Player, type) ? "\n\n<color=#FF0000><b>WARNING: Picking this up will remove the perk of the same type.</b></color>" : "")}", [HintEffectPresets.FadeOut()], 5f);
         }
 
         private static void OnPickedUpItem(PlayerPickedUpItemEventArgs ev)

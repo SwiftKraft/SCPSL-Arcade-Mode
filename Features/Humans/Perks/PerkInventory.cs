@@ -20,11 +20,11 @@ namespace SwiftUHC.Features.Humans.Perks
             if (type == null || type.Perk.IsAbstract || (type.Perk != typeof(PerkBase) && !type.Perk.IsSubclassOf(typeof(PerkBase))))
                 return false;
 
-            PerkManager.PerkProfile prof = PerkManager.Profiles.ContainsKey(type.Perk) ? PerkManager.Profiles[type.Perk] : default;
+            PerkManager.PerkProfile prof = type.Profile;
 
             if (type.HasConflicts(this, out PerkBase conf))
             {
-                Parent.SendHint($"<color={prof.Rarity.GetColor()}><b>{prof.Name}</b></color> conflicts with <color={conf.Rarity.GetColor()}><b>{conf.Name}</b></color>!", [HintEffectPresets.FadeOut()], 5f);
+                Parent.SendHint($"{prof.FancyName} conflicts with {conf.FancyName}!", [HintEffectPresets.FadeOut()], 5f);
                 return false;
             }
 
@@ -40,10 +40,10 @@ namespace SwiftUHC.Features.Humans.Perks
                 return false;
 
             PerkBase p = (PerkBase)Activator.CreateInstance(type.Perk, this);
-            p.Rarity = PerkManager.Profiles.ContainsKey(type.Perk) ? PerkManager.Profiles[type.Perk].Rarity : Rarity.Secret;
+            p.Rarity = type.Rarity;
             Perks.Add(p);
             p.Init();
-            Parent.SendHint($"Acquired Perk ({Perks.Count}/{Limit}): <color={prof.Rarity.GetColor()}><b>{prof.Name}</b></color>\n{prof.Description}\n\nPress \"~\" and type \".sp\" to see what perks you have!", [HintEffectPresets.FadeOut()], 10f);
+            Parent.SendHint($"Acquired Perk ({Perks.Count}/{Limit}): {prof.FancyName}\n{prof.Description}\n\nPress \"~\" and type \".sp\" to see what perks you have!", [HintEffectPresets.FadeOut()], 10f);
             return true;
         }
 
@@ -71,7 +71,7 @@ namespace SwiftUHC.Features.Humans.Perks
 
             Perks.Remove(perk);
             perk.Remove();
-            Parent.SendHint($"Removed Perk: <color={perk.Rarity.GetColor()}><b>{perk.Name}</b></color>\n\nPress \"~\" and type \".sp\" to see what perks you have!", [HintEffectPresets.FadeOut()], 10f);
+            Parent.SendHint($"Removed Perk: {perk.FancyName}\n\nPress \"~\" and type \".sp\" to see what perks you have!", [HintEffectPresets.FadeOut()], 10f);
         }
 
         public PerkBase RemoveRandom()

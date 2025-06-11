@@ -7,6 +7,8 @@ namespace SwiftUHC.Features.Humans.Perks
     {
         public Rarity Rarity { get; set; }
 
+        public string FancyName => Name.FancifyPerkName(Rarity);
+
         public virtual string Name => "Unnamed Perk";
 
         public virtual string Description => "Functions unknown.";
@@ -22,7 +24,7 @@ namespace SwiftUHC.Features.Humans.Perks
 
         public void SendMessage(string message, float duration = 3)
         {
-            Player.SendHint($"<color={Rarity.GetColor()}><b>{Name}</b></color>\n{message}", [HintEffectPresets.FadeOut()], duration);
+            Player.SendHint($"{FancyName}\n{message}", [HintEffectPresets.FadeOut()], duration);
         }
     }
 
@@ -43,9 +45,9 @@ namespace SwiftUHC.Features.Humans.Perks
 
     public enum Rarity : int
     {
-        Common = 25,
-        Uncommon = 18,
-        Rare = 15,
+        Common = 35,
+        Uncommon = 28,
+        Rare = 18,
         Epic = 9,
         Legendary = 5,
         Secret = 1

@@ -14,6 +14,8 @@ namespace SwiftUHC.Features.Humans.Perks
 
         public readonly Rarity Rarity = rarity;
 
+        public PerkManager.PerkProfile Profile;
+
         public int Weight => (int)Rarity;
 
         public bool HasConflicts(PerkInventory perks, out PerkBase perk)

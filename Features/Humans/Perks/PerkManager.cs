@@ -17,11 +17,12 @@ namespace SwiftUHC.Features.Humans.Perks
             public Rarity Rarity = r;
             public string Name = name;
             public string Description = desc;
+
+            public readonly string FancyName => Name.FancifyPerkName(Rarity);
         }
 
         public static readonly Dictionary<Player, PerkInventory> Inventories = [];
         public static readonly Dictionary<string, PerkAttribute> RegisteredPerks = [];
-        public static readonly Dictionary<Type, PerkProfile> Profiles = [];
 
         public static void Enable()
         {
@@ -47,7 +48,7 @@ namespace SwiftUHC.Features.Humans.Perks
             StringBuilder builder = new("Perks\n");
 
             foreach (PerkBase perk in Inventories[ev.NewTarget].Perks)
-                builder.AppendLine($"- <color={perk.Rarity.GetColor()}>{perk.Name}");
+                builder.AppendLine($"- {perk.FancyName}");
         }
 
         private static void OnRoundRestarted() => Inventories.Clear();
@@ -57,6 +58,8 @@ namespace SwiftUHC.Features.Humans.Perks
             if (Inventories.ContainsKey(ev.Player))
                 Inventories[ev.Player].RemoveRandom();
         }
+
+        public static string FancifyPerkName(this string perkName, Rarity rarity) => $"<color={rarity.GetColor()}><b>{perkName}</b></color>";
 
         public static void FindPerks()
         {
@@ -76,7 +79,7 @@ namespace SwiftUHC.Features.Humans.Perks
                 attr.Value.Perk = attr.Key;
                 RegisteredPerks.Add(attr.Value.ID.ToLower(), attr.Value);
                 PerkBase p = (PerkBase)Activator.CreateInstance(attr.Key, new PerkInventory(null));
-                Profiles.Add(attr.Key, new(attr.Value.Rarity, p.Name, p.Description));
+                attr.Value.Profile = new(attr.Value.Rarity, p.Name, p.Description);
             }
         }
 

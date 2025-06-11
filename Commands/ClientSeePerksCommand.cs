@@ -30,7 +30,7 @@ namespace SwiftUHC.Commands
             foreach (PerkBase perk in PerkManager.Inventories[p].Perks)
             {
                 stringBuilder.AppendLine();
-                stringBuilder.Append(perk.Name);
+                stringBuilder.Append(perk.FancyName);
                 stringBuilder.Append(" - ");
                 stringBuilder.AppendLine(perk.Description);
             }
