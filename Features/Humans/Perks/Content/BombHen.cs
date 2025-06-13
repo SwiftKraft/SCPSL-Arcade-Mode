@@ -11,7 +11,7 @@ namespace SwiftUHC.Features.Humans.Perks.Content
 
         public override float Cooldown => 35f;
 
-        public override void Effect() => TimedGrenadeProjectile.SpawnActive(Player.Position, ItemType.GrenadeHE, Player);
+        public override void Effect() => TimedGrenadeProjectile.SpawnActive(Player.Position, ItemType.GrenadeHE, Player, 5f);
 
         public override void Tick()
         {

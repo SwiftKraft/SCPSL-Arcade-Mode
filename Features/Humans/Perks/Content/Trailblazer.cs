@@ -63,7 +63,7 @@ namespace SwiftUHC.Features.Humans.Perks.Content
                 SendMessage($"{(CooldownTimer.Ended ? "<color=#00FF00>You will be teleported!</color>" : "<color=#FF0000>On cooldown, you will NOT be teleported!</color>")} Cancel to abort.");
         }
 
-        protected virtual void OnUsedItem(PlayerUsedItemEventArgs ev)
+        protected virtual void OnUsedItem(PlayerUsedItemEventArgs ev) // Teleport point follows elevator
         {
             if (ev.Player != Player)
                 return;

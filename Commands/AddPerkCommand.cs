@@ -16,7 +16,7 @@ namespace SwiftUHC.Commands
 
         public bool Execute(ArraySegment<string> arguments, ICommandSender sender, out string response)
         {
-            if (sender.CheckPermission(PlayerPermissions.Effects))
+            if (!sender.CheckPermission(PlayerPermissions.Effects))
             {
                 response = "No permission! ";
                 return false;
