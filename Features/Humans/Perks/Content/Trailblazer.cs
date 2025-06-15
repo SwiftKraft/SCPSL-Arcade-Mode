@@ -1,5 +1,7 @@
 ﻿using LabApi.Events.Arguments.PlayerEvents;
 using LabApi.Events.Handlers;
+using LabApi.Features.Wrappers;
+using SwiftUHC.Utils.Extensions;
 using UnityEngine;
 
 namespace SwiftUHC.Features.Humans.Perks.Content
@@ -16,13 +18,15 @@ namespace SwiftUHC.Features.Humans.Perks.Content
         public Vector3 TeleportPoint;
         public bool TeleportExists;
         public ItemType TrackedType;
+        public Elevator TrackedElevator;
 
         public override void Effect()
         {
             if (!TeleportExists)
                 return;
 
-            Player.Position = TeleportPoint;
+            Player.Position = TrackedElevator != null ? TrackedElevator.Base.transform.position + TeleportPoint : TeleportPoint;
+            TrackedElevator = null;
             TrackedType = ItemType.None;
             TeleportExists = false;
             SendMessage("Teleported! Teleport point destroyed.");
@@ -39,7 +43,7 @@ namespace SwiftUHC.Features.Humans.Perks.Content
 
         private void OnWarheadDetonated(LabApi.Events.Arguments.WarheadEvents.WarheadDetonatedEventArgs ev)
         {
-            Player.Position = TeleportPoint;
+            TrackedElevator = null;
             TrackedType = ItemType.None;
             TeleportExists = false;
             SendMessage("Warhead detonated! Teleport point destroyed.");
@@ -75,7 +79,8 @@ namespace SwiftUHC.Features.Humans.Perks.Content
                 return;
             }
 
-            TeleportPoint = Player.Position;
+            TrackedElevator = Player.GetElevator();
+            TeleportPoint = TrackedElevator != null ? Player.Position - TrackedElevator.Base.transform.position : Player.Position;
             TrackedType = ev.UsableItem.Type;
             TeleportExists = true;
             SendMessage($"Teleport point has been created{(!CooldownTimer.Ended ? " (teleport on cooldown)" : "")}! Tracked type: " + Translations.Get(TrackedType));

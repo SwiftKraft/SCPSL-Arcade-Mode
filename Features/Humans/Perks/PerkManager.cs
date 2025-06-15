@@ -55,7 +55,7 @@ namespace SwiftUHC.Features.Humans.Perks
 
         private static void OnPlayerDeath(PlayerDeathEventArgs ev)
         {
-            if (Inventories.ContainsKey(ev.Player))
+            if (Inventories.ContainsKey(ev.Player) && Inventories[ev.Player].Perks.Count > 0)
                 Inventories[ev.Player].RemoveRandom();
         }
 
