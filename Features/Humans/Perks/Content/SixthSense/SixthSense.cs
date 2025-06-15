@@ -22,6 +22,12 @@ namespace SwiftUHC.Features.Humans.Perks.Content.SixthSense
 
         public readonly List<SenseBase> Senses = [];
 
+        public override string Name => "Sixth Sense";
+
+        public override string Description => "Provides obscure, but useful information regarding players and enemies.";
+
+        public override float Cooldown => 15f;
+
         public override string ReadyMessage => Senses.GetRandom().Message();
 
         public override void Init()

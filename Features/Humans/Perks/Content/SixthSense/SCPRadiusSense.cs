@@ -61,16 +61,36 @@ namespace SwiftUHC.Features.Humans.Perks.Content.SixthSense
             "Every surface wants to swallow you. Some already have."
             ];
 
+        public static readonly string[] SCPMessages = [
+            "You are the danger.",
+            "You crave for the sight of a human.",
+            "You don't feel anything but hunger.",
+            "An unknown voice commands you to slaughter.",
+            "The killing is not pointless, it is necessary.",
+            "Slaughter seems to be the only way to prove your existance.",
+            "You don't feel your own breathing.",
+            "Survival is only wishful thinking.",
+            "Bloodlust fills your veins.",
+            "The humans' futile struggle is what excites you."
+            ];
+
         public virtual float Range => 30f;
 
         int lastRand1;
         int lastRand2;
         int lastRand3;
+        int lastRand4;
 
         public override string Message()
         {
+            if (Player.IsSCP)
+                return SCPMessages.GetRandom(ref lastRand1);
+
+            if (Player.Room.Name == RoomName.Pocket)
+                return PocketDimensionMessages.GetRandom(ref lastRand2);
+
             Player scp = GetNearSCPs();
-            return Player.Room.Name != RoomName.Pocket ? (scp == null ? NoSCPMessages.GetRandom(ref lastRand1) : SCPNearbyMessages.GetRandom(ref lastRand2)) : PocketDimensionMessages.GetRandom(ref lastRand3);
+            return scp == null ? NoSCPMessages.GetRandom(ref lastRand3) : SCPNearbyMessages.GetRandom(ref lastRand4);
         }
 
         public Player GetNearSCPs()
