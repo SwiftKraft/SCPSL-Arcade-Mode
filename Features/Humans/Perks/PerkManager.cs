@@ -42,13 +42,21 @@ namespace SwiftUHC.Features.Humans.Perks
 
         private static void OnChangedSpectator(PlayerChangedSpectatorEventArgs ev)
         {
-            if (!Inventories.ContainsKey(ev.NewTarget))
+            if (ev.NewTarget == null)
                 return;
 
-            StringBuilder builder = new("Perks\n");
+            if (!Inventories.ContainsKey(ev.NewTarget))
+            {
+                ev.Player.SendHint("", 1f);
+                return;
+            }
+
+            StringBuilder builder = new($"\n\n\n{ev.NewTarget.DisplayName}'s Perks\n");
 
             foreach (PerkBase perk in Inventories[ev.NewTarget].Perks)
                 builder.AppendLine($"- {perk.FancyName}");
+
+            ev.Player.SendHint(builder.ToString(), 60f);
         }
 
         private static void OnRoundRestarted() => Inventories.Clear();

@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace SwiftUHC.Features.Humans.Perks.Content
 {
-    public abstract class PerkItemReceiveBase(PerkInventory inv) : PerkCooldownBase(inv)
+    public abstract class PerkItemReceiveBase(PerkInventory inv) : PerkTriggerCooldownBase(inv)
     {
         public abstract ItemType ItemType { get; }
 
@@ -18,12 +18,6 @@ namespace SwiftUHC.Features.Humans.Perks.Content
         {
             if (GetCount() <= Limit)
                 GiveItem();
-        }
-
-        public override void Tick()
-        {
-            base.Tick();
-            Trigger();
         }
 
         public int GetCount() => Player.Items.Count((i) => i.Type == ItemType);

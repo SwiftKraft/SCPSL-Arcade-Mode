@@ -3,7 +3,7 @@
 namespace SwiftUHC.Features.Humans.Perks.Content
 {
     [Perk("BombHen", Rarity.Legendary)]
-    public class BombHen(PerkInventory inv) : PerkCooldownBase(inv)
+    public class BombHen(PerkInventory inv) : PerkTriggerCooldownBase(inv)
     {
         public override string Name => "Bomb Hen";
 
@@ -12,11 +12,5 @@ namespace SwiftUHC.Features.Humans.Perks.Content
         public override float Cooldown => 35f;
 
         public override void Effect() => TimedGrenadeProjectile.SpawnActive(Player.Position, ItemType.GrenadeHE, Player, 5f);
-
-        public override void Tick()
-        {
-            base.Tick();
-            Trigger();
-        }
     }
 }

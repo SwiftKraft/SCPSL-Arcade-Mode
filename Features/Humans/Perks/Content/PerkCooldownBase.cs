@@ -7,6 +7,8 @@ namespace SwiftUHC.Features.Humans.Perks.Content
     {
         public override string Description => $"Cooldown: {Cooldown}s.";
 
+        public virtual string ReadyMessage => "Ready!";
+
         public virtual float Cooldown => 10f;
         protected Timer CooldownTimer = new();
 
@@ -31,7 +33,7 @@ namespace SwiftUHC.Features.Humans.Perks.Content
             CooldownTimer.Reset(Cooldown);
         }
 
-        protected virtual void OnCooldownEnd() => SendMessage("Ready!");
+        protected virtual void OnCooldownEnd() => SendMessage(ReadyMessage);
 
         public abstract void Effect();
 
