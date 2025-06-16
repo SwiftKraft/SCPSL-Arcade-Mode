@@ -7,7 +7,7 @@ namespace SwiftUHC.Utils.Extensions
 {
     public static class ReflectionExtensions
     {
-        public static List<Type> GetAllNonAbstractSubclasses<T>()
+        public static HashSet<Type> GetAllNonAbstractSubclasses<T>()
         {
             var baseType = typeof(T);
 
@@ -29,7 +29,7 @@ namespace SwiftUHC.Utils.Extensions
                             && !t.IsAbstract
                             && baseType.IsAssignableFrom(t)
                             && t != baseType) // exclude the base type itself
-                .ToList();
+                .ToHashSet();
         }
     }
 }

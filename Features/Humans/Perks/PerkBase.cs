@@ -9,9 +9,9 @@ namespace SwiftUHC.Features.Humans.Perks
 
         public string FancyName => Name.FancifyPerkName(Rarity);
 
-        public virtual string Name => "Unnamed Perk";
+        public abstract string Name { get; }
 
-        public virtual string Description => "Functions unknown.";
+        public abstract string Description { get; }
 
         public readonly PerkInventory Inventory = inv;
         public Player Player => Inventory.Parent;
@@ -22,10 +22,7 @@ namespace SwiftUHC.Features.Humans.Perks
 
         public virtual void Remove() { }
 
-        public void SendMessage(string message, float duration = 3)
-        {
-            Player.SendHint($"{FancyName}\n{message}", [HintEffectPresets.FadeOut()], duration);
-        }
+        public virtual void SendMessage(string message, float duration = 3) => Player.SendHint($"{FancyName}\n{message}", [HintEffectPresets.FadeOut()], duration);
     }
 
     public static class RarityExtensions

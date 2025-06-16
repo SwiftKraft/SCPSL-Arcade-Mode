@@ -3,13 +3,16 @@ using SwiftUHC.Utils.Extensions;
 using SwiftUHC.Utils.Interfaces;
 using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Reflection;
+using ReflectionExtensions = SwiftUHC.Utils.Extensions.ReflectionExtensions;
 
 namespace SwiftUHC.Features.Humans.Perks.Content.SixthSense
 {
     [Perk("SixthSense", Rarity.Uncommon)]
     public class SixthSense(PerkInventory inv) : PerkTriggerCooldownBase(inv)
     {
-        public static List<Type> SenseCache
+        public static HashSet<Type> SenseCache
         {
             get
             {
@@ -18,7 +21,7 @@ namespace SwiftUHC.Features.Humans.Perks.Content.SixthSense
             }
         }
 
-        private static List<Type> _senseCache;
+        private static HashSet<Type> _senseCache;
 
         public readonly List<SenseBase> Senses = [];
 
@@ -38,6 +41,20 @@ namespace SwiftUHC.Features.Humans.Perks.Content.SixthSense
         }
 
         public override void Effect() { }
+
+        public static void RegisterSenses()
+        {
+            Assembly callingAssembly = Assembly.GetCallingAssembly();
+
+            List<Type> types = callingAssembly
+                .GetTypes()
+                .Where(t => t.IsClass && !t.IsAbstract && typeof(SenseBase).IsAssignableFrom(t))
+                .ToList();
+
+            foreach (Type t in types)
+                if (!SenseCache.Contains(t))
+                    SenseCache.Add(t);
+        }
     }
 
     public abstract class SenseBase(SixthSense parent) : IWeight
