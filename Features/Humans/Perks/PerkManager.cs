@@ -12,6 +12,8 @@ namespace SwiftUHC.Features.Humans.Perks
 {
     public static class PerkManager
     {
+        public const string PerkNameSpace = "base";
+
         public struct PerkProfile(Rarity r, string name, string desc)
         {
             public Rarity Rarity = r;
@@ -26,10 +28,11 @@ namespace SwiftUHC.Features.Humans.Perks
 
         public static void Enable()
         {
-            FindPerks();
+            RegisterPerks(PerkNameSpace);
 
             PlayerEvents.Death += OnPlayerDeath;
             PlayerEvents.ChangedSpectator += OnChangedSpectator;
+            PlayerEvents.ChangedRole += OnChangedRole;
             ServerEvents.RoundRestarted += OnRoundRestarted;
         }
 
@@ -37,8 +40,11 @@ namespace SwiftUHC.Features.Humans.Perks
         {
             PlayerEvents.Death -= OnPlayerDeath;
             PlayerEvents.ChangedSpectator -= OnChangedSpectator;
+            PlayerEvents.ChangedRole -= OnChangedRole;
             ServerEvents.RoundRestarted -= OnRoundRestarted;
         }
+
+        private static void OnChangedRole(PlayerChangedRoleEventArgs ev) => ev.Player.SendHint("", 1f);
 
         private static void OnChangedSpectator(PlayerChangedSpectatorEventArgs ev)
         {
@@ -69,23 +75,20 @@ namespace SwiftUHC.Features.Humans.Perks
 
         public static string FancifyPerkName(this string perkName, Rarity rarity) => $"<color={rarity.GetColor()}><b>{perkName}</b></color>";
 
-        public static void FindPerks()
+        public static void RegisterPerks(string nameSpace)
         {
-            Dictionary<Type, PerkAttribute> atts = AppDomain.CurrentDomain
-    .GetAssemblies()
-    .SelectMany(a =>
-    {
-        try { return a.GetTypes(); }
-        catch (ReflectionTypeLoadException e) { return e.Types.Where(t => t != null); }
-    })
-    .Select(t => (type: t, attr: t.GetCustomAttribute<PerkAttribute>()))
-    .Where(pair => pair.attr != null)
-    .ToDictionary(pair => pair.type, pair => pair.attr);
+            Assembly callingAssembly = Assembly.GetCallingAssembly();
+
+            Dictionary<Type, PerkAttribute> atts = callingAssembly
+                .GetTypes()
+                .Select(t => (type: t, attr: t.GetCustomAttribute<PerkAttribute>()))
+                .Where(pair => pair.attr != null)
+                .ToDictionary(pair => pair.type, pair => pair.attr);
 
             foreach (KeyValuePair<Type, PerkAttribute> attr in atts)
             {
                 attr.Value.Perk = attr.Key;
-                RegisteredPerks.Add(attr.Value.ID.ToLower(), attr.Value);
+                RegisteredPerks.Add((RegisteredPerks.ContainsKey(attr.Value.ID) ? nameSpace.ToLower() + "." : "") + attr.Value.ID.ToLower(), attr.Value);
                 PerkBase p = (PerkBase)Activator.CreateInstance(attr.Key, new PerkInventory(null));
                 attr.Value.Profile = new(attr.Value.Rarity, p.Name, p.Description);
             }
