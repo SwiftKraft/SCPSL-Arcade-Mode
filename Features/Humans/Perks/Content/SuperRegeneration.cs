@@ -7,11 +7,11 @@ namespace SwiftUHC.Features.Humans.Perks.Content
     {
         public override string Name => $"Super {base.Name}";
 
-        public override string Description => $"{base.Description} However, max HP is decreased by {Decrease}.";
+        public override string Description => $"{base.Description} However, max HP is decreased by {DecreasePercentage}%.";
 
-        public override float HealthThreshold => 20f;
+        public override float HealthThresholdPercentage => 0.2f;
         public override float Rate => 9f;
-        public virtual float Decrease => 10f;
+        public virtual float DecreasePercentage => 0.1f;
 
         float originalHealth;
 
@@ -19,7 +19,7 @@ namespace SwiftUHC.Features.Humans.Perks.Content
         {
             base.Init();
             originalHealth = Player.MaxHealth;
-            Player.MaxHealth = originalHealth - Decrease;
+            Player.MaxHealth = originalHealth - DecreasePercentage * originalHealth;
 
             PlayerEvents.ChangedRole += OnPlayerChangedRole;
         }
@@ -29,12 +29,14 @@ namespace SwiftUHC.Features.Humans.Perks.Content
             if (ev.Player != Player)
                 return;
 
-            Player.MaxHealth = originalHealth - Decrease;
+            originalHealth = Player.MaxHealth;
+            Player.MaxHealth = originalHealth - DecreasePercentage * originalHealth;
         }
 
         public override void Remove()
         {
             base.Remove();
+
             Player.MaxHealth = originalHealth;
 
             PlayerEvents.ChangedRole -= OnPlayerChangedRole;
