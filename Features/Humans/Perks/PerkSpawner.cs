@@ -9,7 +9,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
-namespace SwiftUHC.Features
+namespace SwiftUHC.Features.Humans.Perks
 {
     public static class PerkSpawner
     {
