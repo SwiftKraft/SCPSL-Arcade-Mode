@@ -16,10 +16,19 @@ namespace SwiftUHC.Features.Humans.Perks
         public readonly PerkInventory Inventory = inv;
         public Player Player => Inventory.Parent;
 
+        /// <summary>
+        /// Calls when the player acquires the perk.
+        /// </summary>
         public virtual void Init() { }
 
+        /// <summary>
+        /// Runs every FixedUpdate.
+        /// </summary>
         public virtual void Tick() { }
 
+        /// <summary>
+        /// Calls when the perk gets removed from the player.
+        /// </summary>
         public virtual void Remove() { }
 
         public virtual void SendMessage(string message, float duration = 3) => Player.SendHint($"{FancyName}\n{message}", [HintEffectPresets.FadeOut()], duration);
