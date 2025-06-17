@@ -1,4 +1,5 @@
-﻿using SwiftUHC.Utils.Extensions;
+﻿using PlayerRoles;
+using SwiftUHC.Utils.Extensions;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -27,6 +28,6 @@ namespace SwiftUHC.Features.SCPs.Upgrades
             }
         }
 
-        public static UpgradePathAttribute GetRandomUpgradePath() => RegisteredUpgrades.Values.ToArray().GetWeightedRandom();
+        public static UpgradePathAttribute GetRandomUpgradePath(this RoleTypeId role) => RegisteredUpgrades.Values.Where((t) => t.Role == role).ToArray().GetWeightedRandom();
     }
 }
