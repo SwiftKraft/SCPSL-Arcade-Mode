@@ -6,7 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Utils.NonAllocLINQ;
 
-namespace SwiftUHC.Features.Humans.Perks
+namespace SwiftUHC.Features
 {
     public class PerkInventory(Player targetPlayer)
     {
@@ -17,7 +17,7 @@ namespace SwiftUHC.Features.Humans.Perks
 
         public bool AddPerk(PerkAttribute type)
         {
-            if (type == null || type.Perk.IsAbstract || (type.Perk != typeof(PerkBase) && !type.Perk.IsSubclassOf(typeof(PerkBase))))
+            if (type == null || type.Perk.IsAbstract || type.Perk != typeof(PerkBase) && !type.Perk.IsSubclassOf(typeof(PerkBase)))
                 return false;
 
             PerkManager.PerkProfile prof = type.Profile;
@@ -29,7 +29,7 @@ namespace SwiftUHC.Features.Humans.Perks
             }
 
             PerkBase perk = Perks.FirstOrDefault((p) => p.GetType() == type.Perk);
-            
+
             if (perk != null)
             {
                 RemovePerk(perk);

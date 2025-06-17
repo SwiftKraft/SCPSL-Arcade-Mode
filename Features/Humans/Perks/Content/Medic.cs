@@ -4,7 +4,7 @@ using PlayerRoles;
 
 namespace SwiftUHC.Features.Humans.Perks.Content
 {
-    [Perk("Medic", Rarity.Common)]
+    [Perk("Medic", Rarity.Common, PerkRestriction.Human)]
     public class Medic(PerkInventory inv) : PerkBase(inv)
     {
         public override string Name => "Medic";

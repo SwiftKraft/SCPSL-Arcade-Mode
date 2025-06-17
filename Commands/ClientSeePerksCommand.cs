@@ -1,6 +1,6 @@
 ﻿using CommandSystem;
 using LabApi.Features.Wrappers;
-using SwiftUHC.Features.Humans.Perks;
+using SwiftUHC.Features;
 using System;
 using System.Text;
 

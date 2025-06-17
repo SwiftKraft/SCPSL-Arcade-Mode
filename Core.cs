@@ -1,7 +1,7 @@
 ﻿using LabApi.Features;
 using LabApi.Features.Console;
 using LabApi.Loader.Features.Plugins;
-using SwiftUHC.Features.Humans.Perks;
+using SwiftUHC.Features;
 using System;
 
 namespace SwiftUHC

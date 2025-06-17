@@ -49,7 +49,7 @@
 
 	<ItemGroup>
 	  <Folder Include="Features\Humans\Perks\Crafting\Recipes\" />
-	  <Folder Include="Features\SCPs\Upgrades\" />
+	  <Folder Include="Features\SCPs\Perks\" />
 	</ItemGroup>
 
 </Project>

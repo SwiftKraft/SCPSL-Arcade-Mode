@@ -8,7 +8,7 @@ using System.Linq;
 using System.Reflection;
 using System.Text;
 
-namespace SwiftUHC.Features.Humans.Perks
+namespace SwiftUHC.Features
 {
     public static class PerkManager
     {
@@ -44,7 +44,25 @@ namespace SwiftUHC.Features.Humans.Perks
             ServerEvents.RoundRestarted -= OnRoundRestarted;
         }
 
-        private static void OnChangedRole(PlayerChangedRoleEventArgs ev) => ev.Player.SendHint("", 1f);
+        private static void OnChangedRole(PlayerChangedRoleEventArgs ev)
+        {
+            ev.Player.SendHint("", 1f);
+
+            if (Inventories.ContainsKey(ev.Player) && Inventories[ev.Player].Perks.Count > 0)
+            {
+                List<PerkBase> perks = [];
+                foreach (PerkBase p in Inventories[ev.Player].Perks)
+                    if (ev.Player.IsAlive && p.Restriction != PerkRestriction.None && ((ev.Player.IsSCP && p.Restriction != PerkRestriction.SCP) || (ev.Player.IsHuman && p.Restriction != PerkRestriction.Human)))
+                        perks.Add(p);
+                if (perks.Count > 0)
+                {
+                    foreach (PerkBase p in perks)
+                        Inventories[ev.Player].RemovePerk(p);
+
+                    ev.Player.SendHint("Removed " + perks.Count + " perks, because of role incompatibility.", 5f);
+                }
+            }
+        }
 
         private static void OnChangedSpectator(PlayerChangedSpectatorEventArgs ev)
         {

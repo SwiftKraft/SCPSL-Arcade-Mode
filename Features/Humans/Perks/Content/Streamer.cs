@@ -2,7 +2,7 @@
 
 namespace SwiftUHC.Features.Humans.Perks.Content
 {
-    [Perk("Streamer", Rarity.Secret)]
+    [Perk("Streamer", Rarity.Secret, PerkRestriction.Human)]
     public class Streamer(PerkInventory inv) : PerkBase(inv)
     {
         public override string Name => "Streamer";

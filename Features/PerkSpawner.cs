@@ -6,11 +6,10 @@ using LabApi.Features.Wrappers;
 using MapGeneration;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
-namespace SwiftUHC.Features.Humans.Perks
+namespace SwiftUHC.Features
 {
     public static class PerkSpawner
     {

@@ -1,10 +1,10 @@
 ﻿using SwiftUHC.Utils.Interfaces;
 using System;
 
-namespace SwiftUHC.Features.Humans.Perks
+namespace SwiftUHC.Features
 {
     [AttributeUsage(AttributeTargets.Class, AllowMultiple = false, Inherited = true)]
-    public class PerkAttribute(string id, Rarity rarity = Rarity.Common, params Type[] conflictPerks) : Attribute, IWeight
+    public class PerkAttribute(string id, Rarity rarity = Rarity.Common, PerkRestriction restriction = PerkRestriction.None, params Type[] conflictPerks) : Attribute, IWeight
     {
         public Type Perk { get; set; }
 
@@ -13,6 +13,8 @@ namespace SwiftUHC.Features.Humans.Perks
         public readonly string ID = id;
 
         public readonly Rarity Rarity = rarity;
+
+        public readonly PerkRestriction Restriction = restriction;
 
         public PerkManager.PerkProfile Profile;
 
@@ -30,5 +32,12 @@ namespace SwiftUHC.Features.Humans.Perks
             perk = null;
             return false;
         }
+    }
+
+    public enum PerkRestriction
+    {
+        None,
+        Human,
+        SCP
     }
 }
