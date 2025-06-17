@@ -1,5 +1,4 @@
-﻿using Achievements.Handlers;
-using CustomPlayerEffects;
+﻿using CustomPlayerEffects;
 using LabApi.Events.Arguments.PlayerEvents;
 using LabApi.Events.Handlers;
 using PlayerStatsSystem;
@@ -34,6 +33,7 @@ namespace SwiftUHC.Features.Humans.Perks.Content
                 {
                     originallyEnsnared = Player.GetEffect<Ensnared>().IsEnabled;
                     Player.EnableEffect<Ensnared>();
+                    SendMessage("Damage Boosted!");
                 }
                 else
                 {
@@ -41,6 +41,7 @@ namespace SwiftUHC.Features.Humans.Perks.Content
                         Player.DisableEffect<Ensnared>();
                     else
                         Player.EnableEffect<Ensnared>();
+                    SendMessage("Unboosted.");
                 }
             }
         }
