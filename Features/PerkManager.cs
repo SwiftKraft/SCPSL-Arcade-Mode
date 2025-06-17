@@ -116,9 +116,23 @@ namespace SwiftUHC.Features
 
         public static PerkAttribute GetPerk(string id) => RegisteredPerks.ContainsKey(id) ? RegisteredPerks[id] : null;
 
+        public static PerkAttribute GetPerk(Type type)
+        {
+            foreach (var att in RegisteredPerks.Values.Where(att => att.Perk == type))
+                return att;
+
+            return null;
+        }
+
         public static bool TryGetPerk(string id, out PerkAttribute t)
         {
             t = GetPerk(id);
+            return t != null;
+        }
+
+        public static bool TryGetPerk(Type type, out PerkAttribute t)
+        {
+            t = GetPerk(type);
             return t != null;
         }
 

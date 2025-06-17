@@ -3,7 +3,7 @@ using System;
 
 namespace SwiftUHC.Features
 {
-    [AttributeUsage(AttributeTargets.Class, AllowMultiple = false, Inherited = true)]
+    [AttributeUsage(AttributeTargets.Class, AllowMultiple = false, Inherited = false)]
     public class PerkAttribute(string id, Rarity rarity = Rarity.Common, PerkRestriction restriction = PerkRestriction.None, params Type[] conflictPerks) : Attribute, IWeight
     {
         public Type Perk { get; set; }
