@@ -11,7 +11,7 @@ namespace SwiftUHC.Features.Humans.Perks.Content
 
         public override string Description => "Every kill increases your speed.";
 
-        public virtual byte Amount => 20;
+        public virtual byte Amount => 15;
 
         byte currentStack;
 
@@ -24,6 +24,7 @@ namespace SwiftUHC.Features.Humans.Perks.Content
             {
                 currentStack = (byte)Mathf.Clamp(currentStack + Amount, 0, byte.MaxValue);
                 Player.EnableEffect<MovementBoost>(currentStack);
+                SendMessage("Gained Kill, Speed Level: " + currentStack);
             }
         }
 

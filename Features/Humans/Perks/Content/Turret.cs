@@ -33,6 +33,7 @@ namespace SwiftUHC.Features.Humans.Perks.Content
                 {
                     originallyEnsnared = Player.GetEffect<Ensnared>().IsEnabled;
                     Player.EnableEffect<Ensnared>();
+                    Player.Position = Player.Position;
                     SendMessage("Damage Boosted!");
                 }
                 else
