@@ -1,6 +1,7 @@
 ﻿using LabApi.Features.Wrappers;
 using System;
 using System.Collections.Generic;
+using System.Text;
 using UnityEngine;
 
 namespace SwiftUHC.Features.SCPs.Upgrades
@@ -8,6 +9,24 @@ namespace SwiftUHC.Features.SCPs.Upgrades
     public abstract class UpgradePathPerkBase(PerkInventory inv) : PerkBase(inv)
     {
         public readonly List<UpgradeBase> Path = [];
+
+        public override string Description
+        {
+            get
+            {
+                StringBuilder stringBuilder = new();
+
+                for (int i = 0; i <= Progress; i++)
+                {
+                    stringBuilder.Append("\n\n");
+                    stringBuilder.Append(Path[i].Name);
+                    stringBuilder.Append('\n');
+                    stringBuilder.Append(Path[i].Description);
+                }
+
+                return stringBuilder.ToString();
+            }
+        }
 
         public int Progress
         {
@@ -22,6 +41,8 @@ namespace SwiftUHC.Features.SCPs.Upgrades
 
                 if (_progress == value)
                     return;
+
+                SendMessage("Progress changed! \nPress \"~\" and type \".sp\" to check.");
 
                 if (value > _progress)
                 {

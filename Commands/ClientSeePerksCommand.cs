@@ -26,14 +26,19 @@ namespace SwiftUHC.Commands
             }
 
             StringBuilder stringBuilder = new("\n\n");
+            StringBuilder hint = new("<align=\"left\">Current Perks: \n");
 
             foreach (PerkBase perk in PerkManager.Inventories[p].Perks)
             {
                 stringBuilder.AppendLine();
                 stringBuilder.Append(perk.FancyName);
+                hint.Append(perk.FancyName);
+                hint.AppendLine();
                 stringBuilder.Append(" - ");
                 stringBuilder.AppendLine(perk.Description);
             }
+
+            hint.Append("</align>");
 
             response = stringBuilder.ToString();
             return true;

@@ -16,6 +16,7 @@ namespace SwiftUHC.Features.SCPs.Upgrades.Content.SCP049.ArmyBuilder
 
         public override Type[] AllUpgrades => [
             typeof(EfficientReanimation),
+            typeof(Infector),
             ];
 
         public override string Name => "Army Builder";
@@ -49,6 +50,7 @@ namespace SwiftUHC.Features.SCPs.Upgrades.Content.SCP049.ArmyBuilder
 
             OnLostZombie?.Invoke(ev.Player);
             OwnedZombies.Remove(ev.Player);
+            SendMessage("Lost Zombie: " + ev.Player.DisplayName);
         }
 
         private void OnResurrected(Scp049ResurrectedBodyEventArgs ev)
@@ -63,6 +65,7 @@ namespace SwiftUHC.Features.SCPs.Upgrades.Content.SCP049.ArmyBuilder
         {
             OnAddedZombie?.Invoke(p);
             OwnedZombies.Add(p);
+            SendMessage("Added Zombie: " + p.DisplayName);
         }
 
         public override void Remove()
