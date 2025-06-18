@@ -49,7 +49,6 @@
 
 	<ItemGroup>
 	  <Folder Include="Features\Humans\Perks\Crafting\Recipes\" />
-	  <Folder Include="Features\SCPs\Upgrades\Content\SCP049\" />
 	</ItemGroup>
 
 </Project>

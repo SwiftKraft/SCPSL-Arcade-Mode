@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using LabApi.Features.Wrappers;
+using System;
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace SwiftUHC.Features.SCPs.Upgrades
@@ -7,12 +9,50 @@ namespace SwiftUHC.Features.SCPs.Upgrades
     {
         public readonly List<UpgradeBase> Path = [];
 
-        public int Progress { get => _progress; set => _progress = value; }
+        public int Progress
+        {
+            get => _progress;
+            set
+            {
+                if (Path.Count <= 0)
+                    return;
+
+                value = Mathf.Clamp(value, 0, Path.Count - 1);
+                _progress = Mathf.Clamp(_progress, 0, Path.Count - 1);
+
+                if (_progress == value)
+                    return;
+
+                if (value > _progress)
+                {
+                    for (int i = _progress + 1; i <= value; i++)
+                        Path[i].Init();
+                }
+                else
+                {
+                    for (int i = value + 1; i <= _progress; i++)
+                        Path[i].Remove();
+                }
+
+                _progress = value;
+            }
+        }
         int _progress;
+
+        public abstract Type[] AllUpgrades { get; }
 
         public override void Init()
         {
             base.Init();
+
+            foreach (Type upgrade in AllUpgrades)
+            {
+                if (upgrade.IsAbstract || !upgrade.IsAssignableFrom(typeof(UpgradeBase)))
+                    continue;
+
+                UpgradeBase b = (UpgradeBase)Activator.CreateInstance(upgrade, this);
+                Path.Add(b);
+            }
 
             Progress = 1;
         }
@@ -24,7 +64,7 @@ namespace SwiftUHC.Features.SCPs.Upgrades
             if (Path.Count <= 0)
                 return;
 
-            for (int i = 0; i < Mathf.Min(Progress, Path.Count); i++)
+            for (int i = 0; i < Progress; i++)
                 Path[i].Tick();
         }
 
@@ -35,13 +75,17 @@ namespace SwiftUHC.Features.SCPs.Upgrades
             if (Path.Count <= 0)
                 return;
 
-            for (int i = 0; i < Mathf.Min(Progress, Path.Count); i++)
+            for (int i = 0; i < Progress; i++)
                 Path[i].Remove();
         }
     }
 
-    public abstract class UpgradeBase
+    public abstract class UpgradeBase(UpgradePathPerkBase parent)
     {
+        public readonly UpgradePathPerkBase Parent = parent;
+
+        public Player Player => Parent.Player;
+
         public abstract string Name { get; }
         public abstract string Description { get; }
 
@@ -50,5 +94,10 @@ namespace SwiftUHC.Features.SCPs.Upgrades
         public virtual void Tick() { }
 
         public virtual void Remove() { }
+    }
+
+    public abstract class UpgradeBase<T>(UpgradePathPerkBase parent) : UpgradeBase(parent) where T : UpgradePathPerkBase
+    {
+        public new T Parent => base.Parent is T t ? t : null;
     }
 }
