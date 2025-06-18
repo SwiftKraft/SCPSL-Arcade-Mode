@@ -25,7 +25,7 @@ namespace SwiftUHC.Features.SCPs.Upgrades
 
                 if (value > _progress)
                 {
-                    for (int i = _progress + 1; i <= value; i++)
+                    for (int i = _progress; i <= value; i++)
                         Path[i].Init();
                 }
                 else
@@ -37,7 +37,7 @@ namespace SwiftUHC.Features.SCPs.Upgrades
                 _progress = value;
             }
         }
-        int _progress;
+        int _progress = -1;
 
         public abstract Type[] AllUpgrades { get; }
 
@@ -47,14 +47,15 @@ namespace SwiftUHC.Features.SCPs.Upgrades
 
             foreach (Type upgrade in AllUpgrades)
             {
-                if (upgrade.IsAbstract || !upgrade.IsAssignableFrom(typeof(UpgradeBase)))
+                if (upgrade.IsAbstract || !upgrade.IsSubclassOf(typeof(UpgradeBase)))
                     continue;
 
                 UpgradeBase b = (UpgradeBase)Activator.CreateInstance(upgrade, this);
                 Path.Add(b);
             }
 
-            Progress = 1;
+            if (Path.Count > 0)
+                Path[0].Init();
         }
 
         public override void Tick()
@@ -64,7 +65,7 @@ namespace SwiftUHC.Features.SCPs.Upgrades
             if (Path.Count <= 0)
                 return;
 
-            for (int i = 0; i < Progress; i++)
+            for (int i = 0; i <= Progress; i++)
                 Path[i].Tick();
         }
 
@@ -75,7 +76,7 @@ namespace SwiftUHC.Features.SCPs.Upgrades
             if (Path.Count <= 0)
                 return;
 
-            for (int i = 0; i < Progress; i++)
+            for (int i = 0; i <= Progress; i++)
                 Path[i].Remove();
         }
     }
@@ -94,6 +95,8 @@ namespace SwiftUHC.Features.SCPs.Upgrades
         public virtual void Tick() { }
 
         public virtual void Remove() { }
+
+        public virtual void SendMessage(string message) => Parent.SendMessage($"<size=18><b>{Name}</b></size>\n{message}");
     }
 
     public abstract class UpgradeBase<T>(UpgradePathPerkBase parent) : UpgradeBase(parent) where T : UpgradePathPerkBase

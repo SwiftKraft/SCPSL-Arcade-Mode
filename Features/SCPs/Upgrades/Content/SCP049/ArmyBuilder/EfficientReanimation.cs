@@ -1,4 +1,5 @@
-﻿using LabApi.Features.Wrappers;
+﻿using LabApi.Features.Console;
+using LabApi.Features.Wrappers;
 
 namespace SwiftUHC.Features.SCPs.Upgrades.Content.SCP049.ArmyBuilder
 {
@@ -14,14 +15,6 @@ namespace SwiftUHC.Features.SCPs.Upgrades.Content.SCP049.ArmyBuilder
         {
             base.Init();
             Parent.OnAddedZombie += OnAddedZombie;
-
-            foreach (Player p in Parent.OwnedZombies)
-            {
-                float diff = MaxHealth - p.MaxHealth;
-                p.MaxHealth = MaxHealth;
-                if (diff > 0)
-                    p.Heal(diff);
-            }
         }
 
         public override void Remove()
@@ -34,6 +27,7 @@ namespace SwiftUHC.Features.SCPs.Upgrades.Content.SCP049.ArmyBuilder
         {
             obj.MaxHealth = MaxHealth;
             obj.Health = MaxHealth;
+            SendMessage("Added Zombie: " + obj.DisplayName);
         }
     }
 }

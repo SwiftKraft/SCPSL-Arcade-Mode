@@ -33,7 +33,7 @@ namespace SwiftUHC.Features
         /// </summary>
         public virtual void Remove() { }
 
-        public virtual void SendMessage(string message, float duration = 3) => Player.SendHint($"{FancyName}\n{message}", [HintEffectPresets.FadeOut()], duration);
+        public virtual void SendMessage(string message, float duration = 3) => Player.SendHint($"<size=20>{FancyName}\n</size><size=16>{message}</size>", [HintEffectPresets.FadeOut()], duration);
     }
 
     public static class RarityExtensions

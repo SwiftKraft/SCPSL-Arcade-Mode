@@ -41,6 +41,7 @@ namespace SwiftUHC.Features
 
             PerkBase p = (PerkBase)Activator.CreateInstance(type.Perk, this);
             p.Rarity = type.Rarity;
+            p.Restriction = type.Restriction;
             Perks.Add(p);
             p.Init();
             Parent.SendHint($"Acquired Perk ({Perks.Count}/{Limit}): {prof.FancyName}\n{prof.Description}\n\nPress \"~\" and type \".sp\" to see what perks you have!", [HintEffectPresets.FadeOut()], 10f);

@@ -1,6 +1,7 @@
 ﻿using LabApi.Events.Arguments.PlayerEvents;
 using LabApi.Events.Arguments.Scp049Events;
 using LabApi.Events.Handlers;
+using LabApi.Features.Console;
 using LabApi.Features.Wrappers;
 using PlayerRoles;
 using System;
