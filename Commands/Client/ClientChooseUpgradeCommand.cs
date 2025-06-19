@@ -1,0 +1,44 @@
+﻿using CommandSystem;
+using Hints;
+using LabApi.Features.Wrappers;
+using SwiftUHC.Features;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace SwiftUHC.Commands.Client
+{
+    [CommandHandler(typeof(ClientCommandHandler))]
+    public class ClientChooseUpgradeCommand : ICommand
+    {
+        public string Command => "chooseupgrade";
+
+        public string[] Aliases => ["choose", "c"];
+
+        public string Description => "Chooses an upgrade.";
+
+        public bool Execute(ArraySegment<string> arguments, ICommandSender sender, out string response)
+        {
+            Player p = Player.Get(sender);
+
+            if (arguments.Array.Length < 2 || !int.TryParse(arguments.Array[1], out int num))
+            {
+                response = "Please input a number!";
+                return false;
+            }
+
+            if (p.TryGetPerkInventory(out PerkInventory inv))
+            {
+                bool success = inv.UpgradeQueue.Choose(num - 1, out string name);
+
+                response = success ? "Upgrade chosen: " + name : "Invalid index.";
+                return success;
+            }
+
+            response = "No upgrades available.";
+            return false;
+        }
+    }
+}

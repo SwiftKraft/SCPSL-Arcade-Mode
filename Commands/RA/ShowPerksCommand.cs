@@ -4,7 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace SwiftUHC.Commands
+namespace SwiftUHC.Commands.RA
 {
     [CommandHandler(typeof(RemoteAdminCommandHandler))]
     public class ShowPerksCommand : ICommand

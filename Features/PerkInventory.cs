@@ -1,5 +1,6 @@
 ﻿using Hints;
 using LabApi.Features.Wrappers;
+using SwiftUHC.Features.SCPs.Upgrades;
 using SwiftUHC.Utils.Extensions;
 using System;
 using System.Collections.Generic;
@@ -12,6 +13,7 @@ namespace SwiftUHC.Features
     {
         public readonly Player Parent = targetPlayer;
         public readonly List<PerkBase> Perks = [];
+        public readonly UpgradeQueue UpgradeQueue = new(targetPlayer);
 
         public int Limit = 5;
 
@@ -61,7 +63,15 @@ namespace SwiftUHC.Features
             RemovePerk(perk);
         }
 
-        public bool HasPerk(Type t) => Perks.FirstOrDefault((p) => p.GetType() == t) != null;
+        public bool HasPerk(Type t) => GetPerk(t) != null;
+
+        public bool TryGetPerk(Type t, out PerkBase perk)
+        {
+            perk = GetPerk(t);
+            return perk != null;
+        }
+
+        public PerkBase GetPerk(Type t) => Perks.FirstOrDefault((p) => p.GetType() == t);
 
         public void ClearPerks() => Perks.Clear();
 

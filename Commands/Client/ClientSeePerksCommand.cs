@@ -1,10 +1,11 @@
 ﻿using CommandSystem;
+using Hints;
 using LabApi.Features.Wrappers;
 using SwiftUHC.Features;
 using System;
 using System.Text;
 
-namespace SwiftUHC.Commands
+namespace SwiftUHC.Commands.Client
 {
     [CommandHandler(typeof(ClientCommandHandler))]
     public class ClientSeePerksCommand : ICommand
@@ -39,7 +40,7 @@ namespace SwiftUHC.Commands
             }
 
             hint.Append("</align>");
-
+            p.SendHint(hint.ToString(), [HintEffectPresets.FadeOut()], 10f);
             response = stringBuilder.ToString();
             return true;
         }

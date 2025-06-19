@@ -1,5 +1,8 @@
 ﻿using LabApi.Events.Arguments.PlayerEvents;
 using LabApi.Events.Handlers;
+using LabApi.Features.Wrappers;
+using PlayerRoles;
+using System.Linq;
 
 namespace SwiftUHC.Features.SCPs.Upgrades
 {
@@ -35,10 +38,10 @@ namespace SwiftUHC.Features.SCPs.Upgrades
                     return;
 
                 if (_scpLevel < value)
-                {
-                    //for (int i = 0; i < value - _scpLevel; i++)
-
-                }
+                    for (int i = 0; i < value - _scpLevel; i++)
+                        foreach (Player p in Player.List.Where((p) => p.IsSCP))
+                            if (p.TryGetPerkInventory(out PerkInventory inv))
+                                inv.UpgradeQueue.Create(3);
 
                 _scpLevel = value;
             }

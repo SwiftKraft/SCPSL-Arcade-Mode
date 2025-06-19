@@ -3,7 +3,7 @@ using LabApi.Features.Wrappers;
 using SwiftUHC.Features;
 using System;
 
-namespace SwiftUHC.Commands
+namespace SwiftUHC.Commands.RA
 {
     [CommandHandler(typeof(RemoteAdminCommandHandler))]
     public class AddPerkCommand : ICommand
@@ -33,7 +33,7 @@ namespace SwiftUHC.Commands
             if (arguments.Array.Length > 2)
                 p = int.TryParse(arguments.Array[2], out int id) ? Player.Get(id) : Player.Get(arguments.Array[2]);
 
-            PerkManager.GivePerk(p, t);
+            p.GivePerk(t);
 
             response = "Added perk: " + t.ID + " to " + p.Nickname;
             return true;
