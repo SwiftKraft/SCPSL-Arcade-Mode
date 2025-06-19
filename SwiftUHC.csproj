@@ -49,6 +49,12 @@
 
 	<ItemGroup>
 	  <Folder Include="Features\Humans\Perks\Crafting\Recipes\" />
+	  <Folder Include="Features\SCPs\Upgrades\Content\SCP049\Overlord\" />
+	  <Folder Include="Features\SCPs\Upgrades\Content\SCP079\" />
+	  <Folder Include="Features\SCPs\Upgrades\Content\SCP096\" />
+	  <Folder Include="Features\SCPs\Upgrades\Content\SCP106\" />
+	  <Folder Include="Features\SCPs\Upgrades\Content\SCP173\" />
+	  <Folder Include="Features\SCPs\Upgrades\Content\SCP939\" />
 	</ItemGroup>
 
 </Project>
