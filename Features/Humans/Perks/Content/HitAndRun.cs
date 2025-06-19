@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace SwiftUHC.Features.Humans.Perks.Content
 {
-    [Perk("HitAndRun", Rarity.Common)]
+    [Perk("HitAndRun", Rarity.Common, conflictPerks: typeof(RaceCar))]
     public class HitAndRun(PerkInventory inv) : PerkKillBase(inv)
     {
         public override string Name => "Hit and Run";

@@ -1,5 +1,6 @@
 ﻿using SwiftUHC.Utils.Interfaces;
 using System;
+using System.Linq;
 
 namespace SwiftUHC.Features
 {
@@ -23,12 +24,12 @@ namespace SwiftUHC.Features
         public bool HasConflicts(PerkInventory perks, out PerkBase perk)
         {
             for (int i = 0; i < Conflicts.Length; i++)
-                for (int j = 0; j < perks.Perks.Count; j++)
-                    if (perks.Perks[j].GetType().BaseType == Conflicts[i])
-                    {
-                        perk = perks.Perks[j];
-                        return true;
-                    }
+                foreach (var v in perks.Perks.Where(v => v.GetType().BaseType == Conflicts[i]))
+                {
+                    perk = v;
+                    return true;
+                }
+
             perk = null;
             return false;
         }
