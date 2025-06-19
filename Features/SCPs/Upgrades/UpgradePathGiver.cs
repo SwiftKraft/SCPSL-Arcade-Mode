@@ -36,7 +36,7 @@ namespace SwiftUHC.Features.SCPs.Upgrades
 
                 if (_scpLevel < value)
                 {
-                    for (int i = 0; i < value - _scpLevel; i++)
+                    //for (int i = 0; i < value - _scpLevel; i++)
 
                 }
 
