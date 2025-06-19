@@ -23,7 +23,6 @@ namespace SwiftUHC.Features.SCPs.Upgrades
                 {
                     _scpTeamExperience -= Requirement;
                     SCPLevel++;
-                    Logger.Info("SCPs leveled up!");
                 }
             }
         }
@@ -42,13 +41,8 @@ namespace SwiftUHC.Features.SCPs.Upgrades
                 if (_scpLevel < value)
                     for (int i = 0; i < value - _scpLevel; i++)
                         foreach (Player p in Player.List)
-                        {
                             if (p.IsSCP && p.TryGetPerkInventory(out PerkInventory inv))
-                            {
                                 inv.UpgradeQueue.Create(3);
-                                Logger.Info("Created upgrade choice for " + p);
-                            }
-                        }
 
                 _scpLevel = value;
             }
@@ -68,10 +62,7 @@ namespace SwiftUHC.Features.SCPs.Upgrades
         private static void OnPlayerDying(PlayerDyingEventArgs ev)
         {
             if (ev.Player.IsHuman && ev.Attacker.IsSCP)
-            {
                 SCPTeamExperience++;
-                Logger.Info("Killed human.");
-            }
         }
     }
 }

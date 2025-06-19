@@ -12,7 +12,7 @@ namespace SwiftUHC.Features.SCPs.Upgrades.Content.SCP049.ArmyBuilder
 
         public override string Description => $"Zombies have a chance of {Chance * 100f}% of turning a human into a zombie upon kill.";
 
-        public virtual float Chance => 0.5f;
+        public virtual float Chance => 0.35f;
 
         public override void Init()
         {
