@@ -118,19 +118,13 @@ namespace SwiftUHC.Features
             return inv != null;
         }
 
-        public static PerkInventory GetPerkInventory(this Player p) => Inventories.ContainsKey(p) ? Inventories[p] : null;
+        public static PerkInventory GetPerkInventory(this Player p) => p == null ? null : Inventories.ContainsKey(p) ? Inventories[p] : Register(p);
 
         public static PerkAttribute GetRandomPerk(Func<PerkAttribute, bool> f) => RegisteredPerks.Values.Where(f).ToArray().GetWeightedRandom();
 
         public static PerkAttribute GetPerk(string id) => RegisteredPerks.ContainsKey(id) ? RegisteredPerks[id] : null;
 
-        public static PerkAttribute GetPerk(Type type)
-        {
-            foreach (var att in RegisteredPerks.Values.Where(att => att.Perk == type))
-                return att;
-
-            return null;
-        }
+        public static PerkAttribute GetPerk(Type type) => RegisteredPerks.Values.FirstOrDefault(att => att.Perk == type);
 
         public static bool TryGetPerk(string id, out PerkAttribute t)
         {
@@ -165,12 +159,17 @@ namespace SwiftUHC.Features
 
         public static bool HasPerk(this Player p, Type perk) => Inventories.ContainsKey(p) && Inventories[p].HasPerk(perk);
 
-        public static void Register(Player p)
+        public static PerkInventory Register(Player p)
         {
-            if (p == null || Inventories.ContainsKey(p))
-                return;
+            if (p == null)
+                return null;
 
-            Inventories.Add(p, new(p));
+            if (Inventories.ContainsKey(p))
+                return Inventories[p];
+
+            PerkInventory inv = new(p);
+            Inventories.Add(p, inv);
+            return inv;
         }
 
         public static void Remove(Player p)

@@ -22,7 +22,7 @@ namespace SwiftUHC.Features.SCPs.Upgrades.Content.SCP049.ArmyBuilder
 
         private void OnPlayerDying(PlayerDyingEventArgs ev)
         {
-            if (ev.Attacker.Role != RoleTypeId.Scp0492 || !Parent.OwnedZombies.Contains(ev.Attacker) || Random.Range(0f, 1f) <= Chance)
+            if (ev.Attacker == null || ev.Attacker.Role != RoleTypeId.Scp0492 || !Parent.OwnedZombies.Contains(ev.Attacker) || Random.Range(0f, 1f) <= Chance)
                 return;
 
             Timing.CallDelayed(0.2f, () => 

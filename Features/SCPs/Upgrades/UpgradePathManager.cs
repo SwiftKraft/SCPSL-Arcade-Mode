@@ -9,11 +9,11 @@ namespace SwiftUHC.Features.SCPs.Upgrades
 {
     public static class UpgradePathManager
     {
-        public static readonly Dictionary<string, UpgradePathAttribute> RegisteredUpgrades = [];
+        public static readonly HashSet<UpgradePathAttribute> RegisteredUpgrades = [];
 
         public static void Enable()
         {
-            RegisterUpgrades("base");
+            RegisterUpgrades();
         }
 
         public static void Disable()
@@ -21,7 +21,7 @@ namespace SwiftUHC.Features.SCPs.Upgrades
 
         }
 
-        public static void RegisterUpgrades(string nameSpace)
+        public static void RegisterUpgrades()
         {
             Assembly callingAssembly = Assembly.GetCallingAssembly();
 
@@ -34,11 +34,12 @@ namespace SwiftUHC.Features.SCPs.Upgrades
             foreach (KeyValuePair<Type, UpgradePathAttribute> attr in atts)
             {
                 attr.Value.Perk = PerkManager.GetPerk(attr.Key);
-                RegisteredUpgrades.Add((RegisteredUpgrades.ContainsKey(attr.Value.ID) ? nameSpace.ToLower() + "." : "") + attr.Value.ID.ToLower(), attr.Value);
+                if (!RegisteredUpgrades.Contains(attr.Value))
+                    RegisteredUpgrades.Add(attr.Value);
             }
         }
 
-        public static UpgradePathAttribute GetRandomUpgradePath(this RoleTypeId role) => RegisteredUpgrades.Values.Where((t) => t.Role == role).ToArray().GetWeightedRandom();
-        public static UpgradePathAttribute GetRandomUpgradePath(this RoleTypeId role, ICollection<UpgradePathAttribute> noRep) => RegisteredUpgrades.Values.Where((t) => t.Role == role && !noRep.Contains(t)).ToArray().GetWeightedRandom();
+        public static UpgradePathAttribute GetRandomUpgradePath(this RoleTypeId role) => RegisteredUpgrades.Where((t) => t.Role == role).ToArray().GetWeightedRandom();
+        public static UpgradePathAttribute GetRandomUpgradePath(this RoleTypeId role, ICollection<UpgradePathAttribute> noRep) => RegisteredUpgrades.Where((t) => t.Role == role && !noRep.Contains(t)).ToArray().GetWeightedRandom();
     }
 }

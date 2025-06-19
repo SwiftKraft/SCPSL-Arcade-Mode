@@ -2,7 +2,6 @@
 using LabApi.Features.Wrappers;
 using System.Collections.Generic;
 using System.Text;
-using UnityEngine;
 
 namespace SwiftUHC.Features.SCPs.Upgrades
 {

@@ -29,11 +29,11 @@ namespace SwiftUHC.Commands.Client
                 return false;
             }
 
-            if (p.TryGetPerkInventory(out PerkInventory inv))
+            if (p.TryGetPerkInventory(out PerkInventory inv) && inv.UpgradeQueue.Upgrades.Count > 0)
             {
                 bool success = inv.UpgradeQueue.Choose(num - 1, out string name);
 
-                response = success ? "Upgrade chosen: " + name : "Invalid index.";
+                response = success ? ("Upgrade chosen: " + name + (inv.UpgradeQueue.Upgrades.Count > 0 ? ", " + inv.UpgradeQueue.Upgrades.Count + " more upgrade choices remain." : "")) : "Invalid index.";
                 return success;
             }
 

@@ -10,23 +10,29 @@ namespace SwiftUHC.Features.SCPs.Upgrades
     {
         public readonly List<UpgradeBase> Path = [];
 
+        public override string Name => PathName + (Progress >= 0 ? " | Level " + (Progress + 1) : "");
+
+        public abstract string PathName { get; }
+
         public override string Description
         {
             get
             {
-                StringBuilder stringBuilder = new();
+                StringBuilder stringBuilder = new(PathDescription);
 
                 for (int i = 0; i <= Progress; i++)
                 {
-                    stringBuilder.Append("\n\n");
+                    stringBuilder.Append("\n\n<b>");
                     stringBuilder.Append(Path[i].Name);
-                    stringBuilder.Append('\n');
+                    stringBuilder.Append("</b>\n");
                     stringBuilder.Append(Path[i].Description);
                 }
 
                 return stringBuilder.ToString();
             }
         }
+
+        public abstract string PathDescription { get; }
 
         public int Progress
         {
@@ -42,8 +48,6 @@ namespace SwiftUHC.Features.SCPs.Upgrades
                 if (_progress == value)
                     return;
 
-                SendMessage("Progress changed! \nPress \"~\" and type \".sp\" to check.");
-
                 if (value > _progress)
                 {
                     for (int i = _progress; i <= value; i++)
@@ -56,6 +60,8 @@ namespace SwiftUHC.Features.SCPs.Upgrades
                 }
 
                 _progress = value;
+
+                SendMessage("Progress changed! \nPress \"~\" and type \".sp\" to check.");
             }
         }
         int _progress = -1;
@@ -77,6 +83,7 @@ namespace SwiftUHC.Features.SCPs.Upgrades
 
             if (Path.Count > 0)
                 Path[0].Init();
+            Progress = 0;
         }
 
         public override void Tick()
@@ -117,7 +124,7 @@ namespace SwiftUHC.Features.SCPs.Upgrades
 
         public virtual void Remove() { }
 
-        public virtual void SendMessage(string message) => Parent.SendMessage($"<size=18><b>{Name}</b></size>\n{message}");
+        public virtual void SendMessage(string message) => Parent.SendMessage($"<size=28><b>{Name}</b></size>\n{message}");
     }
 
     public abstract class UpgradeBase<T>(UpgradePathPerkBase parent) : UpgradeBase(parent) where T : UpgradePathPerkBase

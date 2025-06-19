@@ -1,7 +1,6 @@
 ﻿using LabApi.Events.Arguments.PlayerEvents;
 using LabApi.Events.Arguments.Scp049Events;
 using LabApi.Events.Handlers;
-using LabApi.Features.Console;
 using LabApi.Features.Wrappers;
 using PlayerRoles;
 using System;
@@ -9,6 +8,7 @@ using System.Collections.Generic;
 
 namespace SwiftUHC.Features.SCPs.Upgrades.Content.SCP049.ArmyBuilder
 {
+    [UpgradePath(RoleTypeId.Scp049)]
     [Perk("049.ArmyBuilder", Rarity.Uncommon, PerkRestriction.SCP)]
     public class ArmyBuilder(PerkInventory inv) : UpgradePathPerkBase(inv)
     {
@@ -19,9 +19,9 @@ namespace SwiftUHC.Features.SCPs.Upgrades.Content.SCP049.ArmyBuilder
             typeof(Infector),
             ];
 
-        public override string Name => "Army Builder";
+        public override string PathName => "Army Builder";
 
-        public override string Description => "Focuses on zombie buffs.";
+        public override string PathDescription => "Focuses on zombie buffs.";
 
         public event Action<Player> OnAddedZombie;
         public event Action<Player> OnLostZombie;
