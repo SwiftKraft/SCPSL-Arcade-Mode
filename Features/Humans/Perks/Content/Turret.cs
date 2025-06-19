@@ -56,21 +56,24 @@ namespace SwiftUHC.Features.Humans.Perks.Content
             base.Init();
             PlayerEvents.AimedWeapon += OnAimedWeapon;
             PlayerEvents.ChangedItem += OnChangedItem;
-            PlayerEvents.DroppingItem += OnDroppingItem;
             PlayerEvents.Hurting += OnHurting;
         }
 
         public override void Tick()
         {
             base.Tick();
-            if (AimStatus)
+            if (AimStatus && Player.CurrentItem != null)
             {
                 timer.Tick(Time.fixedDeltaTime);
                 if (timer.Ended)
                     Effect = true;
             }
             else
+            {
                 Effect = false;
+                if (Player.CurrentItem == null)
+                    AimStatus = false;
+            }
         }
 
         public override void Remove()
@@ -78,7 +81,6 @@ namespace SwiftUHC.Features.Humans.Perks.Content
             base.Remove();
             PlayerEvents.AimedWeapon -= OnAimedWeapon;
             PlayerEvents.ChangedItem -= OnChangedItem;
-            PlayerEvents.DroppingItem -= OnDroppingItem;
             PlayerEvents.Hurting -= OnHurting;
         }
 
@@ -89,13 +91,6 @@ namespace SwiftUHC.Features.Humans.Perks.Content
 
             if (ev.DamageHandler is StandardDamageHandler stn)
                 stn.Damage *= Multiplier;
-        }
-
-        private void OnDroppingItem(PlayerDroppingItemEventArgs ev)
-        {
-            if (ev.Player != Player || ev.Item != Player.CurrentItem)
-                return;
-            AimStatus = false;
         }
 
         private void OnChangedItem(PlayerChangedItemEventArgs ev)

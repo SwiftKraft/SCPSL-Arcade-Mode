@@ -61,6 +61,9 @@ namespace SwiftUHC.Features.SCPs.Upgrades
 
         private static void OnPlayerDying(PlayerDyingEventArgs ev)
         {
+            if (ev.Attacker == null)
+                return;
+
             if (ev.Player.IsHuman && ev.Attacker.IsSCP)
                 SCPTeamExperience++;
         }
