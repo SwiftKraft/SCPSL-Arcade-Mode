@@ -6,7 +6,7 @@ using UnityEngine;
 
 namespace SwiftUHC.Features.Humans.Perks.Content
 {
-    [Perk("Trailblazer", Rarity.Rare, PerkRestriction.Human)]
+    [Perk("Trailblazer", Rarity.Rare)]
     public class Trailblazer(PerkInventory inv) : PerkCooldownBase(inv)
     {
         public override string Name => "Trailblazer";

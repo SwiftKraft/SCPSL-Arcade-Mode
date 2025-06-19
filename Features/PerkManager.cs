@@ -52,7 +52,7 @@ namespace SwiftUHC.Features
             {
                 List<PerkBase> perks = [];
                 foreach (PerkBase p in Inventories[ev.Player].Perks)
-                    if (ev.Player.IsAlive && p.Restriction != PerkRestriction.None && ((ev.Player.IsSCP && p.Restriction != PerkRestriction.SCP) || (ev.Player.IsHuman && p.Restriction != PerkRestriction.Human)))
+                    if (ev.Player.IsAlive && ev.Player.IsHuman && p.Restriction == PerkRestriction.SCP)
                         perks.Add(p);
                 if (perks.Count > 0)
                 {
@@ -112,7 +112,7 @@ namespace SwiftUHC.Features
             }
         }
 
-        public static PerkAttribute GetRandomPerk() => RegisteredPerks.Values.ToArray().GetWeightedRandom();
+        public static PerkAttribute GetRandomPerk(Func<PerkAttribute, bool> f) => RegisteredPerks.Values.Where(f).ToArray().GetWeightedRandom();
 
         public static PerkAttribute GetPerk(string id) => RegisteredPerks.ContainsKey(id) ? RegisteredPerks[id] : null;
 

@@ -5,7 +5,7 @@ using LabApi.Features.Wrappers;
 
 namespace SwiftUHC.Features.Humans.Perks.Content
 {
-    [Perk("Resupplier", Rarity.Uncommon, PerkRestriction.Human)]
+    [Perk("Resupplier", Rarity.Uncommon)]
     public class Resupplier(PerkInventory inv) : PerkBase(inv)
     {
         public override string Name => "Resupplier";

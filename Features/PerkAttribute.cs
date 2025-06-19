@@ -37,7 +37,6 @@ namespace SwiftUHC.Features
     public enum PerkRestriction
     {
         None,
-        Human,
         SCP
     }
 }

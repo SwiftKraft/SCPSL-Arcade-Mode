@@ -4,7 +4,7 @@ using LabApi.Features.Wrappers;
 
 namespace SwiftUHC.Features.Humans.Perks.Content
 {
-    [Perk("FastHands", Rarity.Common, PerkRestriction.Human)]
+    [Perk("FastHands", Rarity.Common)]
     public class FastHands(PerkInventory inv) : PerkBase(inv)
     {
         public override string Name => "Fast Hands";

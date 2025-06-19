@@ -3,6 +3,7 @@ using LabApi.Features.Console;
 using LabApi.Loader.Features.Plugins;
 using SwiftUHC.Features;
 using SwiftUHC.Features.Humans.Perks;
+using SwiftUHC.Features.SCPs.Upgrades;
 using System;
 
 namespace SwiftUHC
@@ -26,6 +27,8 @@ namespace SwiftUHC
             StaticUnityMethods.OnFixedUpdate += FixedUpdate;
             PerkManager.Enable();
             PerkSpawner.Enable();
+            UpgradePathManager.Enable();
+            UpgradePathGiver.Enable();
         }
 
         public override void Disable()
@@ -33,6 +36,8 @@ namespace SwiftUHC
             StaticUnityMethods.OnFixedUpdate -= FixedUpdate;
             PerkManager.Disable();
             PerkSpawner.Disable();
+            UpgradePathManager.Disable();
+            UpgradePathGiver.Disable();
         }
 
         public static void FixedUpdate() => PerkManager.Tick();

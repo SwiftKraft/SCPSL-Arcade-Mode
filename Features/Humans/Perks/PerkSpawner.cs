@@ -90,7 +90,7 @@ namespace SwiftUHC.Features.Humans.Perks
                 if ((r == null || Random.Range(0f, 1f) > Mathf.Lerp(0.3f, 0.6f, Mathf.InverseLerp(5, 25, Server.PlayerCount))) && !SpawnRooms.Contains(r.Name))
                     continue;
 
-                SpawnPerk(PerkManager.GetRandomPerk(), r.Position + Vector3.up * 2f);
+                SpawnPerk(PerkManager.GetRandomPerk((p) => p.Restriction == PerkRestriction.None), r.Position + Vector3.up * 2f);
             }
         }
 

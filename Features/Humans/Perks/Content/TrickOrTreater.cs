@@ -1,6 +1,6 @@
 ﻿namespace SwiftUHC.Features.Humans.Perks.Content
 {
-    [Perk("TrickOrTreater", Rarity.Legendary, PerkRestriction.Human)]
+    [Perk("TrickOrTreater", Rarity.Legendary)]
     public class TrickOrTreater(PerkInventory inv) : PerkItemReceiveBase(inv)
     {
         public override string Name => "Trick Or Treater";

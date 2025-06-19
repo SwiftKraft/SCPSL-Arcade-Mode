@@ -11,6 +11,16 @@ namespace SwiftUHC.Features.SCPs.Upgrades
     {
         public static readonly Dictionary<string, UpgradePathAttribute> RegisteredUpgrades = [];
 
+        public static void Enable()
+        {
+            RegisterUpgrades("base");
+        }
+
+        public static void Disable()
+        {
+
+        }
+
         public static void RegisterUpgrades(string nameSpace)
         {
             Assembly callingAssembly = Assembly.GetCallingAssembly();
@@ -29,5 +39,6 @@ namespace SwiftUHC.Features.SCPs.Upgrades
         }
 
         public static UpgradePathAttribute GetRandomUpgradePath(this RoleTypeId role) => RegisteredUpgrades.Values.Where((t) => t.Role == role).ToArray().GetWeightedRandom();
+        public static UpgradePathAttribute GetRandomUpgradePath(this RoleTypeId role, ICollection<UpgradePathAttribute> noRep) => RegisteredUpgrades.Values.Where((t) => t.Role == role && !noRep.Contains(t)).ToArray().GetWeightedRandom();
     }
 }

@@ -7,7 +7,7 @@ using UnityEngine;
 
 namespace SwiftUHC.Features.Humans.Perks.Content
 {
-    [Perk("Turret", Rarity.Rare, PerkRestriction.Human)]
+    [Perk("Turret", Rarity.Rare)]
     public class Turret(PerkInventory inv) : PerkBase(inv)
     {
         public override string Name => "Turret";
