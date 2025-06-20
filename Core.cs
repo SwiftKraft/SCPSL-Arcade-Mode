@@ -10,19 +10,19 @@ namespace SwiftUHC
 {
     public class Core : Plugin
     {
-        public override string Name => "SCPSL Ultra Hardcore";
+        public override string Name => "SCPSL Arcade Mode";
 
         public override string Description => "Adds various interesting and fun mechanics to the game! ";
 
         public override string Author => "SwiftKraft";
 
-        public override Version Version => new(0, 1, 0);
+        public override Version Version => new(1, 2, 0);
 
         public override Version RequiredApiVersion => new(LabApiProperties.CompiledVersion);
 
         public override void Enable()
         {
-            Logger.Info("Ultra Hardcore by SwiftKraft: Loaded!");
+            Logger.Info("Arcade Mode by SwiftKraft: Loaded!");
 
             StaticUnityMethods.OnFixedUpdate += FixedUpdate;
             PerkManager.Enable();
