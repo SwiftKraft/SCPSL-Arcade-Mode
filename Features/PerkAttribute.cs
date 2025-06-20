@@ -17,9 +17,9 @@ namespace SwiftUHC.Features
 
         public readonly PerkRestriction Restriction = restriction;
 
-        public PerkManager.PerkProfile Profile;
-
         public int Weight => (int)Rarity;
+
+        public PerkManager.PerkProfile Profile;
 
         public bool HasConflicts(PerkInventory perks, out PerkBase perk)
         {

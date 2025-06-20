@@ -5,9 +5,9 @@ using System;
 namespace SwiftUHC.Features.SCPs.Upgrades
 {
     [AttributeUsage(AttributeTargets.Class, AllowMultiple = false, Inherited = false)]
-    public class UpgradePathAttribute(RoleTypeId role) : Attribute, IWeight
+    public class UpgradePathAttribute(params RoleTypeId[] roles) : Attribute, IWeight
     {
-        public readonly RoleTypeId Role = role;
+        public readonly RoleTypeId[] Roles = roles;
 
         public PerkAttribute Perk { get; set; }
 

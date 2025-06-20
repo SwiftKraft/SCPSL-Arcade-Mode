@@ -10,7 +10,7 @@ namespace SwiftUHC.Features.SCPs.Upgrades
     {
         public readonly List<UpgradeBase> Path = [];
 
-        public override string Name => PathName + (Progress >= 0 ? " | Level " + (Progress + 1) : "");
+        public override string Name => PathName + (Progress >= 0 ? " | Level " + (Progress < Path.Count - 1 ? (Progress + 1) : "MAX") : "");
 
         public abstract string PathName { get; }
 
@@ -61,7 +61,7 @@ namespace SwiftUHC.Features.SCPs.Upgrades
 
                 _progress = value;
 
-                SendMessage("Progress changed! \nPress \"~\" and type \".sp\" to check.");
+                SendMessage("Progress changed! \nPress \"~\" and type \".sp\" (for more detail) OR bind a key in <b>Server Specific Settings</b> to check.");
             }
         }
         int _progress = -1;

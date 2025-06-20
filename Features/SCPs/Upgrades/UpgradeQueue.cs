@@ -29,7 +29,7 @@ namespace SwiftUHC.Features.SCPs.Upgrades
             if (paths.Count > 0)
             {
                 Upgrades.Enqueue(new([.. paths]));
-                Parent.SendHint("<color=#00FF00><b>Upgrades available!</b></color>\nPress \"~\" and type \".su\" to see available choices, type \".c <number>\" to choose an upgrade.", [HintEffectPresets.FadeOut()], 15f);
+                Parent.SendHint("<color=#00FF00><b>Upgrades available!</b></color>\nPress \"~\" and type \".su\" (for more detail) to see available choices, type \".c <number>\" to choose an upgrade. \nOR bind a key in <b>Server Specific Settings</b>", [HintEffectPresets.FadeOut()], 15f);
                 Parent.SendConsoleMessage(Peek(), "white");
             }
         }
@@ -56,12 +56,12 @@ namespace SwiftUHC.Features.SCPs.Upgrades
             {
                 sb.Append(i + 1);
                 sb.Append(" - ");
-                sb.Append(t.Choices[i].Perk.Profile.Name);
+                sb.Append(t.Choices[i].Perk.Profile.FancyName);
                 sb.AppendLine();
                 br.Append(i + 1);
                 br.Append(" - ");
-                br.Append(t.Choices[i].Perk.Profile.Name);
-                br.AppendLine();
+                br.Append(t.Choices[i].Perk.Profile.FancyName);
+                br.AppendLine("");
                 sb.AppendLine(t.Choices[i].Perk.Profile.Description);
                 sb.AppendLine();
             }
@@ -72,9 +72,15 @@ namespace SwiftUHC.Features.SCPs.Upgrades
 
         public bool Choose(int index, out string name)
         {
+            if (Upgrades.Count <= 0)
+            {
+                name = "";
+                return false;
+            }
+
             Item t = Upgrades.Peek();
 
-            if (Upgrades.Count <= 0 || index < 0 || index >= t.Choices.Length)
+            if (index < 0 || index >= t.Choices.Length)
             {
                 name = "";
                 return false;

@@ -4,7 +4,9 @@ using LabApi.Loader.Features.Plugins;
 using SwiftUHC.Features;
 using SwiftUHC.Features.Humans.Perks;
 using SwiftUHC.Features.SCPs.Upgrades;
+using SwiftUHC.ServerSpecificSettings;
 using System;
+using UserSettings.ServerSpecific;
 
 namespace SwiftUHC
 {
@@ -24,11 +26,14 @@ namespace SwiftUHC
         {
             Logger.Info("Arcade Mode by SwiftKraft: Loaded!");
 
+            
+
             StaticUnityMethods.OnFixedUpdate += FixedUpdate;
             PerkManager.Enable();
             PerkSpawner.Enable();
             UpgradePathManager.Enable();
             UpgradePathGiver.Enable();
+            SSSManager.Enable();
         }
 
         public override void Disable()
@@ -38,8 +43,13 @@ namespace SwiftUHC
             PerkSpawner.Disable();
             UpgradePathManager.Disable();
             UpgradePathGiver.Disable();
+            SSSManager.Disable();
         }
 
-        public static void FixedUpdate() => PerkManager.Tick();
+        public static void FixedUpdate()
+        {
+            PerkManager.Tick();
+            SSSManager.Tick();
+        }
     }
 }

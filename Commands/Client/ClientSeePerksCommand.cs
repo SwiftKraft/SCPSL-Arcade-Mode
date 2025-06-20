@@ -26,6 +26,19 @@ namespace SwiftUHC.Commands.Client
                 return true;
             }
 
+            response = GetPerks(p, out string b);
+            p.SendHint(b, [HintEffectPresets.FadeOut()], 10f);
+            return true;
+        }
+
+        public static string GetPerks(Player p, out string brief)
+        {
+            if (!PerkManager.Inventories.ContainsKey(p))
+            {
+                brief = "You have no perks.";
+                return brief;
+            }
+
             StringBuilder stringBuilder = new("\n\n");
             StringBuilder hint = new("<align=\"left\">Current Perks: \n");
 
@@ -40,9 +53,9 @@ namespace SwiftUHC.Commands.Client
             }
 
             hint.Append("</align>");
-            p.SendHint(hint.ToString(), [HintEffectPresets.FadeOut()], 10f);
-            response = stringBuilder.ToString();
-            return true;
+
+            brief = hint.ToString();
+            return stringBuilder.ToString();
         }
     }
 }
