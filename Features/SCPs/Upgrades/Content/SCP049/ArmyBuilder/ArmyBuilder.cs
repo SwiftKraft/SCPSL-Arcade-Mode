@@ -17,6 +17,7 @@ namespace SwiftUHC.Features.SCPs.Upgrades.Content.SCP049.ArmyBuilder
         public override Type[] AllUpgrades => [
             typeof(EfficientReanimation),
             typeof(Infector),
+            typeof(MassOperation)
             ];
 
         public override string PathName => "Army Builder";
