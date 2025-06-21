@@ -26,8 +26,6 @@ namespace SwiftUHC
         {
             Logger.Info("Arcade Mode by SwiftKraft: Loaded!");
 
-            
-
             StaticUnityMethods.OnFixedUpdate += FixedUpdate;
             PerkManager.Enable();
             PerkSpawner.Enable();
