@@ -5,7 +5,7 @@
     {
         public override string Name => "Trick Or Treater";
 
-        public override string Description => "Receive a candy. " + base.Description;
+        public override string PerkDescription => "Receive a candy. ";
 
         public override float Cooldown => 25f;
 

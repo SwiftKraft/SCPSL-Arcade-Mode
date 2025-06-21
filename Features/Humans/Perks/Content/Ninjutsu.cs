@@ -9,7 +9,7 @@ namespace SwiftUHC.Features.Humans.Perks.Content
     {
         public override string Name => "Ninjutsu";
 
-        public override string Description => $"Turns you invisible at <{HealthThreshold} HP for {Duration}s. {base.Description}";
+        public override string PerkDescription => $"Turns you invisible at <{HealthThreshold} HP for {Duration}s.";
 
         public virtual float HealthThreshold => 20f;
 

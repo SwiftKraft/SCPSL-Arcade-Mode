@@ -5,7 +5,7 @@
     {
         public override string Name => "Armory Kit";
 
-        public override string Description => "Receive a grenade. " + base.Description;
+        public override string PerkDescription => "Receive a grenade. ";
 
         public override float Cooldown => 60f;
 

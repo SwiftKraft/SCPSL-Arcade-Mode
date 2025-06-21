@@ -11,7 +11,7 @@ namespace SwiftUHC.Features.Humans.Perks.Content
     {
         public override string Name => "Trailblazer";
 
-        public override string Description => $"Set a teleport point after using an item. \nTeleport to the point after using an item of the same type, and remove the teleport point. \nNo item types will be tracked when a teleport point exists. \n{base.Description}";
+        public override string PerkDescription => $"Set a teleport point after using an item. \nTeleport to the point after using an item of the same type. \nNo item types will be tracked when a teleport point exists.";
 
         public override float Cooldown => 80f;
 

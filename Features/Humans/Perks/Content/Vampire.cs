@@ -23,7 +23,10 @@ namespace SwiftUHC.Features.Humans.Perks.Content
                 return;
 
             if (ev.UsableItem.Category == ItemCategory.Medical)
+            {
+                SendMessage("You cannot use medical items!");
                 ev.IsAllowed = false;
+            }
         }
 
         public override void Remove()

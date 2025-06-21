@@ -5,7 +5,9 @@ namespace SwiftUHC.Features.Humans.Perks.Content
 {
     public abstract class PerkCooldownBase(PerkInventory inv) : PerkBase(inv)
     {
-        public override string Description => $"Cooldown: {Cooldown}s.";
+        public override string Description => $"{PerkDescription}\nCooldown: {Cooldown}s.";
+
+        public abstract string PerkDescription { get; }
 
         public virtual string ReadyMessage => "Ready!";
 

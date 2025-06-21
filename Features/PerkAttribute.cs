@@ -38,6 +38,7 @@ namespace SwiftUHC.Features
     public enum PerkRestriction
     {
         None,
-        SCP
+        SCP,
+        DontSpawn
     }
 }

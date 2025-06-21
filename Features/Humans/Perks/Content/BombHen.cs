@@ -7,7 +7,7 @@ namespace SwiftUHC.Features.Humans.Perks.Content
     {
         public override string Name => "Bomb Hen";
 
-        public override string Description => "Lay an explosive egg (it can also kill you). " + base.Description;
+        public override string PerkDescription => "Lay an explosive egg (it can also kill you). ";
 
         public override float Cooldown => 35f;
 

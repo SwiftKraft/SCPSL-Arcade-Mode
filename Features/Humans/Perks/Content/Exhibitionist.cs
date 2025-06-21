@@ -7,7 +7,7 @@ namespace SwiftUHC.Features.Humans.Perks.Content
     {
         public override string Name => "Exhibitionist";
 
-        public override string Description => "Flash enemies around you. " + base.Description;
+        public override string PerkDescription => "Flash enemies around you. ";
 
         public override float Cooldown => 20f;
 

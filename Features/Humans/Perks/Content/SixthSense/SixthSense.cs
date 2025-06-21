@@ -29,6 +29,8 @@ namespace SwiftUHC.Features.Humans.Perks.Content.SixthSense
 
         public override string Description => "Provides obscure, but useful information regarding enemies.";
 
+        public override string PerkDescription => "";
+
         public override float Cooldown => 15f;
 
         public override string ReadyMessage => Senses.GetRandom().Message();
