@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace SwiftUHC.Features.Humans.Perks.Content
 {
-    [Perk("RaceCar", Rarity.Epic)]
+    [Perk("RaceCar", Rarity.Legendary)]
     public class RaceCar(PerkInventory inv) : PerkKillBase(inv)
     {
         public override string Name => "Race Car";

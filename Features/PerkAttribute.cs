@@ -24,7 +24,7 @@ namespace SwiftUHC.Features
         public bool HasConflicts(PerkInventory perks, out PerkBase perk)
         {
             for (int i = 0; i < Conflicts.Length; i++)
-                foreach (var v in perks.Perks.Where(v => v.GetType().BaseType == Conflicts[i]))
+                foreach (var v in perks.Perks.Where(v => v.GetType() == Conflicts[i]))
                 {
                     perk = v;
                     return true;

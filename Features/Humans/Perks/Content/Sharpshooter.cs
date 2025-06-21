@@ -12,7 +12,7 @@ namespace SwiftUHC.Features.Humans.Perks.Content
     {
         public override string Name => "Sharpshooter";
 
-        public override string Description => "Every firearm you pick up turns into a revolver. Kills with the revolver grant you AHP.";
+        public override string Description => "Every firearm you pick up turns into a revolver. \nKills with the revolver grant you AHP.";
 
         public virtual float Amount => 20f;
         public virtual float Efficacy => 1f;

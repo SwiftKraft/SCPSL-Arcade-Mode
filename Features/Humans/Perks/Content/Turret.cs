@@ -12,7 +12,7 @@ namespace SwiftUHC.Features.Humans.Perks.Content
     {
         public override string Name => "Turret";
 
-        public override string Description => $"Aiming down sights for at least {Duration} seconds will increase your damage by x{Multiplier}, but you cannot move.";
+        public override string Description => $"Aiming down sights for at least {Duration} seconds will \nincrease your damage by x{Multiplier}, but you cannot move.";
 
         public virtual float Duration => 0.5f;
         public virtual float Multiplier => 2f;

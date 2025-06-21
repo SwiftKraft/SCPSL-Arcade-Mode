@@ -27,7 +27,7 @@ namespace SwiftUHC.Features.Humans.Perks.Content.SixthSense
 
         public override string Name => "Sixth Sense";
 
-        public override string Description => "Provides obscure, but useful information regarding players and enemies.";
+        public override string Description => "Provides obscure, but useful information regarding enemies.";
 
         public override float Cooldown => 15f;
 

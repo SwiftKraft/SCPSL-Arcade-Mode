@@ -7,7 +7,7 @@ namespace SwiftUHC.Features.Humans.Perks.Content
     {
         public override string Name => "Vampire";
 
-        public override string Description => base.Description + " But you can no longer use medical items.";
+        public override string Description => base.Description + " \nBut you can no longer use medical items.";
 
         public override float Percentage => 0.25f;
 

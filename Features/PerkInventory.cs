@@ -39,7 +39,10 @@ namespace SwiftUHC.Features
             }
 
             if (Perks.Count >= Limit)
+            {
+                Parent.SendHint("You've hit your perk limit!", [HintEffectPresets.FadeOut()], 5f);
                 return false;
+            }
 
             PerkBase p = (PerkBase)Activator.CreateInstance(type.Perk, this);
             p.Rarity = type.Rarity;

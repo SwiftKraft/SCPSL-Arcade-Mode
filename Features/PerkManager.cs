@@ -75,12 +75,14 @@ namespace SwiftUHC.Features
                 return;
             }
 
-            StringBuilder builder = new($"\n\n\n{ev.NewTarget.DisplayName}'s Perks\n");
+            StringBuilder builder = new($"<align=\"left\">\n\n\n{ev.NewTarget.DisplayName}'s Perks\n");
 
             foreach (PerkBase perk in Inventories[ev.NewTarget].Perks)
                 builder.AppendLine($"- {perk.FancyName}");
 
-            ev.Player.SendHint(builder.ToString(), 60f);
+            builder.Append("</align>");
+
+            ev.Player.SendHint(builder.ToString(), 120f);
         }
 
         private static void OnRoundRestarted() => Inventories.Clear();
