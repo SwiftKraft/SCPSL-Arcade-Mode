@@ -1,6 +1,7 @@
 ﻿using Hints;
 using LabApi.Events.Handlers;
 using LabApi.Features.Wrappers;
+using MEC;
 using SwiftUHC.Commands.Client;
 using SwiftUHC.Features;
 using System;
