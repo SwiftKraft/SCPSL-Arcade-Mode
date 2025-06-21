@@ -28,7 +28,8 @@ namespace SwiftUHC.Features
 
         public static void Enable()
         {
-            RegisterPerks(PerkNameSpace);
+            if (!Core.Instance.Config.DisableBaseContent)
+                RegisterPerks(PerkNameSpace);
 
             PlayerEvents.Death += OnPlayerDeath;
             PlayerEvents.ChangedSpectator += OnChangedSpectator;

@@ -13,13 +13,11 @@ namespace SwiftUHC.Features.SCPs.Upgrades
 
         public static void Enable()
         {
-            RegisterUpgrades();
+            if (!Core.Instance.Config.DisableBaseContent)
+                RegisterUpgrades();
         }
 
-        public static void Disable()
-        {
-
-        }
+        public static void Disable() { }
 
         public static void RegisterUpgrades()
         {

@@ -10,8 +10,10 @@ using UserSettings.ServerSpecific;
 
 namespace SwiftUHC
 {
-    public class Core : Plugin
+    public class Core : Plugin<Config>
     {
+        public static Core Instance { get; private set; }
+
         public override string Name => "SCPSL Arcade Mode";
 
         public override string Description => "Adds various interesting and fun mechanics to the game! ";
@@ -25,6 +27,8 @@ namespace SwiftUHC
         public override void Enable()
         {
             Logger.Info("Arcade Mode by SwiftKraft: Loaded!");
+
+            Instance = this;
 
             StaticUnityMethods.OnFixedUpdate += FixedUpdate;
             PerkManager.Enable();
