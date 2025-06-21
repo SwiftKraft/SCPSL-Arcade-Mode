@@ -1,7 +1,6 @@
 ﻿using LabApi.Events.Handlers;
 using LabApi.Features.Wrappers;
 using MEC;
-using Mirror;
 using NetworkManagerUtils.Dummies;
 using PlayerRoles;
 using PlayerRoles.FirstPersonControl;
@@ -40,7 +39,7 @@ namespace SwiftUHC.Features.SCPs.Upgrades.Content.SCP173.Scouter
             if (ev.Player.ReferenceHub != phantom)
                 return;
 
-            DeletePhantom();
+            DeletePhantom(ev.Attacker);
         }
 
         private void OnLeft(LabApi.Events.Arguments.PlayerEvents.PlayerLeftEventArgs ev)
@@ -68,13 +67,17 @@ namespace SwiftUHC.Features.SCPs.Upgrades.Content.SCP173.Scouter
             });
         }
 
-        public void DeletePhantom()
+        public void DeletePhantom(Player attacker = null)
         {
             if (phantom == null)
                 return;
 
-            SendMessage("Phantom was shot! ");
+            SendMessage("Phantom destroyed! " + (attacker == null ? "" : "Attacker: " + attacker.DisplayName));
             TimedGrenadeProjectile.SpawnActive(phantom.GetPosition(), ItemType.GrenadeFlash, Player, 0.1f);
+
+            if (Room.TryGetRoomAtPosition(phantom.GetPosition(), out Room room))
+                room.LightController.FlickerLights(5f);
+
             phantom.roleManager.ServerSetRole(RoleTypeId.Filmmaker, RoleChangeReason.RemoteAdmin);
         }
     }
