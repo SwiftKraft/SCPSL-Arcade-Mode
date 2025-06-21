@@ -42,7 +42,7 @@ namespace SwiftUHC.Features.SCPs.Upgrades.Content.SCP939.Speedster
 
             if (CrouchState)
             {
-                SendMessage("Time Until Boost: " + Mathf.Round(timer.CurrentValue) + "s");
+                SendMessage("Time until boost: " + Mathf.Round(timer.CurrentValue) + "s");
                 timer.Tick(Time.fixedDeltaTime);
             }
             else
