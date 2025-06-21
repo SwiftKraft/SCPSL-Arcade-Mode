@@ -26,7 +26,7 @@ namespace SwiftUHC
 
         public override void Enable()
         {
-            Logger.Info("Arcade Mode by SwiftKraft: Loaded!");
+            Logger.Info($"Arcade Mode {Version} by SwiftKraft: Loaded!");
 
             Instance = this;
 
