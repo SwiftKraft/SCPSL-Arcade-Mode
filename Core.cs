@@ -18,7 +18,7 @@ namespace SwiftUHC
 
         public override string Author => "SwiftKraft";
 
-        public override Version Version => new(1, 2, 0);
+        public override Version Version => new(1, 3, 0);
 
         public override Version RequiredApiVersion => new(LabApiProperties.CompiledVersion);
 
