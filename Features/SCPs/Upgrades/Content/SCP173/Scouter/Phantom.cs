@@ -73,13 +73,16 @@ namespace SwiftUHC.Features.SCPs.Upgrades.Content.SCP173.Scouter
             if (phantom == null)
                 return;
 
-            SendMessage("Phantom destroyed! " + (attacker == null ? "" : "Attacker: " + attacker.DisplayName));
-            TimedGrenadeProjectile.SpawnActive(phantom.GetPosition(), ItemType.GrenadeFlash, Player, 0.1f);
+            if (phantom.roleManager.CurrentRole.RoleTypeId == RoleTypeId.Scp173)
+            {
+                SendMessage("Phantom destroyed! " + (attacker == null ? "" : "Attacker: " + attacker.DisplayName));
+                TimedGrenadeProjectile.SpawnActive(phantom.GetPosition(), ItemType.GrenadeFlash, Player, 0.1f);
 
-            if (Room.TryGetRoomAtPosition(phantom.GetPosition(), out Room room))
-                room.LightController.FlickerLights(5f);
+                if (Room.TryGetRoomAtPosition(phantom.GetPosition(), out Room room))
+                    room.LightController.FlickerLights(5f);
 
-            phantom.roleManager.ServerSetRole(RoleTypeId.Filmmaker, RoleChangeReason.RemoteAdmin);
+                phantom.roleManager.ServerSetRole(RoleTypeId.Filmmaker, RoleChangeReason.RemoteAdmin);
+            }
 
             if (destroy)
                 Timing.CallDelayed(0.1f, () => NetworkServer.Destroy(phantom.gameObject));
