@@ -35,7 +35,11 @@ namespace SwiftUHC.Features.Humans.Perks.Content
             CooldownTimer.Reset(Cooldown);
         }
 
-        protected virtual void OnCooldownEnd() => SendMessage(ReadyMessage);
+        protected virtual void OnCooldownEnd()
+        {
+            if (!string.IsNullOrWhiteSpace(ReadyMessage))
+                SendMessage(ReadyMessage);
+        }
 
         public abstract void Effect();
 

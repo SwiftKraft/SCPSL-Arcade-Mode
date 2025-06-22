@@ -9,7 +9,7 @@ namespace SwiftUHC.Features.SCPs.Upgrades.Content.SCP106.EndlessDecay
 
         public override string Description => $"Every third hit, slow your target for {Duration}s.";
 
-        public virtual float Duration => 0.25f;
+        public virtual float Duration => 0.5f;
 
         int counter;
 

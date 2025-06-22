@@ -9,7 +9,7 @@ namespace SwiftUHC.Features.SCPs.Upgrades.Content.SCP106.EndlessDecay
     {
         public override string PathName => "Endless Decay";
 
-        public override string PathDescription => "Decay various things.";
+        public override string PathDescription => "Decays various things.";
 
         public override Type[] AllUpgrades => [
             typeof(FleshDecay),

@@ -21,6 +21,8 @@ namespace SwiftUHC.Features.SCPs.Upgrades.Content.SCP106.EndlessDecay
 
         public override string UpgradeDescription => $"Melts {Amount} bullets from every human's gun around you.";
 
+        public override string ReadyMessage => "";
+
         public virtual int Amount => 3;
         public virtual float Radius => 5f;
 

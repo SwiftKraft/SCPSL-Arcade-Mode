@@ -1,6 +1,7 @@
 ﻿using LabApi.Events.Arguments.PlayerEvents;
 using LabApi.Events.Handlers;
 using LabApi.Features.Wrappers;
+using PlayerStatsSystem;
 
 namespace SwiftUHC.Features.SCPs.Upgrades
 {
@@ -61,10 +62,7 @@ namespace SwiftUHC.Features.SCPs.Upgrades
 
         private static void OnPlayerDying(PlayerDyingEventArgs ev)
         {
-            if (ev.Attacker == null)
-                return;
-
-            if (ev.Player.IsHuman && ev.Attacker.IsSCP)
+            if (ev.Player.IsHuman && ((ev.Attacker != null && ev.Attacker.IsSCP) || (ev.DamageHandler is UniversalDamageHandler dmg && dmg.TranslationId == DeathTranslations.PocketDecay.Id)))
                 SCPTeamExperience++;
         }
     }

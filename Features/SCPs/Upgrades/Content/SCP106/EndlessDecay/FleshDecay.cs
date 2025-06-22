@@ -15,6 +15,8 @@ namespace SwiftUHC.Features.SCPs.Upgrades.Content.SCP106.EndlessDecay
 
         public override string UpgradeDescription => $"Damages humans around you by {Amount} HP.";
 
+        public override string ReadyMessage => "";
+
         public virtual float Amount => 2f;
         public virtual float Radius => 5f;
 
