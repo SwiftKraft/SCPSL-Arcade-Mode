@@ -1,6 +1,7 @@
 ﻿using LabApi.Events.Handlers;
 using LabApi.Features.Wrappers;
 using MEC;
+using Mirror;
 using NetworkManagerUtils.Dummies;
 using PlayerRoles;
 using PlayerRoles.FirstPersonControl;
@@ -21,7 +22,7 @@ namespace SwiftUHC.Features.SCPs.Upgrades.Content.SCP173.Scouter
             base.Init();
             Scp173Events.BreakneckSpeedChanged += OnBreakneckSpeedChanged;
             PlayerEvents.Hurt += OnHurt;
-            PlayerEvents.Left += OnLeft;
+            PlayerEvents.ChangedRole += OnChangedRole;
         }
 
         public override void Remove()
@@ -29,9 +30,9 @@ namespace SwiftUHC.Features.SCPs.Upgrades.Content.SCP173.Scouter
             base.Remove();
             Scp173Events.BreakneckSpeedChanged -= OnBreakneckSpeedChanged;
             PlayerEvents.Hurt -= OnHurt;
-            PlayerEvents.Left -= OnLeft;
+            PlayerEvents.ChangedRole -= OnChangedRole;
 
-            DeletePhantom();
+            DeletePhantom(true);
         }
 
         private void OnHurt(LabApi.Events.Arguments.PlayerEvents.PlayerHurtEventArgs ev)
@@ -39,15 +40,15 @@ namespace SwiftUHC.Features.SCPs.Upgrades.Content.SCP173.Scouter
             if (ev.Player.ReferenceHub != phantom)
                 return;
 
-            DeletePhantom(ev.Attacker);
+            DeletePhantom(false, ev.Attacker);
         }
 
-        private void OnLeft(LabApi.Events.Arguments.PlayerEvents.PlayerLeftEventArgs ev)
+        private void OnChangedRole(LabApi.Events.Arguments.PlayerEvents.PlayerChangedRoleEventArgs ev)
         {
-            if (ev.Player != Player)
+            if (ev.Player != Player || ev.OldRole == ev.NewRole.RoleTypeId)
                 return;
 
-            DeletePhantom();
+            DeletePhantom(true);
         }
 
         private void OnBreakneckSpeedChanged(LabApi.Events.Arguments.Scp173Events.Scp173BreakneckSpeedChangedEventArgs ev)
@@ -67,7 +68,7 @@ namespace SwiftUHC.Features.SCPs.Upgrades.Content.SCP173.Scouter
             });
         }
 
-        public void DeletePhantom(Player attacker = null)
+        public void DeletePhantom(bool destroy = false, Player attacker = null)
         {
             if (phantom == null)
                 return;
@@ -79,6 +80,9 @@ namespace SwiftUHC.Features.SCPs.Upgrades.Content.SCP173.Scouter
                 room.LightController.FlickerLights(5f);
 
             phantom.roleManager.ServerSetRole(RoleTypeId.Filmmaker, RoleChangeReason.RemoteAdmin);
+
+            if (destroy)
+                Timing.CallDelayed(0.1f, () => NetworkServer.Destroy(phantom.gameObject));
         }
     }
 }
