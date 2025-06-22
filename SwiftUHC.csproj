@@ -52,7 +52,6 @@
 	  <Folder Include="Features\SCPs\Upgrades\Content\SCP049\Overlord\" />
 	  <Folder Include="Features\SCPs\Upgrades\Content\SCP079\" />
 	  <Folder Include="Features\SCPs\Upgrades\Content\SCP096\" />
-	  <Folder Include="Features\SCPs\Upgrades\Content\SCP106\" />
 	</ItemGroup>
 
 </Project>

@@ -12,7 +12,7 @@ namespace SwiftUHC.Features.SCPs.Upgrades.Content.SCP173.Scouter
     {
         public override string Name => "Tactical Retreat";
 
-        public override string Description => "Teleports you back to your latest tantrum location when taking heavy damage after hume shield breaks. " + base.Description;
+        public override string UpgradeDescription => "Teleports you back to your latest tantrum location when taking heavy damage after hume shield breaks. ";
 
         public override float Cooldown => 100f;
 

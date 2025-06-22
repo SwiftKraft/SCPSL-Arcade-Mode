@@ -5,7 +5,9 @@ namespace SwiftUHC.Features.SCPs.Upgrades.Content
 {
     public abstract class UpgradeCooldownBase<T>(UpgradePathPerkBase parent) : UpgradeBase<T>(parent) where T : UpgradePathPerkBase
     {
-        public override string Description => $"Cooldown: {Cooldown}s.";
+        public override string Description => $"{UpgradeDescription}\nCooldown: {Cooldown}s.";
+
+        public abstract string UpgradeDescription { get; }
 
         public virtual string ReadyMessage => "Ready!";
 
