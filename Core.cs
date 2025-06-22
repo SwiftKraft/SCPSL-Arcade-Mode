@@ -1,13 +1,14 @@
-﻿using LabApi.Features;
+﻿using CustomPlayerEffects;
+using LabApi.Events.Handlers;
+using LabApi.Features;
 using LabApi.Features.Console;
 using LabApi.Loader.Features.Plugins;
-using PlayerRoles.PlayableScps.Scp3114;
+using MEC;
 using SwiftUHC.Features;
 using SwiftUHC.Features.Humans.Perks;
 using SwiftUHC.Features.SCPs.Upgrades;
 using SwiftUHC.ServerSpecificSettings;
 using System;
-using UserSettings.ServerSpecific;
 
 namespace SwiftUHC
 {
@@ -37,6 +38,21 @@ namespace SwiftUHC
             UpgradePathManager.Enable();
             UpgradePathGiver.Enable();
             SSSManager.Enable();
+
+            PlayerEvents.UpdatedEffect += OnUpdatedEffect;
+            PlayerEvents.ChangedRole += OnChangedRole;
+        }
+
+        private void OnChangedRole(LabApi.Events.Arguments.PlayerEvents.PlayerChangedRoleEventArgs ev)
+        {
+            if (Config.Replace096 && ev.NewRole.RoleTypeId == PlayerRoles.RoleTypeId.Scp096 && ev.ChangeReason == PlayerRoles.RoleChangeReason.RoundStart)
+                Timing.CallDelayed(0.1f, () => ev.Player.SetRole(PlayerRoles.RoleTypeId.Scp3114));
+        }
+
+        private void OnUpdatedEffect(LabApi.Events.Arguments.PlayerEvents.PlayerEffectUpdatedEventArgs ev)
+        {
+            if (Config.SkeletonBalance && ev.Effect is Strangled)
+                Timing.CallDelayed(1f, ev.Player.DisableEffect<Strangled>);
         }
 
         public override void Disable()
@@ -47,6 +63,9 @@ namespace SwiftUHC
             UpgradePathManager.Disable();
             UpgradePathGiver.Disable();
             SSSManager.Disable();
+
+            PlayerEvents.UpdatedEffect -= OnUpdatedEffect;
+            PlayerEvents.ChangedRole -= OnChangedRole;
         }
 
         public static void FixedUpdate()
@@ -54,5 +73,12 @@ namespace SwiftUHC
             PerkManager.Tick();
             SSSManager.Tick();
         }
+
+        /*
+        Ideas:
+
+        Random round events and mini modes.
+        Perk crafting
+        */
     }
 }
