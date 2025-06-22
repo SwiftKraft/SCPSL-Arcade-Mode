@@ -61,7 +61,7 @@ namespace SwiftUHC.Features.Humans.Perks.Content.Shopkeeper
             }
         }
 
-        public int RequiredExperience => ShopLevel * 15;
+        public int RequiredExperience => ShopLevel * Mathf.Max(Server.PlayerCount / 2, 4);
 
         public override string ReadyMessage => Shop == null ? "No shop found, please claim a shop." : CanRestock ? "Restocking..." : "Failed to restock, player is not in shop room.";
 

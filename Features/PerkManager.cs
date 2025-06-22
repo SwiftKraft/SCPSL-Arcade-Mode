@@ -1,6 +1,7 @@
 ﻿using LabApi.Events.Arguments.PlayerEvents;
 using LabApi.Events.Handlers;
 using LabApi.Features.Wrappers;
+using SwiftUHC.Features.Humans.Perks.Content.Gambler;
 using SwiftUHC.Utils.Extensions;
 using System;
 using System.Collections.Generic;
@@ -29,7 +30,10 @@ namespace SwiftUHC.Features
         public static void Enable()
         {
             if (!Core.Instance.Config.DisableBaseContent)
+            {
                 RegisterPerks(PerkNameSpace);
+                Gambler.RegisterEffects();
+            }
 
             PlayerEvents.Death += OnPlayerDeath;
             PlayerEvents.ChangedSpectator += OnChangedSpectator;

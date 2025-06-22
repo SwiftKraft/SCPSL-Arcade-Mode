@@ -15,7 +15,8 @@ namespace SwiftUHC.Features.Humans.Perks.Content.Shopkeeper
             [ItemType.KeycardGuard, ItemType.Adrenaline, ItemType.Medkit, ItemType.GunCOM18],
             [ItemType.KeycardMTFOperative, ItemType.Adrenaline, ItemType.Medkit, ItemType.GunCOM18, ItemType.GunFSP9, ItemType.ArmorLight],
             [ItemType.KeycardMTFCaptain, ItemType.Adrenaline, ItemType.Medkit, ItemType.GunFSP9, ItemType.GunCrossvec, ItemType.ArmorCombat],
-            [ItemType.KeycardFacilityManager, ItemType.SCP500, ItemType.Adrenaline, ItemType.Medkit, ItemType.GunRevolver, ItemType.GunAK, ItemType.GunE11SR, ItemType.GunCrossvec, ItemType.GunLogicer, ItemType.GunFRMG0, ItemType.ArmorHeavy]
+            [ItemType.KeycardFacilityManager, ItemType.SCP500, ItemType.Adrenaline, ItemType.Medkit, ItemType.GunRevolver, ItemType.GunAK, ItemType.GunE11SR, ItemType.GunCrossvec, ItemType.GunLogicer, ItemType.GunFRMG0, ItemType.ArmorHeavy],
+            [ItemType.KeycardFacilityManager, ItemType.SCP500, ItemType.Adrenaline, ItemType.Medkit, ItemType.GunRevolver, ItemType.GunAK, ItemType.GunE11SR, ItemType.GunCrossvec, ItemType.GunLogicer, ItemType.GunFRMG0, ItemType.ArmorHeavy, ItemType.ParticleDisruptor, ItemType.SCP207, ItemType.AntiSCP207],
         ];
 
         public readonly Vector3 Offset = offset;

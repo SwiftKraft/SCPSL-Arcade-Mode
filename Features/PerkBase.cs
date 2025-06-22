@@ -46,6 +46,7 @@ namespace SwiftUHC.Features
                 Rarity.Rare => "#00FFFF",
                 Rarity.Epic => "#FF00FF",
                 Rarity.Legendary => "#FFFF00",
+                Rarity.Mythic => "#0000FF",
                 Rarity.Secret => "#FF0000",
                 _ => "#FFFFFF"
             };
@@ -53,11 +54,12 @@ namespace SwiftUHC.Features
 
     public enum Rarity : int
     {
-        Common = 35,
-        Uncommon = 28,
-        Rare = 18,
-        Epic = 9,
-        Legendary = 5,
+        Common = 52,
+        Uncommon = 38,
+        Rare = 26,
+        Epic = 12,
+        Legendary = 7,
+        Mythic = 3,
         Secret = 1
     }
 }

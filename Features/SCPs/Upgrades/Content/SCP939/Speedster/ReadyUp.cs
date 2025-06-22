@@ -15,7 +15,7 @@ namespace SwiftUHC.Features.SCPs.Upgrades.Content.SCP939.Speedster
 
         public virtual float Requirement => 3f;
 
-        public bool CrouchState => role != null && role.SubroutineModule.TryGetSubroutine(out Scp939FocusAbility lung) && lung.State > 0.5f;
+        public bool CrouchState => role != null && role.SubroutineModule.TryGetSubroutine(out Scp939FocusAbility focus) && focus.State > 0.5f;
 
         private readonly Timer timer = new();
         Scp939Role role;
