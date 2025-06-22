@@ -24,8 +24,8 @@ namespace SwiftUHC.Features.SCPs.Upgrades.Content.SCP106.EndlessDecay
 
         public override void Effect()
         {
-            foreach (Player p in Player.List.Where((p) => (p.Position - Player.Position).sqrMagnitude <= Radius * Radius))
-                p.Damage(new ScpDamageHandler(Player.ReferenceHub, Amount, DeathTranslations.PocketDecay));
+            foreach (Player p in Player.List.Where((p) => p.IsHuman && (p.Position - Player.Position).sqrMagnitude <= Radius * Radius))
+                p.Damage(new ScpDamageHandler(Player.ReferenceHub, Amount, DeathTranslations.Unknown));
         }
     }
 }

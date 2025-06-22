@@ -1,6 +1,7 @@
 ﻿using LabApi.Features;
 using LabApi.Features.Console;
 using LabApi.Loader.Features.Plugins;
+using PlayerRoles.PlayableScps.Scp3114;
 using SwiftUHC.Features;
 using SwiftUHC.Features.Humans.Perks;
 using SwiftUHC.Features.SCPs.Upgrades;
