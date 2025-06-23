@@ -61,7 +61,7 @@ namespace SwiftUHC.Features.Humans.Perks.Content.Shopkeeper
 
         private void OnSearchedPickup(LabApi.Events.Arguments.PlayerEvents.PlayerSearchedPickupEventArgs ev)
         {
-            if (ev.Pickup != Item)
+            if (ev.Pickup != Item || Item == null || ev.Player.CurrentItem == null)
                 return;
 
             Parent.ShopExperience++;
