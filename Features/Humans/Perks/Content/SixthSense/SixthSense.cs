@@ -31,9 +31,26 @@ namespace SwiftUHC.Features.Humans.Perks.Content.SixthSense
 
         public override string PerkDescription => "";
 
-        public override float Cooldown => 15f;
+        public override float Cooldown => 10f;
 
-        public override string ReadyMessage => Senses.GetRandom().Message();
+        public override string ReadyMessage
+        {
+            get
+            {
+                checkedBases.Clear();
+                SenseBase get() => Senses.Where((p) => !checkedBases.Contains(p)).ToList().GetRandom();
+                SenseBase sense = get();
+                while (sense != null && !sense.Message(out string msg))
+                {
+                    checkedBases.Add(sense);
+                    sense = get();
+                }
+
+                return sense != null && sense.Message(out string m) ? m : "";
+            }
+        }
+
+        private readonly List<SenseBase> checkedBases = [];
 
         public override void Init()
         {
@@ -67,6 +84,6 @@ namespace SwiftUHC.Features.Humans.Perks.Content.SixthSense
 
         public virtual int Weight => 1;
 
-        public abstract string Message();
+        public abstract bool Message(out string msg);
     }
 }

@@ -7,26 +7,6 @@ namespace SwiftUHC.Features.Humans.Perks.Content.SixthSense
 {
     public class SCPRadiusSense(SixthSense parent) : SenseBase(parent)
     {
-        public static readonly string[] NoSCPMessages = [
-            "You feel a sense of normalcy.",
-            "The static in your thoughts begins to clear.",
-            "You blink, and for the first time in a while, the world feels grounded.",
-            "Your pulse steadies, though you're not sure when it had quickened.",
-            "The air no longer hums. You wonder if it ever did.",
-            "The world seems to have snapped back into place, like waking from a half-remembered dream.",
-            "The walls look... right, somehow. As if they belong here.",
-            "A faint pressure lifts from your skull. The silence isn't just quiet—it's real.",
-            "The buzz behind your eyes fades into a manageable silence.",
-            "Reality feels rigid here—as if someone finally tightened the bolts.",
-            "You can't remember the last time your footsteps made sense.",
-            "The taste of iron leaves your mouth. You didn't realize it was there.",
-            "The flickering in the corners of your vision finally stops.",
-            "You feel alone—and this time, it's comforting.",
-            "Your thoughts line up neatly, like they used to.",
-            "The world feels... sterile, in a good way.",
-            "No eyes in the walls. No whispers in the vents. Just you."
-            ];
-
         public static readonly string[] SCPNearbyMessages = [
             "Something skitters across your mind—too quick to name, too loud to forget.",
             "The walls shift when you're not looking. Or was it only an illusion?",
@@ -79,18 +59,24 @@ namespace SwiftUHC.Features.Humans.Perks.Content.SixthSense
         int lastRand1;
         int lastRand2;
         int lastRand3;
-        int lastRand4;
 
-        public override string Message()
+        public override bool Message(out string msg)
         {
             if (Player.IsSCP)
-                return SCPMessages.GetRandom(ref lastRand1);
+            {
+                msg = SCPMessages.GetRandom(ref lastRand1);
+                return true;
+            }
 
             if (Player.Room.Name == RoomName.Pocket)
-                return PocketDimensionMessages.GetRandom(ref lastRand2);
+            {
+                msg = PocketDimensionMessages.GetRandom(ref lastRand2);
+                return true;
+            }
 
             Player scp = GetNearSCPs();
-            return scp == null ? NoSCPMessages.GetRandom(ref lastRand3) : SCPNearbyMessages.GetRandom(ref lastRand4);
+            msg = SCPNearbyMessages.GetRandom(ref lastRand3);
+            return scp != null;
         }
 
         public Player GetNearSCPs()

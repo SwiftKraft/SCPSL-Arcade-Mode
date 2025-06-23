@@ -68,7 +68,7 @@ namespace SwiftUHC.Utils.Extensions
             foreach (T item in values)
                 totalWeight += Mathf.Clamp(item.Weight, 1, int.MaxValue);
 
-            int randomValue = Random.Range(0, totalWeight);
+            int randomValue = Random.Range(0, totalWeight + 1);
             int cumulativeWeight = 0;
 
             foreach (T item in values)
