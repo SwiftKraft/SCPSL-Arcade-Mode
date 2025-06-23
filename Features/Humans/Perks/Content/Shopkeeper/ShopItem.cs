@@ -16,7 +16,7 @@ namespace SwiftUHC.Features.Humans.Perks.Content.Shopkeeper
             [ItemType.KeycardMTFOperative, ItemType.Adrenaline, ItemType.Medkit, ItemType.GunCOM18, ItemType.GunFSP9, ItemType.ArmorLight],
             [ItemType.KeycardMTFCaptain, ItemType.Adrenaline, ItemType.Medkit, ItemType.GunFSP9, ItemType.GunCrossvec, ItemType.ArmorCombat],
             [ItemType.KeycardFacilityManager, ItemType.SCP500, ItemType.Adrenaline, ItemType.Medkit, ItemType.GunRevolver, ItemType.GunAK, ItemType.GunE11SR, ItemType.GunCrossvec, ItemType.GunLogicer, ItemType.GunFRMG0, ItemType.ArmorHeavy],
-            [ItemType.KeycardFacilityManager, ItemType.SCP500, ItemType.Adrenaline, ItemType.Medkit, ItemType.GunRevolver, ItemType.GunAK, ItemType.GunE11SR, ItemType.GunCrossvec, ItemType.GunLogicer, ItemType.GunFRMG0, ItemType.ArmorHeavy, ItemType.ParticleDisruptor, ItemType.SCP207, ItemType.AntiSCP207],
+            [ItemType.KeycardFacilityManager, ItemType.SCP500, ItemType.Adrenaline, ItemType.Medkit, ItemType.GunRevolver, ItemType.GunAK, ItemType.GunE11SR, ItemType.GunCrossvec, ItemType.GunLogicer, ItemType.GunFRMG0, ItemType.ArmorHeavy, ItemType.GunCom45, ItemType.SCP207, ItemType.AntiSCP207],
         ];
 
         public readonly Vector3 Offset = offset;
@@ -47,14 +47,16 @@ namespace SwiftUHC.Features.Humans.Perks.Content.Shopkeeper
             if (pool.Length <= 0)
                 return;
 
-            Item?.Destroy();
+            if (Item != null && Item.Base != null)
+                Item?.Destroy();
             Item = Pickup.Create(pool.GetRandom(ref lastRandom), Parent.Shop.Position + Parent.Shop.Rotation * Offset, Parent.Shop.Rotation);
             Item?.Spawn();
         }
 
         public override void Remove()
         {
-            Item?.Destroy();
+            if (Item != null && Item.Base != null)
+                Item?.Destroy();
         }
 
         private void OnSearchedPickup(LabApi.Events.Arguments.PlayerEvents.PlayerSearchedPickupEventArgs ev)

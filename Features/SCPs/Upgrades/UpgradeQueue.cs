@@ -16,9 +16,9 @@ namespace SwiftUHC.Features.SCPs.Upgrades
             public UpgradePathAttribute[] Choices = choices;
         }
 
-        public void Create(int amount)
+        public void Create(int amount, List<UpgradePathAttribute> maxed)
         {
-            List<UpgradePathAttribute> paths = [];
+            List<UpgradePathAttribute> paths = maxed;
             for (int i = 0; i < amount; i++)
             {
                 UpgradePathAttribute att = Parent.Role.GetRandomUpgradePath(paths);
@@ -87,7 +87,15 @@ namespace SwiftUHC.Features.SCPs.Upgrades
             }
 
             if (Parent.TryGetPerkInventory(out PerkInventory inv) && inv.TryGetPerk(t.Choices[index].Perk.Perk, out PerkBase perkBase) && perkBase is UpgradePathPerkBase b)
+            {
+                if (b.Maxed)
+                {
+                    name = "";
+                    return false;
+                }
+
                 b.Progress++;
+            }
             else
                 Parent.GivePerk(t.Choices[index].Perk);
 

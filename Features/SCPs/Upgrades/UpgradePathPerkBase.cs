@@ -34,6 +34,8 @@ namespace SwiftUHC.Features.SCPs.Upgrades
 
         public abstract string PathDescription { get; }
 
+        public bool Maxed => Progress >= AllUpgrades.Length - 1;
+
         public int Progress
         {
             get => _progress;

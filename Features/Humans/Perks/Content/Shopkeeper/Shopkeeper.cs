@@ -3,6 +3,7 @@ using LabApi.Features.Wrappers;
 using MapGeneration;
 using SwiftUHC.Utils.Structures;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 namespace SwiftUHC.Features.Humans.Perks.Content.Shopkeeper
@@ -12,9 +13,11 @@ namespace SwiftUHC.Features.Humans.Perks.Content.Shopkeeper
     {
         public static readonly Dictionary<Room, Player> ClaimStatus = [];
 
-        public override string Name => "Shopkeeper";
+        public override string Name => "Shopkeeper | Shop Level " + ShopLevel;
 
         public override string PerkDescription => "Claim an entrance checkpoint to trade items. \nRestocks when you are in the room.";
+
+        public int CustomerCount => Player.List.Count((p) => p.Room == Shop);
 
         public virtual ShopElement[] PresetElements => [
             new ShopItem(new(-5.5f, 1f, -5.25f), ShopItem.PresetTiers),
@@ -67,7 +70,7 @@ namespace SwiftUHC.Features.Humans.Perks.Content.Shopkeeper
 
         public virtual bool CanRestock => Shop != null && Player.Room == Shop;
 
-        public override float Cooldown => 45f;
+        public override float Cooldown => Mathf.Clamp(45f / Mathf.Max(CustomerCount / 5, 1), 5f, Mathf.Infinity);
 
         readonly Timer claimTimer = new(10f);
         private int shopExperience;

@@ -1,5 +1,6 @@
 ﻿using CustomPlayerEffects;
 using LabApi.Events.Handlers;
+using PlayerStatsSystem;
 
 namespace SwiftUHC.Features.SCPs.Upgrades.Content.SCP106.EndlessDecay
 {
@@ -27,7 +28,7 @@ namespace SwiftUHC.Features.SCPs.Upgrades.Content.SCP106.EndlessDecay
 
         private void OnHurt(LabApi.Events.Arguments.PlayerEvents.PlayerHurtEventArgs ev)
         {
-            if (ev.Attacker != Player)
+            if (ev.Attacker != Player || ev.DamageHandler is not ScpDamageHandler)
                 return;
 
             counter++;
