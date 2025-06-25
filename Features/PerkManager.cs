@@ -94,8 +94,11 @@ namespace SwiftUHC.Features
 
         private static void OnPlayerDeath(PlayerDeathEventArgs ev)
         {
-            if (Inventories.ContainsKey(ev.Player) && Inventories[ev.Player].Perks.Count > 0)
-                Inventories[ev.Player].RemoveRandom();
+            if (TryGetPerkInventory(ev.Player, out PerkInventory inv) && inv.Perks.Count > 0)
+            {
+                inv.RemoveRandom();
+                inv.UpgradeQueue.Upgrades.Clear();
+            }
         }
 
         public static string FancifyPerkName(this string perkName, Rarity rarity) => $"<color={rarity.GetColor()}><b>{perkName}</b></color>";
