@@ -1,6 +1,7 @@
 ﻿using CommandSystem.Commands.RemoteAdmin;
 using LabApi.Events.Arguments.PlayerEvents;
 using LabApi.Events.Arguments.Scp173Events;
+using LabApi.Events.Arguments.WarheadEvents;
 using LabApi.Events.Handlers;
 using LabApi.Features.Wrappers;
 using MEC;
@@ -25,6 +26,7 @@ namespace SwiftUHC.Features.SCPs.Upgrades.Content.SCP173.Scouter
         {
             base.Init();
             Scp173Events.CreatedTantrum += OnCreatedTantrum;
+            WarheadEvents.Detonated += OnWarheadDetonated;
             PlayerEvents.Hurt += OnHurt;
         }
 
@@ -32,7 +34,14 @@ namespace SwiftUHC.Features.SCPs.Upgrades.Content.SCP173.Scouter
         {
             base.Remove();
             Scp173Events.CreatedTantrum -= OnCreatedTantrum;
+            WarheadEvents.Detonated -= OnWarheadDetonated;
             PlayerEvents.Hurt -= OnHurt;
+        }
+
+        private void OnWarheadDetonated(WarheadDetonatedEventArgs ev)
+        {
+            latestTantrum = null;
+            SendMessage("Warhead Detonated! Tantrum teleport destroyed.");
         }
 
         private void OnHurt(PlayerHurtEventArgs ev)

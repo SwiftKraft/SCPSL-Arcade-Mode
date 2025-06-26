@@ -22,12 +22,19 @@ namespace SwiftUHC.Features.Humans.Perks.Content
                 _reloading = value;
 
                 if (_reloading)
+                {
                     originalIntensity = Player.GetEffect<Scp1853>().Intensity;
+                    hasPoison = Player.TryGetEffect(out Poisoned pois) && pois.IsEnabled;
+                }
 
                 Player.EnableEffect<Scp1853>(_reloading ? (byte)50 : originalIntensity);
+
+                if (!hasPoison)
+                    Player.DisableEffect<Poisoned>();
             }
         }
 
+        bool hasPoison;
         bool _reloading;
         byte originalIntensity;
 
