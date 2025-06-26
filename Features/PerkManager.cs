@@ -74,20 +74,20 @@ namespace SwiftUHC.Features
             if (ev.NewTarget == null)
                 return;
 
-            if (!Inventories.ContainsKey(ev.NewTarget))
-            {
-                ev.Player.SendHint("", 1f);
-                return;
-            }
+            ev.Player.UpdateSpectatorDisplay(ev.NewTarget);
+        }
 
-            StringBuilder builder = new($"<align=\"left\">\n\n\n{ev.NewTarget.DisplayName}'s Perks\n");
+        public static void UpdateSpectatorDisplay(this Player player, Player target)
+        {
+            StringBuilder builder = new($"<align=\"left\">\n\n\n{target.DisplayName}'s Perks\n");
 
-            foreach (PerkBase perk in Inventories[ev.NewTarget].Perks)
-                builder.AppendLine($"- {perk.FancyName}");
+            if (Inventories.ContainsKey(target))
+                foreach (PerkBase perk in Inventories[target].Perks)
+                    builder.AppendLine($"- {perk.FancyName}");
 
             builder.Append("</align>");
 
-            ev.Player.SendHint(builder.ToString(), 120f);
+            player.SendHint(builder.ToString(), 120f);
         }
 
         private static void OnRoundRestarted() => Inventories.Clear();
