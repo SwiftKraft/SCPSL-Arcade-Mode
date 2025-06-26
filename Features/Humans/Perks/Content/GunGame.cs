@@ -1,5 +1,4 @@
-﻿using InventorySystem.Items.Firearms.Modules;
-using LabApi.Events.Arguments.PlayerEvents;
+﻿using LabApi.Events.Arguments.PlayerEvents;
 using LabApi.Features.Wrappers;
 using SwiftUHC.Utils.Extensions;
 

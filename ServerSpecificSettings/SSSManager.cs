@@ -1,7 +1,6 @@
 ﻿using Hints;
 using LabApi.Events.Handlers;
 using LabApi.Features.Wrappers;
-using MEC;
 using SwiftUHC.Commands.Client;
 using SwiftUHC.Features;
 using System;
@@ -30,7 +29,10 @@ namespace SwiftUHC.ServerSpecificSettings
             AppendSettings();
             ServerSpecificSettingsSync.ServerOnSettingValueReceived += OnPressKeybind;
             PlayerEvents.Joined += OnJoined;
-            ServerEvents.RoundStarted += OnRoundStarted;
+
+#if EXILED
+            Logger.Info("Loaded Exiled version...");
+#endif
         }
 
         private static void AppendSettings()
@@ -39,8 +41,6 @@ namespace SwiftUHC.ServerSpecificSettings
                 ServerSpecificSettingsSync.DefinedSettings = [.. ServerSpecificSettingsSync.DefinedSettings ?? [], new SSGroupHeader("SwiftKraft's Arcade Mode"), Keybind_SeePerks, Keybind_SeeUpgrades, Keybind_ChooseUpgrade1, Keybind_ChooseUpgrade2, Keybind_ChooseUpgrade3];
             ServerSpecificSettingsSync.SendToAll();
         }
-
-        private static void OnRoundStarted() => AppendSettings();
 
         private static void OnJoined(LabApi.Events.Arguments.PlayerEvents.PlayerJoinedEventArgs ev) => ServerSpecificSettingsSync.SendToPlayer(ev.Player.ReferenceHub);
 
@@ -106,10 +106,6 @@ namespace SwiftUHC.ServerSpecificSettings
 
         }
 
-        public static void Disable()
-        {
-            PlayerEvents.Joined -= OnJoined;
-            ServerEvents.RoundStarted -= OnRoundStarted;
-        }
+        public static void Disable() => PlayerEvents.Joined -= OnJoined;
     }
 }

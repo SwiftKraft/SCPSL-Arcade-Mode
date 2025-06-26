@@ -8,6 +8,10 @@
 	<AllowUnsafeBlocks>True</AllowUnsafeBlocks>
   </PropertyGroup>
 
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+    <DefineConstants>$(DefineConstants);EXILED</DefineConstants>
+  </PropertyGroup>
+
 	<ItemGroup>
 		<Reference Include="Assembly-CSharp-firstpass">
 			<HintPath>$(SCPSLREFERENCES)\Assembly-CSharp-firstpass.dll</HintPath>
