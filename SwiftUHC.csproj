@@ -12,6 +12,10 @@
     <DefineConstants>$(DefineConstants);EXILED</DefineConstants>
   </PropertyGroup>
 
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <DefineConstants>$(DefineConstants);LAB_API</DefineConstants>
+  </PropertyGroup>
+
 	<ItemGroup>
 		<Reference Include="Assembly-CSharp-firstpass">
 			<HintPath>$(SCPSLREFERENCES)\Assembly-CSharp-firstpass.dll</HintPath>
@@ -21,6 +25,12 @@
 		</Reference>
 		<Reference Include="CommandSystem.Core">
 			<HintPath>$(SCPSLREFERENCES)\CommandSystem.Core.dll</HintPath>
+		</Reference>
+		<Reference Include="Exiled.API">
+		  <HintPath>$(SCPSLREFERENCES)\Exiled.API.dll</HintPath>
+		</Reference>
+		<Reference Include="Exiled.Loader">
+		  <HintPath>$(SCPSLREFERENCES)\Exiled.Loader.dll</HintPath>
 		</Reference>
 		<Reference Include="LabApi">
 			<HintPath>$(SCPSLREFERENCES)\LabApi.dll</HintPath>

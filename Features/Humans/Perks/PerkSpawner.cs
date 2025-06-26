@@ -4,6 +4,7 @@ using LabApi.Events.Arguments.ServerEvents;
 using LabApi.Events.Handlers;
 using LabApi.Features.Wrappers;
 using MapGeneration;
+using MEC;
 using System;
 using System.Collections.Generic;
 using UnityEngine;
@@ -67,7 +68,7 @@ namespace SwiftUHC.Features.Humans.Perks
             }
         }
 
-        private static void OnRoundStarted() => SpawnPerks();
+        private static void OnRoundStarted() => Timing.CallDelayed(0.1f, SpawnPerks);
 
         private static void OnWaveRespawned(WaveRespawnedEventArgs ev) => SpawnPerks();
 
@@ -87,7 +88,7 @@ namespace SwiftUHC.Features.Humans.Perks
         {
             foreach (Room r in Room.List)
             {
-                if (r == null || (Random.Range(0f, 1f) > Mathf.Lerp(0.3f, 0.6f, Mathf.InverseLerp(5, 25, Server.PlayerCount)) && !SpawnRooms.Contains(r.Name)))
+                if (r == null || r.Base == null || (Random.Range(0f, 1f) > Mathf.Lerp(0.3f, 0.6f, Mathf.InverseLerp(5, 25, Server.PlayerCount)) && !SpawnRooms.Contains(r.Name)))
                     continue;
 
                 SpawnPerk(PerkManager.GetRandomPerk((p) => p.Restriction == PerkRestriction.None), r.Position + Vector3.up * 2f);

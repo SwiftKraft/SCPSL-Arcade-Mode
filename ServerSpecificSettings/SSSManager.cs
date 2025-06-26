@@ -1,4 +1,5 @@
 ﻿using Hints;
+using LabApi.Events.Arguments.PlayerEvents;
 using LabApi.Events.Handlers;
 using LabApi.Features.Wrappers;
 using SwiftUHC.Commands.Client;
@@ -7,6 +8,10 @@ using System;
 using UnityEngine;
 using UserSettings.ServerSpecific;
 using Logger = LabApi.Features.Console.Logger;
+
+#if EXILED
+using Exiled.API.Features.Core.UserSettings;
+#endif
 
 namespace SwiftUHC.ServerSpecificSettings
 {
@@ -29,20 +34,29 @@ namespace SwiftUHC.ServerSpecificSettings
             AppendSettings();
             ServerSpecificSettingsSync.ServerOnSettingValueReceived += OnPressKeybind;
             PlayerEvents.Joined += OnJoined;
-
-#if EXILED
-            Logger.Info("Loaded Exiled version...");
-#endif
         }
 
         private static void AppendSettings()
         {
-            if (!ServerSpecificSettingsSync.DefinedSettings.Contains(Keybind_SeePerks))
-                ServerSpecificSettingsSync.DefinedSettings = [.. ServerSpecificSettingsSync.DefinedSettings ?? [], new SSGroupHeader("SwiftKraft's Arcade Mode"), Keybind_SeePerks, Keybind_SeeUpgrades, Keybind_ChooseUpgrade1, Keybind_ChooseUpgrade2, Keybind_ChooseUpgrade3];
+#if LAB_API
+            ServerSpecificSettingsSync.DefinedSettings = [.. ServerSpecificSettingsSync.DefinedSettings ?? [], new SSGroupHeader("SwiftKraft's Arcade Mode"), Keybind_SeePerks, Keybind_SeeUpgrades, Keybind_ChooseUpgrade1, Keybind_ChooseUpgrade2, Keybind_ChooseUpgrade3];
             ServerSpecificSettingsSync.SendToAll();
+#elif EXILED
+            Logger.Info("Loading EXILED SSS...");
+            SettingBase.Register([SettingBase.Create(new SSGroupHeader("SwiftKraft's Arcade Mode")), SettingBase.Create(Keybind_SeePerks), SettingBase.Create(Keybind_SeeUpgrades), SettingBase.Create(Keybind_ChooseUpgrade1), SettingBase.Create(Keybind_ChooseUpgrade2), SettingBase.Create(Keybind_ChooseUpgrade3)]);
+            SettingBase.SendToAll();
+#endif
         }
 
-        private static void OnJoined(LabApi.Events.Arguments.PlayerEvents.PlayerJoinedEventArgs ev) => ServerSpecificSettingsSync.SendToPlayer(ev.Player.ReferenceHub);
+        private static void OnJoined(PlayerJoinedEventArgs ev)
+        {
+#if LAB_API
+            ServerSpecificSettingsSync.SendToPlayer(ev.Player.ReferenceHub);
+#elif EXILED
+            Logger.Info("Sending EXILED SSS to player: " + ev.Player);
+            SettingBase.SendToPlayer(ev.Player);
+#endif
+        }
 
         private static void OnPressKeybind(ReferenceHub pl, ServerSpecificSettingBase setting)
         {
