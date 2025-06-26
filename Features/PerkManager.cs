@@ -53,18 +53,23 @@ namespace SwiftUHC.Features
         {
             ev.Player.SendHint("", 1f);
 
-            if (Inventories.ContainsKey(ev.Player) && Inventories[ev.Player].Perks.Count > 0)
+            if (ev.Player.TryGetPerkInventory(out PerkInventory inv))
             {
-                List<PerkBase> perks = [];
-                foreach (PerkBase p in Inventories[ev.Player].Perks)
-                    if (ev.Player.IsAlive && ev.Player.IsHuman && p.Restriction == PerkRestriction.SCP)
-                        perks.Add(p);
-                if (perks.Count > 0)
-                {
-                    foreach (PerkBase p in perks)
-                        Inventories[ev.Player].RemovePerk(p);
+                inv.BaseLimit = ev.Player.IsSCP ? 3 : 5;
 
-                    ev.Player.SendHint("Removed " + perks.Count + " perks, because of role incompatibility.", 5f);
+                if (inv.Perks.Count > 0)
+                {
+                    List<PerkBase> perks = [];
+                    foreach (PerkBase p in inv.Perks)
+                        if (ev.Player.IsAlive && ev.Player.IsHuman && p.Restriction == PerkRestriction.SCP)
+                            perks.Add(p);
+                    if (perks.Count > 0)
+                    {
+                        foreach (PerkBase p in perks)
+                            inv.RemovePerk(p);
+
+                        ev.Player.SendHint("Removed " + perks.Count + " perks, because of role incompatibility.", 5f);
+                    }
                 }
             }
         }

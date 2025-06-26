@@ -64,6 +64,7 @@ namespace SwiftUHC.Features.SCPs.Upgrades
                 _progress = value;
 
                 SendMessage("Progress changed! \nPress \"~\" and type \".sp\" (for more detail) \nOR bind a key in <b>Server Specific Settings</b> to check.");
+                Inventory.OnPerksUpdated();
             }
         }
         int _progress = -1;

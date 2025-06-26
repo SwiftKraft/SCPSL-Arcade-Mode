@@ -61,6 +61,7 @@ namespace SwiftUHC.Features.Humans.Perks.Content.Shopkeeper
 
                 shopLevel = value;
                 SendMessage("Shop is now Level " + shopLevel);
+                Inventory.OnPerksUpdated();
             }
         }
 

@@ -15,7 +15,59 @@ namespace SwiftUHC.Features
         public readonly List<PerkBase> Perks = [];
         public readonly UpgradeQueue UpgradeQueue = new(targetPlayer);
 
-        public int Limit = 5;
+        public readonly List<LimitAdditive> LimitAdditives = [];
+
+        public int BaseLimit = 5;
+
+        public class LimitAdditive
+        {
+            public int Additive;
+
+            public static implicit operator int(LimitAdditive add) => add.Additive;
+        }
+
+        public LimitAdditive CreateLimitAdditive(int value = 0)
+        {
+            LimitAdditive additive = new()
+            {
+                Additive = value
+            };
+
+            LimitAdditives.Add(additive);
+            return additive;
+        }
+
+        public void RemoveLimitAdditive(LimitAdditive adder) => LimitAdditives.Remove(adder);
+
+        public int Limit
+        {
+            get
+            {
+                int b = BaseLimit;
+
+                foreach (int add in LimitAdditives)
+                    b += add;
+
+                return b;
+            }
+        }
+
+        public int LimitUsage
+        {
+            get
+            {
+                int total = 0;
+                foreach (PerkBase perk in Perks)
+                    total += perk.SlotUsage;
+                return total;
+            }
+        }
+
+        public void OnPerksUpdated()
+        {
+            foreach (Player spec in Parent.CurrentSpectators)
+                spec.UpdateSpectatorDisplay(Parent);
+        }
 
         public bool AddPerk(PerkAttribute type)
         {
@@ -38,18 +90,21 @@ namespace SwiftUHC.Features
                 return true;
             }
 
-            if (Perks.Count >= Limit)
+            PerkBase p = (PerkBase)Activator.CreateInstance(type.Perk, this);
+
+
+            if (LimitUsage >= Limit && p.SlotUsage > 0)
             {
                 Parent.SendHint("You've hit your perk limit!", [HintEffectPresets.FadeOut()], 5f);
                 return false;
             }
 
-            PerkBase p = (PerkBase)Activator.CreateInstance(type.Perk, this);
             p.Rarity = type.Rarity;
             p.Restriction = type.Restriction;
             Perks.Add(p);
             p.Init();
-            Parent.SendHint($"Acquired Perk ({Perks.Count}/{Limit}): {prof.FancyName}\n{prof.Description}\n\nPress \"~\" and type \".sp\" (for more detail) \nOR bind a key in <b>Server Specific Settings</b> to see what perks you have!", [HintEffectPresets.FadeOut()], 10f);
+            Parent.SendHint($"Acquired Perk ({LimitUsage}/{Limit}): {prof.FancyName}\n{prof.Description}\n\nPress \"~\" and type \".sp\" (for more detail) \nOR bind a key in <b>Server Specific Settings</b> to see what perks you have!", [HintEffectPresets.FadeOut()], 10f);
+            OnPerksUpdated();
             return true;
         }
 

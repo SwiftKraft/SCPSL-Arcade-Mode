@@ -11,6 +11,8 @@ namespace SwiftUHC.Features
 
         public string FancyName => Name.FancifyPerkName(Rarity);
 
+        public virtual int SlotUsage => 1;
+
         public abstract string Name { get; }
 
         public abstract string Description { get; }
