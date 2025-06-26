@@ -26,10 +26,21 @@ namespace SwiftUHC.ServerSpecificSettings
             Keybind_ChooseUpgrade1 = new(20070925, "Choose Upgrade 1", KeyCode.Comma, true, false, "Chooses upgrade 1.");
             Keybind_ChooseUpgrade2 = new(20070926, "Choose Upgrade 2", KeyCode.Period, true, false, "Chooses upgrade 2.");
             Keybind_ChooseUpgrade3 = new(20070927, "Choose Upgrade 3", KeyCode.Slash, true, false, "Chooses upgrade 3.");
-            ServerSpecificSettingsSync.DefinedSettings = [.. ServerSpecificSettingsSync.DefinedSettings ?? [], new SSGroupHeader("SwiftKraft's Arcade Mode"), Keybind_SeePerks, Keybind_SeeUpgrades, Keybind_ChooseUpgrade1, Keybind_ChooseUpgrade2, Keybind_ChooseUpgrade3];
+
+            AppendSettings();
             ServerSpecificSettingsSync.ServerOnSettingValueReceived += OnPressKeybind;
             PlayerEvents.Joined += OnJoined;
+            ServerEvents.RoundStarted += OnRoundStarted;
         }
+
+        private static void AppendSettings()
+        {
+            if (!ServerSpecificSettingsSync.DefinedSettings.Contains(Keybind_SeePerks))
+                ServerSpecificSettingsSync.DefinedSettings = [.. ServerSpecificSettingsSync.DefinedSettings ?? [], new SSGroupHeader("SwiftKraft's Arcade Mode"), Keybind_SeePerks, Keybind_SeeUpgrades, Keybind_ChooseUpgrade1, Keybind_ChooseUpgrade2, Keybind_ChooseUpgrade3];
+            ServerSpecificSettingsSync.SendToAll();
+        }
+
+        private static void OnRoundStarted() => AppendSettings();
 
         private static void OnJoined(LabApi.Events.Arguments.PlayerEvents.PlayerJoinedEventArgs ev) => ServerSpecificSettingsSync.SendToPlayer(ev.Player.ReferenceHub);
 
@@ -95,6 +106,10 @@ namespace SwiftUHC.ServerSpecificSettings
 
         }
 
-        public static void Disable() => PlayerEvents.Joined -= OnJoined;
+        public static void Disable()
+        {
+            PlayerEvents.Joined -= OnJoined;
+            ServerEvents.RoundStarted -= OnRoundStarted;
+        }
     }
 }
