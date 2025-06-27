@@ -13,11 +13,13 @@ namespace SwiftArcadeMode.Features.Humans.Perks.Content.Shopkeeper
     {
         public static readonly Dictionary<Room, Player> ClaimStatus = [];
 
-        public override string Name => "Shopkeeper | Shop Level " + ShopLevel;
+        public override string Name => "Shopkeeper" + (initialized ? " | Shop Level " + ShopLevel : "");
 
         public override string PerkDescription => "Claim an entrance checkpoint to trade items. \nRestocks when you are in the room.";
 
         public int CustomerCount => Player.List.Count((p) => p.Room == Shop);
+
+        bool initialized;
 
         public virtual ShopElement[] PresetElements => [
             new ShopItem(new(-5.5f, 1f, -5.25f), ShopItem.PresetTiers),
@@ -86,6 +88,9 @@ namespace SwiftArcadeMode.Features.Humans.Perks.Content.Shopkeeper
             PlayerEvents.ChangedRole += OnChangedRole;
 
             claimTimer.Reset();
+
+            if (Inventory != null)
+                initialized = true;
         }
 
         private void OnChangedRole(LabApi.Events.Arguments.PlayerEvents.PlayerChangedRoleEventArgs ev)

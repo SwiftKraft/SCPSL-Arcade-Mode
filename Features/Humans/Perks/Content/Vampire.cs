@@ -9,7 +9,7 @@ namespace SwiftArcadeMode.Features.Humans.Perks.Content
 
         public override string Description => base.Description + " \nBut you can no longer use medical items.";
 
-        public override float Percentage => 0.25f;
+        public override float Percentage => 0.4f;
 
         public override void Init()
         {
