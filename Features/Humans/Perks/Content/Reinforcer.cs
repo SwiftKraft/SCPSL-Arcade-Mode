@@ -1,0 +1,48 @@
+﻿using LabApi.Events.Arguments.PlayerEvents;
+using LabApi.Events.Handlers;
+using LabApi.Features.Wrappers;
+using PlayerRoles;
+using SwiftArcadeMode.Utils.Extensions;
+using System.Collections.Generic;
+using System.Linq;
+
+namespace SwiftArcadeMode.Features.Humans.Perks.Content
+{
+    [Perk("Reinforcer", Rarity.Rare)]
+    public class Reinforcer(PerkInventory inv) : PerkBase(inv)
+    {
+        public override string Name => "Reinforcer";
+
+        public override string Description => $"Spawn a teammate with your loadout when you use a healing item at max health. \nLimited to {Limit}.";
+
+        public virtual int Limit => 2;
+
+        public readonly List<Player> Spawned = [];
+
+        public override void Init()
+        {
+            base.Init();
+            PlayerEvents.UsedItem += OnUsedItem;
+        }
+
+        private void OnUsedItem(PlayerUsedItemEventArgs ev)
+        {
+            if (ev.Player != Player || ev.UsableItem.Category != ItemCategory.Medical || Player.Health < Player.MaxHealth)
+                return;
+
+            Player target = Player.List.Where(p => p.Role == RoleTypeId.Spectator).ToArray().GetRandom();
+            target.SetRole(Player.Role);
+            target.Position = Player.Position;
+            target.ClearInventory();
+
+            foreach (Item it in Player.Items)
+                target.AddItem(it.Type);
+        }
+
+        public override void Remove()
+        {
+            base.Remove();
+            PlayerEvents.UsedItem -= OnUsedItem;
+        }
+    }
+}
