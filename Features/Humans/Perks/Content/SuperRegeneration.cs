@@ -1,6 +1,6 @@
 ﻿using LabApi.Events.Handlers;
 
-namespace SwiftUHC.Features.Humans.Perks.Content
+namespace SwiftArcadeMode.Features.Humans.Perks.Content
 {
     [Perk("SuperRegeneration", Rarity.Epic)]
     public class SuperRegeneration(PerkInventory inv) : Regeneration(inv)

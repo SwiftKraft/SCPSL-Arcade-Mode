@@ -1,4 +1,4 @@
-﻿namespace SwiftUHC.Utils.Interfaces
+﻿namespace SwiftArcadeMode.Utils.Interfaces
 {
     public interface IWeight
     {

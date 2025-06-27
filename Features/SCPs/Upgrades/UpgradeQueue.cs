@@ -3,7 +3,7 @@ using LabApi.Features.Wrappers;
 using System.Collections.Generic;
 using System.Text;
 
-namespace SwiftUHC.Features.SCPs.Upgrades
+namespace SwiftArcadeMode.Features.SCPs.Upgrades
 {
     public class UpgradeQueue(Player p)
     {

@@ -1,13 +1,13 @@
 ﻿using Hints;
 using LabApi.Features.Wrappers;
-using SwiftUHC.Features.SCPs.Upgrades;
-using SwiftUHC.Utils.Extensions;
+using SwiftArcadeMode.Features.SCPs.Upgrades;
+using SwiftArcadeMode.Utils.Extensions;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using Utils.NonAllocLINQ;
 
-namespace SwiftUHC.Features
+namespace SwiftArcadeMode.Features
 {
     public class PerkInventory(Player targetPlayer)
     {

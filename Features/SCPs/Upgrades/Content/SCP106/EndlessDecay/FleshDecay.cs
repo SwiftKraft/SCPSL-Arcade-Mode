@@ -7,7 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using UnityEngine;
 
-namespace SwiftUHC.Features.SCPs.Upgrades.Content.SCP106.EndlessDecay
+namespace SwiftArcadeMode.Features.SCPs.Upgrades.Content.SCP106.EndlessDecay
 {
     public class FleshDecay(UpgradePathPerkBase parent) : UpgradeCooldownTriggerBase<EndlessDecay>(parent)
     {

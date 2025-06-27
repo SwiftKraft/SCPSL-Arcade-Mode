@@ -1,7 +1,7 @@
 ﻿using LabApi.Events.Handlers;
 using PlayerStatsSystem;
 
-namespace SwiftUHC.Features.Humans.Perks.Content
+namespace SwiftArcadeMode.Features.Humans.Perks.Content
 {
     [Perk("Reaper", Rarity.Uncommon)]
     public class Reaper(PerkInventory inv) : PerkBase(inv)

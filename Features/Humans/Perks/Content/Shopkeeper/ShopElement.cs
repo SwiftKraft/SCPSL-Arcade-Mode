@@ -1,4 +1,4 @@
-﻿namespace SwiftUHC.Features.Humans.Perks.Content.Shopkeeper
+﻿namespace SwiftArcadeMode.Features.Humans.Perks.Content.Shopkeeper
 {
     public abstract class ShopElement
     {

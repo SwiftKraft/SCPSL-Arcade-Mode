@@ -1,11 +1,11 @@
 ﻿using PlayerRoles;
-using SwiftUHC.Utils.Extensions;
+using SwiftArcadeMode.Utils.Extensions;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 
-namespace SwiftUHC.Features.SCPs.Upgrades
+namespace SwiftArcadeMode.Features.SCPs.Upgrades
 {
     public static class UpgradePathManager
     {

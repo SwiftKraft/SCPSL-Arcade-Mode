@@ -1,12 +1,12 @@
 ﻿using LabApi.Features.Wrappers;
-using SwiftUHC.Utils.Extensions;
+using SwiftArcadeMode.Utils.Extensions;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SwiftUHC.Features.Humans.Perks.Content.Gambler
+namespace SwiftArcadeMode.Features.Humans.Perks.Content.Gambler
 {
     public class GamblerGiveItem : GamblerEffectBase
     {

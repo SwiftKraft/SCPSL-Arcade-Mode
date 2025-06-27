@@ -1,7 +1,7 @@
 ﻿using LabApi.Events.Handlers;
 using PlayerStatsSystem;
 
-namespace SwiftUHC.Features.SCPs.Upgrades.Content.SCP173.Tank
+namespace SwiftArcadeMode.Features.SCPs.Upgrades.Content.SCP173.Tank
 {
     public class DefensiveSpeed(UpgradePathPerkBase parent) : UpgradeBase<Tank>(parent)
     {

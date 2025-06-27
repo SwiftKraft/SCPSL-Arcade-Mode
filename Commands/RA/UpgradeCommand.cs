@@ -1,10 +1,10 @@
 ﻿using CommandSystem;
 using LabApi.Features.Wrappers;
-using SwiftUHC.Features;
-using SwiftUHC.Features.SCPs.Upgrades;
+using SwiftArcadeMode.Features;
+using SwiftArcadeMode.Features.SCPs.Upgrades;
 using System;
 
-namespace SwiftUHC.Commands.RA
+namespace SwiftArcadeMode.Commands.RA
 {
     [CommandHandler(typeof(RemoteAdminCommandHandler))]
     public class UpgradeCommand : ICommand

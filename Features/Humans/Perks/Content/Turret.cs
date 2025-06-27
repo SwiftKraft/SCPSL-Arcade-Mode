@@ -2,10 +2,10 @@
 using LabApi.Events.Arguments.PlayerEvents;
 using LabApi.Events.Handlers;
 using PlayerStatsSystem;
-using SwiftUHC.Utils.Structures;
+using SwiftArcadeMode.Utils.Structures;
 using UnityEngine;
 
-namespace SwiftUHC.Features.Humans.Perks.Content
+namespace SwiftArcadeMode.Features.Humans.Perks.Content
 {
     [Perk("Turret", Rarity.Rare)]
     public class Turret(PerkInventory inv) : PerkBase(inv)

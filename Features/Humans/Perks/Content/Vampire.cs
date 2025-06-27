@@ -1,6 +1,6 @@
 ﻿using LabApi.Events.Handlers;
 
-namespace SwiftUHC.Features.Humans.Perks.Content
+namespace SwiftArcadeMode.Features.Humans.Perks.Content
 {
     [Perk("Vampire", Rarity.Epic, conflictPerks: [typeof(Reaper), typeof(Regeneration), typeof(SuperRegeneration)])]
     public class Vampire(PerkInventory inv) : Reaper(inv)

@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Text;
 using UnityEngine;
 
-namespace SwiftUHC.Features.SCPs.Upgrades
+namespace SwiftArcadeMode.Features.SCPs.Upgrades
 {
     public abstract class UpgradePathPerkBase(PerkInventory inv) : PerkBase(inv)
     {

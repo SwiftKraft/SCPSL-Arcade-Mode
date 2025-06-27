@@ -2,7 +2,7 @@
 using LabApi.Events.Handlers;
 using PlayerStatsSystem;
 
-namespace SwiftUHC.Features.SCPs.Upgrades.Content.SCP106.EndlessDecay
+namespace SwiftArcadeMode.Features.SCPs.Upgrades.Content.SCP106.EndlessDecay
 {
     public class LimbBreak(UpgradePathPerkBase parent) : UpgradeBase<EndlessDecay>(parent)
     {

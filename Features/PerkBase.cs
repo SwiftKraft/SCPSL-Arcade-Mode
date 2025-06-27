@@ -1,7 +1,7 @@
 ﻿using Hints;
 using LabApi.Features.Wrappers;
 
-namespace SwiftUHC.Features
+namespace SwiftArcadeMode.Features
 {
     public abstract class PerkBase(PerkInventory inv)
     {

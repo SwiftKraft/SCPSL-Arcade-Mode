@@ -1,10 +1,10 @@
 ﻿using CommandSystem;
 using LabApi.Features.Wrappers;
-using SwiftUHC.Features;
-using SwiftUHC.Features.Humans.Perks;
+using SwiftArcadeMode.Features;
+using SwiftArcadeMode.Features.Humans.Perks;
 using System;
 
-namespace SwiftUHC.Commands.RA
+namespace SwiftArcadeMode.Commands.RA
 {
     [CommandHandler(typeof(RemoteAdminCommandHandler))]
     public class DropPerkCommand : ICommand

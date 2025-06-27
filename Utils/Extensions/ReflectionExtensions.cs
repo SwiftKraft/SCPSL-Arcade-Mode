@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 
-namespace SwiftUHC.Utils.Extensions
+namespace SwiftArcadeMode.Utils.Extensions
 {
     public static class ReflectionExtensions
     {

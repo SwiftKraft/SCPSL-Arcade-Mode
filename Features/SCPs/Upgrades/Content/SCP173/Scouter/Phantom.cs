@@ -7,7 +7,7 @@ using PlayerRoles;
 using PlayerRoles.FirstPersonControl;
 using UnityEngine;
 
-namespace SwiftUHC.Features.SCPs.Upgrades.Content.SCP173.Scouter
+namespace SwiftArcadeMode.Features.SCPs.Upgrades.Content.SCP173.Scouter
 {
     public class Phantom(UpgradePathPerkBase parent) : UpgradeBase<Scouter>(parent)
     {

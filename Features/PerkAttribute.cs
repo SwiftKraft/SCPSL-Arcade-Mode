@@ -1,7 +1,7 @@
-﻿using SwiftUHC.Utils.Interfaces;
+﻿using SwiftArcadeMode.Utils.Interfaces;
 using System;
 
-namespace SwiftUHC.Features
+namespace SwiftArcadeMode.Features
 {
     [AttributeUsage(AttributeTargets.Class, AllowMultiple = false, Inherited = false)]
     public class PerkAttribute(string id, Rarity rarity = Rarity.Common, PerkRestriction restriction = PerkRestriction.None, params Type[] conflictPerks) : Attribute, IWeight

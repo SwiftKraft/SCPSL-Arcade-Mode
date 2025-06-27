@@ -1,4 +1,4 @@
-﻿namespace SwiftUHC.Utils.Interfaces
+﻿namespace SwiftArcadeMode.Utils.Interfaces
 {
     /// <summary>
     /// And interface for objects that have a MaxValue and a CurrentValue.

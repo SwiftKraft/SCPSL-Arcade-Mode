@@ -7,7 +7,7 @@ using LabApi.Features.Wrappers;
 using MEC;
 using PlayerRoles.FirstPersonControl;
 
-namespace SwiftUHC.Features.SCPs.Upgrades.Content.SCP173.Scouter
+namespace SwiftArcadeMode.Features.SCPs.Upgrades.Content.SCP173.Scouter
 {
     public class TacticalRetreat(UpgradePathPerkBase parent) : UpgradeCooldownBase<Scouter>(parent)
     {

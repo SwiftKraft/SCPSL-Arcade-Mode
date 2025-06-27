@@ -1,10 +1,10 @@
 ﻿using CommandSystem;
-using SwiftUHC.Features;
+using SwiftArcadeMode.Features;
 using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace SwiftUHC.Commands.RA
+namespace SwiftArcadeMode.Commands.RA
 {
     [CommandHandler(typeof(RemoteAdminCommandHandler))]
     public class ShowPerksCommand : ICommand

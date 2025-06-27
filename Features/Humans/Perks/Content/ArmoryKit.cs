@@ -1,4 +1,4 @@
-﻿namespace SwiftUHC.Features.Humans.Perks.Content
+﻿namespace SwiftArcadeMode.Features.Humans.Perks.Content
 {
     [Perk("ArmoryKit", Rarity.Uncommon)]
     public class ArmoryKit(PerkInventory inv) : PerkItemReceiveBase(inv)

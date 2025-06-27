@@ -1,4 +1,4 @@
-﻿namespace SwiftUHC.Utils.Interfaces
+﻿namespace SwiftArcadeMode.Utils.Interfaces
 {
     /// <summary>
     /// An interface for objects that have a Tick() function.

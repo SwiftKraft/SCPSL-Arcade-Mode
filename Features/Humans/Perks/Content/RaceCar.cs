@@ -2,7 +2,7 @@
 using LabApi.Events.Arguments.PlayerEvents;
 using UnityEngine;
 
-namespace SwiftUHC.Features.Humans.Perks.Content
+namespace SwiftArcadeMode.Features.Humans.Perks.Content
 {
     [Perk("RaceCar", Rarity.Legendary)]
     public class RaceCar(PerkInventory inv) : PerkKillBase(inv)

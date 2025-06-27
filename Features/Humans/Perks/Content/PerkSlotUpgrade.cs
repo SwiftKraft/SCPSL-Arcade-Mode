@@ -1,4 +1,4 @@
-﻿namespace SwiftUHC.Features.Humans.Perks.Content
+﻿namespace SwiftArcadeMode.Features.Humans.Perks.Content
 {
     [Perk("SlotUpgrade", Rarity.Legendary)]
     public class PerkSlotUpgrade(PerkInventory inv) : PerkBase(inv)

@@ -1,4 +1,4 @@
-﻿namespace SwiftUHC
+﻿namespace SwiftArcadeMode
 {
     public class Config
     {

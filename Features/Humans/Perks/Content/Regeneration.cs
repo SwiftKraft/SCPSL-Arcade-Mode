@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace SwiftUHC.Features.Humans.Perks.Content
+namespace SwiftArcadeMode.Features.Humans.Perks.Content
 {
     [Perk("Regeneration", Rarity.Common)]
     public class Regeneration(PerkInventory inv) : PerkBase(inv)

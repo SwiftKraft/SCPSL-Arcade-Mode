@@ -1,9 +1,9 @@
 ﻿using CustomPlayerEffects;
 using PlayerRoles.PlayableScps.Scp939;
-using SwiftUHC.Utils.Structures;
+using SwiftArcadeMode.Utils.Structures;
 using UnityEngine;
 
-namespace SwiftUHC.Features.SCPs.Upgrades.Content.SCP939.Speedster
+namespace SwiftArcadeMode.Features.SCPs.Upgrades.Content.SCP939.Speedster
 {
     public class ReadyUp(UpgradePathPerkBase parent) : UpgradeBase<Speedster>(parent)
     {

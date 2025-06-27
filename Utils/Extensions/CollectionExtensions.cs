@@ -1,11 +1,11 @@
-﻿using SwiftUHC.Utils.Interfaces;
+﻿using SwiftArcadeMode.Utils.Interfaces;
 using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
-namespace SwiftUHC.Utils.Extensions
+namespace SwiftArcadeMode.Utils.Extensions
 {
     public static class CollectionExtensions
     {

@@ -1,7 +1,7 @@
 ﻿using LabApi.Features.Wrappers;
-using SwiftUHC.Utils.Interfaces;
+using SwiftArcadeMode.Utils.Interfaces;
 
-namespace SwiftUHC.Features.Humans.Perks.Content.Gambler
+namespace SwiftArcadeMode.Features.Humans.Perks.Content.Gambler
 {
     public abstract class GamblerEffectBase : IWeight
     {

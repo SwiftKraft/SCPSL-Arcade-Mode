@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
-namespace SwiftUHC.Features.Humans.Perks.Content.Gambler
+namespace SwiftArcadeMode.Features.Humans.Perks.Content.Gambler
 {
     public class GamblerBall : GamblerEffectBase
     {

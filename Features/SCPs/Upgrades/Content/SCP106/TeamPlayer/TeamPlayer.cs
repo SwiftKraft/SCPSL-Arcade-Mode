@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SwiftUHC.Features.SCPs.Upgrades.Content.SCP106.TeamPlayer
+namespace SwiftArcadeMode.Features.SCPs.Upgrades.Content.SCP106.TeamPlayer
 {
     public class TeamPlayer(PerkInventory inv) : UpgradePathPerkBase(inv)
     {

@@ -1,7 +1,7 @@
-﻿using SwiftUHC.Utils.Structures;
+﻿using SwiftArcadeMode.Utils.Structures;
 using UnityEngine;
 
-namespace SwiftUHC.Features.SCPs.Upgrades.Content
+namespace SwiftArcadeMode.Features.SCPs.Upgrades.Content
 {
     public abstract class UpgradeCooldownBase<T>(UpgradePathPerkBase parent) : UpgradeBase<T>(parent) where T : UpgradePathPerkBase
     {

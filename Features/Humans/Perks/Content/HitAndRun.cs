@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SwiftUHC.Features.Humans.Perks.Content
+namespace SwiftArcadeMode.Features.Humans.Perks.Content
 {
     [Perk("HitAndRun", Rarity.Common, conflictPerks: typeof(RaceCar))]
     public class HitAndRun(PerkInventory inv) : PerkKillBase(inv)

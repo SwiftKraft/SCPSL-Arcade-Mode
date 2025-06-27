@@ -1,7 +1,7 @@
 ﻿using PlayerRoles;
 using System;
 
-namespace SwiftUHC.Features.SCPs.Upgrades.Content.SCP106.EndlessDecay
+namespace SwiftArcadeMode.Features.SCPs.Upgrades.Content.SCP106.EndlessDecay
 {
     [UpgradePath(RoleTypeId.Scp106)]
     [Perk("106.EndlessDecay", Rarity.Epic, PerkRestriction.SCP)]

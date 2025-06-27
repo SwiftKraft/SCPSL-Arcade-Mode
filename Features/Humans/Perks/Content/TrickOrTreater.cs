@@ -1,4 +1,4 @@
-﻿namespace SwiftUHC.Features.Humans.Perks.Content
+﻿namespace SwiftArcadeMode.Features.Humans.Perks.Content
 {
     [Perk("TrickOrTreater", Rarity.Legendary)]
     public class TrickOrTreater(PerkInventory inv) : PerkItemReceiveBase(inv)

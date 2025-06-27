@@ -8,7 +8,7 @@ using System.Security.Policy;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SwiftUHC.Features.SCPs.Upgrades.Content.SCP106.EndlessDecay
+namespace SwiftArcadeMode.Features.SCPs.Upgrades.Content.SCP106.EndlessDecay
 {
     public class GunMelter(UpgradePathPerkBase parent) : UpgradeCooldownTriggerBase<EndlessDecay>(parent)
     {

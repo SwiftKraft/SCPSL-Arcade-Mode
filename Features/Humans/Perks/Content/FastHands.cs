@@ -2,7 +2,7 @@
 using InventorySystem.Items.Firearms.Modules;
 using LabApi.Features.Wrappers;
 
-namespace SwiftUHC.Features.Humans.Perks.Content
+namespace SwiftArcadeMode.Features.Humans.Perks.Content
 {
     [Perk("FastHands", Rarity.Common)]
     public class FastHands(PerkInventory inv) : PerkBase(inv)

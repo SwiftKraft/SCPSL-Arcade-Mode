@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SwiftUHC.Utils.Extensions
+namespace SwiftArcadeMode.Utils.Extensions
 {
     public static class PlayerExtensions
     {

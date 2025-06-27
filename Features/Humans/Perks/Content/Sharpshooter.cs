@@ -5,7 +5,7 @@ using LabApi.Events.Handlers;
 using LabApi.Features.Wrappers;
 using PlayerStatsSystem;
 
-namespace SwiftUHC.Features.Humans.Perks.Content
+namespace SwiftArcadeMode.Features.Humans.Perks.Content
 {
     [Perk("Sharpshooter", Rarity.Uncommon)]
     public class Sharpshooter(PerkInventory inv) : PerkKillBase(inv)

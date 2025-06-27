@@ -1,7 +1,7 @@
 ﻿using LabApi.Events.Arguments.PlayerEvents;
 using LabApi.Events.Handlers;
 
-namespace SwiftUHC.Features.SCPs.Upgrades.Content
+namespace SwiftArcadeMode.Features.SCPs.Upgrades.Content
 {
     public abstract class UpgradeKillBase<T>(UpgradePathPerkBase parent) : UpgradeBase<T>(parent) where T : UpgradePathPerkBase
     {

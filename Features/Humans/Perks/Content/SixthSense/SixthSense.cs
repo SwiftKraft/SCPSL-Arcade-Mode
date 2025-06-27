@@ -1,13 +1,13 @@
 ﻿using LabApi.Features.Wrappers;
-using SwiftUHC.Utils.Extensions;
-using SwiftUHC.Utils.Interfaces;
+using SwiftArcadeMode.Utils.Extensions;
+using SwiftArcadeMode.Utils.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
-using ReflectionExtensions = SwiftUHC.Utils.Extensions.ReflectionExtensions;
+using ReflectionExtensions = SwiftArcadeMode.Utils.Extensions.ReflectionExtensions;
 
-namespace SwiftUHC.Features.Humans.Perks.Content.SixthSense
+namespace SwiftArcadeMode.Features.Humans.Perks.Content.SixthSense
 {
     [Perk("SixthSense", Rarity.Uncommon)]
     public class SixthSense(PerkInventory inv) : PerkTriggerCooldownBase(inv)

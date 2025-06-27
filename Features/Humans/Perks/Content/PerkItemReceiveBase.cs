@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SwiftUHC.Features.Humans.Perks.Content
+namespace SwiftArcadeMode.Features.Humans.Perks.Content
 {
     public abstract class PerkItemReceiveBase(PerkInventory inv) : PerkTriggerCooldownBase(inv)
     {

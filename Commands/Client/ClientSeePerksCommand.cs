@@ -1,11 +1,11 @@
 ﻿using CommandSystem;
 using Hints;
 using LabApi.Features.Wrappers;
-using SwiftUHC.Features;
+using SwiftArcadeMode.Features;
 using System;
 using System.Text;
 
-namespace SwiftUHC.Commands.Client
+namespace SwiftArcadeMode.Commands.Client
 {
     [CommandHandler(typeof(ClientCommandHandler))]
     public class ClientSeePerksCommand : ICommand

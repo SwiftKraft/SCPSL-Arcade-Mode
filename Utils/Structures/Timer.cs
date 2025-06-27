@@ -1,8 +1,8 @@
-﻿using SwiftUHC.Utils.Interfaces;
+﻿using SwiftArcadeMode.Utils.Interfaces;
 using System;
 using UnityEngine;
 
-namespace SwiftUHC.Utils.Structures
+namespace SwiftArcadeMode.Utils.Structures
 {
     public class Timer : IValue<float>, ITickable
     {

@@ -4,7 +4,7 @@ using MEC;
 using PlayerRoles;
 using UnityEngine;
 
-namespace SwiftUHC.Features.SCPs.Upgrades.Content.SCP049.ArmyBuilder
+namespace SwiftArcadeMode.Features.SCPs.Upgrades.Content.SCP049.ArmyBuilder
 {
     public class Infector(UpgradePathPerkBase parent) : UpgradeBase<ArmyBuilder>(parent)
     {

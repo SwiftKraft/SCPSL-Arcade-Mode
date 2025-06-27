@@ -1,10 +1,10 @@
 ﻿using Hints;
 using LabApi.Events.Handlers;
 using LabApi.Features.Wrappers;
-using SwiftUHC.Utils.Extensions;
+using SwiftArcadeMode.Utils.Extensions;
 using UnityEngine;
 
-namespace SwiftUHC.Features.Humans.Perks.Content.Shopkeeper
+namespace SwiftArcadeMode.Features.Humans.Perks.Content.Shopkeeper
 {
     public class ShopItem(Vector3 offset, params ItemType[][] pools) : ShopElement
     {

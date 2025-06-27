@@ -1,10 +1,10 @@
 ﻿using LabApi.Events.Arguments.PlayerEvents;
 using LabApi.Events.Handlers;
 using LabApi.Features.Wrappers;
-using SwiftUHC.Utils.Extensions;
+using SwiftArcadeMode.Utils.Extensions;
 using UnityEngine;
 
-namespace SwiftUHC.Features.Humans.Perks.Content
+namespace SwiftArcadeMode.Features.Humans.Perks.Content
 {
     [Perk("Trailblazer", Rarity.Rare)]
     public class Trailblazer(PerkInventory inv) : PerkCooldownBase(inv)

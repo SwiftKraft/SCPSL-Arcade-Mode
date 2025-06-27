@@ -1,7 +1,7 @@
-﻿using SwiftUHC.Utils.Structures;
+﻿using SwiftArcadeMode.Utils.Structures;
 using UnityEngine;
 
-namespace SwiftUHC.Features.Humans.Perks.Content
+namespace SwiftArcadeMode.Features.Humans.Perks.Content
 {
     public abstract class PerkCooldownBase(PerkInventory inv) : PerkBase(inv)
     {

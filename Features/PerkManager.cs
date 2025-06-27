@@ -1,15 +1,15 @@
 ﻿using LabApi.Events.Arguments.PlayerEvents;
 using LabApi.Events.Handlers;
 using LabApi.Features.Wrappers;
-using SwiftUHC.Features.Humans.Perks.Content.Gambler;
-using SwiftUHC.Utils.Extensions;
+using SwiftArcadeMode.Features.Humans.Perks.Content.Gambler;
+using SwiftArcadeMode.Utils.Extensions;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using System.Text;
 
-namespace SwiftUHC.Features
+namespace SwiftArcadeMode.Features
 {
     public static class PerkManager
     {

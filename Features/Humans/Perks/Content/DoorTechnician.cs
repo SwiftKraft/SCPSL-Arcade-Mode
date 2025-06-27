@@ -1,7 +1,7 @@
 ﻿using Interactables.Interobjects.DoorUtils;
 using LabApi.Features.Wrappers;
 
-namespace SwiftUHC.Features.Humans.Perks.Content
+namespace SwiftArcadeMode.Features.Humans.Perks.Content
 {
     [Perk("DoorTechnician", Rarity.Epic)]
     public class DoorTechnician(PerkInventory inv) : PerkDoorBase(inv)

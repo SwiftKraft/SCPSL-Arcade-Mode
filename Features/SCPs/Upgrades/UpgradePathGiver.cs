@@ -4,7 +4,7 @@ using LabApi.Features.Wrappers;
 using PlayerStatsSystem;
 using System.Linq;
 
-namespace SwiftUHC.Features.SCPs.Upgrades
+namespace SwiftArcadeMode.Features.SCPs.Upgrades
 {
     public static class UpgradePathGiver
     {

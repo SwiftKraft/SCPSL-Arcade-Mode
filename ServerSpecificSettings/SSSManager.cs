@@ -2,8 +2,8 @@
 using LabApi.Events.Arguments.PlayerEvents;
 using LabApi.Events.Handlers;
 using LabApi.Features.Wrappers;
-using SwiftUHC.Commands.Client;
-using SwiftUHC.Features;
+using SwiftArcadeMode.Commands.Client;
+using SwiftArcadeMode.Features;
 using System;
 using UnityEngine;
 using UserSettings.ServerSpecific;
@@ -13,7 +13,7 @@ using Logger = LabApi.Features.Console.Logger;
 using Exiled.API.Features.Core.UserSettings;
 #endif
 
-namespace SwiftUHC.ServerSpecificSettings
+namespace SwiftArcadeMode.ServerSpecificSettings
 {
     public static class SSSManager
     {

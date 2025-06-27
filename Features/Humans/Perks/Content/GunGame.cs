@@ -1,8 +1,8 @@
 ﻿using LabApi.Events.Arguments.PlayerEvents;
 using LabApi.Features.Wrappers;
-using SwiftUHC.Utils.Extensions;
+using SwiftArcadeMode.Utils.Extensions;
 
-namespace SwiftUHC.Features.Humans.Perks.Content
+namespace SwiftArcadeMode.Features.Humans.Perks.Content
 {
     [Perk("GunGame", Rarity.Rare)]
     public class GunGame(PerkInventory inv) : PerkKillBase(inv)

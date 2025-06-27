@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SwiftUHC.Features.Humans.Perks.Content.Gambler
+namespace SwiftArcadeMode.Features.Humans.Perks.Content.Gambler
 {
     public class GamblerGravityPositive : GamblerEffectBase
     {

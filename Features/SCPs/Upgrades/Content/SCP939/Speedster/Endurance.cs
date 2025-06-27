@@ -1,14 +1,14 @@
 ﻿using CustomPlayerEffects;
 using LabApi.Events.Arguments.PlayerEvents;
 using PlayerStatsSystem;
-using SwiftUHC.Utils.Interfaces;
+using SwiftArcadeMode.Utils.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SwiftUHC.Features.SCPs.Upgrades.Content.SCP939.Speedster
+namespace SwiftArcadeMode.Features.SCPs.Upgrades.Content.SCP939.Speedster
 {
     public class Endurance(UpgradePathPerkBase parent) : UpgradeKillBase<Speedster>(parent)
     {

@@ -1,7 +1,7 @@
 ﻿using LabApi.Events.Arguments.PlayerEvents;
 using LabApi.Features.Wrappers;
 
-namespace SwiftUHC.Features.Humans.Perks.Content
+namespace SwiftArcadeMode.Features.Humans.Perks.Content
 {
     [Perk("Bomba", Rarity.Common)]
     public class Bomba(PerkInventory inv) : PerkKillBase(inv)

@@ -1,7 +1,7 @@
 ﻿using CustomPlayerEffects;
 using LabApi.Features.Wrappers;
 
-namespace SwiftUHC.Features.Humans.Perks.Content.Gambler
+namespace SwiftArcadeMode.Features.Humans.Perks.Content.Gambler
 {
     public class GamblerPocketDimension : GamblerEffectBase
     {

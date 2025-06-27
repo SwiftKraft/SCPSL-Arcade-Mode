@@ -1,6 +1,6 @@
 ﻿using LabApi.Features.Wrappers;
 
-namespace SwiftUHC.Features.SCPs.Upgrades.Content.SCP049.ArmyBuilder
+namespace SwiftArcadeMode.Features.SCPs.Upgrades.Content.SCP049.ArmyBuilder
 {
     public class EfficientReanimation(UpgradePathPerkBase parent) : UpgradeBase<ArmyBuilder>(parent)
     {

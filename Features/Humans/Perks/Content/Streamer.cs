@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace SwiftUHC.Features.Humans.Perks.Content
+namespace SwiftArcadeMode.Features.Humans.Perks.Content
 {
     [Perk("Streamer", Rarity.Secret)]
     public class Streamer(PerkInventory inv) : PerkBase(inv)

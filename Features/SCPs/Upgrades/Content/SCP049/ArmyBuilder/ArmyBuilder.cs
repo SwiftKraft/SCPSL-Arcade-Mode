@@ -6,7 +6,7 @@ using PlayerRoles;
 using System;
 using System.Collections.Generic;
 
-namespace SwiftUHC.Features.SCPs.Upgrades.Content.SCP049.ArmyBuilder
+namespace SwiftArcadeMode.Features.SCPs.Upgrades.Content.SCP049.ArmyBuilder
 {
     [UpgradePath(RoleTypeId.Scp049)]
     [Perk("049.ArmyBuilder", Rarity.Uncommon, PerkRestriction.SCP)]

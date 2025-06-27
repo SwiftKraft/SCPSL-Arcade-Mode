@@ -1,12 +1,12 @@
 ﻿using LabApi.Events.Handlers;
 using LabApi.Features.Wrappers;
 using MapGeneration;
-using SwiftUHC.Utils.Structures;
+using SwiftArcadeMode.Utils.Structures;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
-namespace SwiftUHC.Features.Humans.Perks.Content.Shopkeeper
+namespace SwiftArcadeMode.Features.Humans.Perks.Content.Shopkeeper
 {
     [Perk("Shopkeeper", Rarity.Legendary)]
     public class Shopkeeper(PerkInventory inv) : PerkTriggerCooldownBase(inv)

@@ -5,7 +5,7 @@ using Mirror;
 using PlayerRoles;
 using System.Linq;
 
-namespace SwiftUHC.Features.SCPs.Upgrades.Content.SCP049.ArmyBuilder
+namespace SwiftArcadeMode.Features.SCPs.Upgrades.Content.SCP049.ArmyBuilder
 {
     public class MassOperation(UpgradePathPerkBase parent) : UpgradeBase<ArmyBuilder>(parent)
     {

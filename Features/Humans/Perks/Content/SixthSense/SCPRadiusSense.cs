@@ -1,11 +1,11 @@
 ﻿using LabApi.Features.Wrappers;
 using MapGeneration;
 using PlayerRoles;
-using SwiftUHC.Utils.Extensions;
+using SwiftArcadeMode.Utils.Extensions;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace SwiftUHC.Features.Humans.Perks.Content.SixthSense
+namespace SwiftArcadeMode.Features.Humans.Perks.Content.SixthSense
 {
     public class SCPRadiusSense(SixthSense parent) : SenseBase(parent)
     {

@@ -1,9 +1,9 @@
 ﻿using CommandSystem;
 using LabApi.Features.Wrappers;
-using SwiftUHC.Features;
+using SwiftArcadeMode.Features;
 using System;
 
-namespace SwiftUHC.Commands.RA
+namespace SwiftArcadeMode.Commands.RA
 {
     [CommandHandler(typeof(RemoteAdminCommandHandler))]
     public class AddPerkCommand : ICommand

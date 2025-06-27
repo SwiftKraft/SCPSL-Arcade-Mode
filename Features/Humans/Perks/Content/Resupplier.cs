@@ -3,7 +3,7 @@ using LabApi.Events.Arguments.PlayerEvents;
 using LabApi.Events.Handlers;
 using LabApi.Features.Wrappers;
 
-namespace SwiftUHC.Features.Humans.Perks.Content
+namespace SwiftArcadeMode.Features.Humans.Perks.Content
 {
     [Perk("Resupplier", Rarity.Uncommon)]
     public class Resupplier(PerkInventory inv) : PerkBase(inv)

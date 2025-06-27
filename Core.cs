@@ -4,13 +4,13 @@ using LabApi.Features;
 using LabApi.Features.Console;
 using LabApi.Loader.Features.Plugins;
 using MEC;
-using SwiftUHC.Features;
-using SwiftUHC.Features.Humans.Perks;
-using SwiftUHC.Features.SCPs.Upgrades;
-using SwiftUHC.ServerSpecificSettings;
+using SwiftArcadeMode.Features;
+using SwiftArcadeMode.Features.Humans.Perks;
+using SwiftArcadeMode.Features.SCPs.Upgrades;
+using SwiftArcadeMode.ServerSpecificSettings;
 using System;
 
-namespace SwiftUHC
+namespace SwiftArcadeMode
 {
     public class Core : Plugin<Config>
     {
