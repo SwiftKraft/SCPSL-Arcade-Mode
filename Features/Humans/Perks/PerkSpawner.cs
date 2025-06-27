@@ -103,10 +103,11 @@ namespace SwiftUHC.Features.Humans.Perks
                 PerkPickups.Add(p.Serial, ty);
                 p.Spawn();
 
-                LightSourceToy toy = LightSourceToy.Create(p.Transform, true);
+                LightSourceToy toy = LightSourceToy.Create(p.Transform, false);
                 toy.Intensity = 0.5f;
                 if (ColorUtility.TryParseHtmlString(ty.Rarity.GetColor(), out Color col))
                     toy.Color = col;
+                toy.Spawn();
                 LightSources.Add(p.Serial, toy);
             }
             return p;
