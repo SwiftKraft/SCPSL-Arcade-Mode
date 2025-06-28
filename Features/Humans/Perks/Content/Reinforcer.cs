@@ -23,11 +23,18 @@ namespace SwiftArcadeMode.Features.Humans.Perks.Content
         {
             base.Init();
             PlayerEvents.UsedItem += OnUsedItem;
+            PlayerEvents.ChangedRole += OnChangedRole;
+        }
+
+        private void OnChangedRole(PlayerChangedRoleEventArgs ev)
+        {
+            if (Spawned.Contains(ev.Player) && !ev.Player.IsAlive)
+                Spawned.Remove(ev.Player);
         }
 
         private void OnUsedItem(PlayerUsedItemEventArgs ev)
         {
-            if (ev.Player != Player || ev.UsableItem.Category != ItemCategory.Medical || Player.Health < Player.MaxHealth)
+            if (ev.Player != Player || Spawned.Count >= Limit || ev.UsableItem.Category != ItemCategory.Medical || Player.Health < Player.MaxHealth)
                 return;
 
             Player target = Player.List.Where(p => p.Role == RoleTypeId.Spectator).ToArray().GetRandom();
@@ -37,12 +44,15 @@ namespace SwiftArcadeMode.Features.Humans.Perks.Content
 
             foreach (Item it in Player.Items)
                 target.AddItem(it.Type);
+
+            Spawned.Add(target);
         }
 
         public override void Remove()
         {
             base.Remove();
             PlayerEvents.UsedItem -= OnUsedItem;
+            PlayerEvents.ChangedRole -= OnChangedRole;
         }
     }
 }

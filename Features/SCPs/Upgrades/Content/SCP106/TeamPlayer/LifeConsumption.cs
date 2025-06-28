@@ -1,4 +1,5 @@
-﻿using LabApi.Features.Wrappers;
+﻿using CustomPlayerEffects;
+using LabApi.Features.Wrappers;
 using MapGeneration;
 using System.Linq;
 
@@ -18,7 +19,7 @@ namespace SwiftArcadeMode.Features.SCPs.Upgrades.Content.SCP106.TeamPlayer
 
         public override float Cooldown => 1f;
 
-        public float CurrentAmount => Amount * Player.List.Count((p) => p.Room.Name == RoomName.Pocket);
+        public float CurrentAmount => Amount * Player.List.Count((p) => p.HasEffect<PocketCorroding>());
 
         public override void Effect() => Player.HumeShield += CurrentAmount;
     }

@@ -17,11 +17,11 @@ namespace SwiftArcadeMode.Features.Humans.Perks.Content.Gambler
 
         public override void Effect(Player player)
         {
-            player.AddAmmo(ItemType.Ammo12gauge, 500);
-            player.AddAmmo(ItemType.Ammo44cal, 500);
-            player.AddAmmo(ItemType.Ammo556x45, 700);
-            player.AddAmmo(ItemType.Ammo762x39, 700);
-            player.AddAmmo(ItemType.Ammo9x19, 1000);
+            player.AddAmmo(ItemType.Ammo12gauge, 200);
+            player.AddAmmo(ItemType.Ammo44cal, 200);
+            player.AddAmmo(ItemType.Ammo556x45, 400);
+            player.AddAmmo(ItemType.Ammo762x39, 400);
+            player.AddAmmo(ItemType.Ammo9x19, 600);
         }
     }
 }

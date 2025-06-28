@@ -63,7 +63,7 @@ namespace SwiftArcadeMode.Features.Humans.Perks.Content.Gambler
 
         public override bool Positive => true;
 
-        public override int Weight => 1;
+        public override int Weight => 2;
 
         public override string Explanation => "Gave you a random item.";
 
