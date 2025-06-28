@@ -1,14 +1,13 @@
 ﻿using CustomPlayerEffects;
-using LabApi.Features.Wrappers;
 
 namespace SwiftArcadeMode.Features.Humans.Perks.Content.Gambler
 {
-    public class GamblerPocketDimension : GamblerStatusEffectBase<PocketCorroding>
+    public class GamblerEyes : GamblerStatusEffectBase<SeveredEyes>
     {
         public override bool Positive => false;
 
         public override int Weight => 1;
 
-        public override string Explanation => "Let's gamble again.";
+        public override string Explanation => "Thanks for those eyes.";
     }
 }
