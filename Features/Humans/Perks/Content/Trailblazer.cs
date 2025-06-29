@@ -9,7 +9,7 @@ namespace SwiftArcadeMode.Features.Humans.Perks.Content
     [Perk("Trailblazer", Rarity.Rare)]
     public class Trailblazer(PerkInventory inv) : PerkCooldownBase(inv)
     {
-        public override string Name => "Trailblazer";
+        public override string Name => "Trailblazer" + (initialized ? " | Tracked Item: " + TrackedType + (!CooldownTimer.Ended ? " | Cooldown: " + CooldownTimer.CurrentValue + "s" : "") : "");
 
         public override string PerkDescription => $"Set a teleport point after using an item. \nTeleport to the point after using an item of the same type. \nNo item types will be tracked when a teleport point exists.";
 
@@ -17,8 +17,10 @@ namespace SwiftArcadeMode.Features.Humans.Perks.Content
 
         public Vector3 TeleportPoint;
         public bool TeleportExists;
-        public ItemType TrackedType;
+        public ItemType TrackedType = ItemType.None;
         public Elevator TrackedElevator;
+
+        bool initialized;
 
         public override void Effect()
         {
@@ -39,6 +41,9 @@ namespace SwiftArcadeMode.Features.Humans.Perks.Content
             WarheadEvents.Detonated += OnWarheadDetonated;
             PlayerEvents.UsingItem += OnUsingItem;
             PlayerEvents.UsedItem += OnUsedItem;
+
+            if (Player != null)
+                initialized = true;
         }
 
         private void OnWarheadDetonated(LabApi.Events.Arguments.WarheadEvents.WarheadDetonatedEventArgs ev)

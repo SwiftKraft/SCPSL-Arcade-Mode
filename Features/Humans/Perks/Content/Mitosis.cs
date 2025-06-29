@@ -1,4 +1,5 @@
-﻿using LabApi.Events.Arguments.PlayerEvents;
+﻿using CustomPlayerEffects;
+using LabApi.Events.Arguments.PlayerEvents;
 using LabApi.Events.Handlers;
 using LabApi.Features.Wrappers;
 using PlayerRoles;
@@ -8,12 +9,12 @@ using System.Linq;
 
 namespace SwiftArcadeMode.Features.Humans.Perks.Content
 {
-    [Perk("Reinforcer", Rarity.Rare)]
-    public class Reinforcer(PerkInventory inv) : PerkBase(inv)
+    [Perk("Mitosis", Rarity.Epic)]
+    public class Mitosis(PerkInventory inv) : PerkBase(inv)
     {
-        public override string Name => "Reinforcer";
+        public override string Name => "Mitosis";
 
-        public override string Description => $"Spawn a teammate with your loadout when you use a healing item at max health. \nLimited to {Limit}.";
+        public override string Description => $"Spawn a teammate with your inventory when you use a healing item at max health. \nLimited to {Limit}.";
 
         public virtual int Limit => 2;
 
@@ -34,7 +35,7 @@ namespace SwiftArcadeMode.Features.Humans.Perks.Content
 
         private void OnUsedItem(PlayerUsedItemEventArgs ev)
         {
-            if (ev.Player != Player || Spawned.Count >= Limit || ev.UsableItem.Category != ItemCategory.Medical || Player.Health < Player.MaxHealth)
+            if (ev.Player != Player || Spawned.Count >= Limit || Player.HasEffect<PocketCorroding>() || ev.UsableItem.Category != ItemCategory.Medical || Player.Health < Player.MaxHealth)
                 return;
 
             Player target = Player.List.Where(p => p.Role == RoleTypeId.Spectator).ToArray().GetRandom();

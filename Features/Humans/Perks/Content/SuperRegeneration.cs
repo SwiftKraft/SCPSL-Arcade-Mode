@@ -7,9 +7,9 @@ namespace SwiftArcadeMode.Features.Humans.Perks.Content
     {
         public override string Name => $"Super {base.Name}";
 
-        public override string Description => $"{base.Description} \nHowever, max HP is decreased by {DecreasePercentage}%.";
+        public override string Description => $"{base.Description} \nHowever, max HP is decreased by {DecreasePercentage * 100f}%.";
 
-        public override float HealthThresholdPercentage => 0.2f;
+        public override float HealthThresholdPercentage => 0.35f;
         public override float Rate => 9f;
         public virtual float DecreasePercentage => 0.1f;
 
