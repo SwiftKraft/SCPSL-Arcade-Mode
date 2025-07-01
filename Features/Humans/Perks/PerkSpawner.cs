@@ -104,6 +104,7 @@ namespace SwiftArcadeMode.Features.Humans.Perks
             if (p != null)
             {
                 PerkPickups.Add(p.Serial, ty);
+                p.Weight *= 5f;
                 p.Spawn();
 
                 LightSourceToy toy = LightSourceToy.Create(p.Transform, false);

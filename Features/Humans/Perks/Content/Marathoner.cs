@@ -3,27 +3,24 @@
 namespace SwiftArcadeMode.Features.Humans.Perks.Content
 {
     [Perk("Marathoner", Rarity.Common)]
-    public class Marathoner(PerkInventory inv) : PerkBase(inv)
+    public class Marathoner(PerkInventory inv) : PerkTriggerCooldownBase(inv)
     {
         public override string Name => "Marathoner";
 
-        public override string Description => "Increases your max stamina by a large margin.";
+        public override string Description => $"Regenerates your stamina by {Amount} every {Cooldown} seconds.";
 
-        public virtual float Multiplier => 2f;
+        public override string PerkDescription => "";
 
-        float originalMax;
+        public virtual float Amount => 5f;
 
-        public override void Init()
+        public override string ReadyMessage => "";
+
+        public override float Cooldown => 8f;
+
+        public override void Effect()
         {
-            base.Init();
-            originalMax = Player.GetStatModule<StaminaStat>().MaxValue;
-            Player.GetStatModule<StaminaStat>().MaxValue *= Multiplier;
-        }
-
-        public override void Remove()
-        {
-            base.Remove();
-            Player.GetStatModule<StaminaStat>().MaxValue = originalMax;
+            if (Player.StaminaRemaining < Player.GetStatModule<StaminaStat>().MaxValue)
+                Player.StaminaRemaining += Amount;
         }
     }
 }

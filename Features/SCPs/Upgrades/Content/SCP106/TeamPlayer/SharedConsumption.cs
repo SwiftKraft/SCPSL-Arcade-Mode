@@ -1,5 +1,6 @@
 ﻿using LabApi.Features.Wrappers;
 using System.Linq;
+using UnityEngine;
 
 namespace SwiftArcadeMode.Features.SCPs.Upgrades.Content.SCP106.TeamPlayer
 {
@@ -12,7 +13,8 @@ namespace SwiftArcadeMode.Features.SCPs.Upgrades.Content.SCP106.TeamPlayer
         public override void Effect()
         {
             foreach (Player p in Player.List.Where((p) => p.IsSCP && p.Role != PlayerRoles.RoleTypeId.Scp0492))
-                p.HumeShield += CurrentAmount;
+                if (p.HumeShield < p.MaxHumeShield)
+                    p.HumeShield = Mathf.Clamp(p.HumeShield + CurrentAmount, 0f, p.MaxHumeShield);
         }
     }
 }

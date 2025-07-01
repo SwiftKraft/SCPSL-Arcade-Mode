@@ -6,9 +6,11 @@ using LabApi.Loader.Features.Plugins;
 using MEC;
 using SwiftArcadeMode.Features;
 using SwiftArcadeMode.Features.Humans.Perks;
+using SwiftArcadeMode.Features.Scoring.Saving;
 using SwiftArcadeMode.Features.SCPs.Upgrades;
 using SwiftArcadeMode.ServerSpecificSettings;
 using System;
+using System.IO;
 
 namespace SwiftArcadeMode
 {
@@ -22,13 +24,17 @@ namespace SwiftArcadeMode
 
         public override string Author => "SwiftKraft";
 
-        public override Version Version => new(1, 6, 0);
+        public override Version Version => new(1, 7, 0);
 
         public override Version RequiredApiVersion => new(LabApiProperties.CompiledVersion);
 
         public override void Enable()
         {
             Logger.Info($"Arcade Mode {Version} by SwiftKraft: Loaded!");
+
+            SaveManager.SavePath = Path.Combine(FilePath, "Scoring", "scores.txt");
+
+            Logger.Info($"Scoring save file path: {SaveManager.SavePath}");
 
             Instance = this;
 
