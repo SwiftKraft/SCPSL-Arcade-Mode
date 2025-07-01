@@ -7,11 +7,6 @@ namespace SwiftArcadeMode.Features.Scoring.Saving
 {
     public static class SaveManager
     {
-        /// <summary>
-        /// User ID (Steam ID) to score number.
-        /// </summary>
-        public static readonly Dictionary<string, int> Scores = [];
-
         public static string SavePath;
 
         public static Player IDToPlayer(string id) => Player.Get(id);
@@ -20,7 +15,7 @@ namespace SwiftArcadeMode.Features.Scoring.Saving
         {
             StringBuilder stringBuilder = new();
 
-            foreach (var s in Scores)
+            foreach (var s in ScoringManager.Scores)
             {
                 stringBuilder.Append(s.Key);
                 stringBuilder.Append(';');
@@ -38,12 +33,12 @@ namespace SwiftArcadeMode.Features.Scoring.Saving
 
             string[] str = File.ReadAllLines(SavePath);
 
-            Scores.Clear();
+            ScoringManager.Scores.Clear();
 
             foreach (var s in str)
             {
                 string[] split = s.Split(';');
-                Scores.Add(split[0], int.Parse(split[1]));
+                ScoringManager.Scores.Add(split[0], int.Parse(split[1]));
             }
         }
     }
