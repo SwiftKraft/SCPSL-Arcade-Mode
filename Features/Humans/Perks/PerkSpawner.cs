@@ -17,6 +17,8 @@ namespace SwiftArcadeMode.Features.Humans.Perks
         public static readonly Dictionary<ushort, PerkAttribute> PerkPickups = [];
         public static readonly Dictionary<ushort, LightSourceToy> LightSources = [];
 
+        public static event Action<Player, PerkAttribute> OnPickedUpPerk;
+
         public static void Enable()
         {
             ServerEvents.RoundStarted += OnRoundStarted;
@@ -59,6 +61,8 @@ namespace SwiftArcadeMode.Features.Humans.Perks
                 SpawnPerk(PerkPickups[ev.Item.Serial], ev.Player.Position);
                 return;
             }
+
+            OnPickedUpPerk?.Invoke(ev.Player, PerkPickups[ev.Item.Serial]);
 
             PerkPickups.Remove(ev.Item.Serial);
             if (LightSources.ContainsKey(ev.Item.Serial))

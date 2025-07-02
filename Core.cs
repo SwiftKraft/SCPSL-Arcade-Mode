@@ -6,6 +6,7 @@ using LabApi.Loader.Features.Plugins;
 using MEC;
 using SwiftArcadeMode.Features;
 using SwiftArcadeMode.Features.Humans.Perks;
+using SwiftArcadeMode.Features.Scoring;
 using SwiftArcadeMode.Features.Scoring.Saving;
 using SwiftArcadeMode.Features.SCPs.Upgrades;
 using SwiftArcadeMode.ServerSpecificSettings;
@@ -44,6 +45,7 @@ namespace SwiftArcadeMode
             UpgradePathManager.Enable();
             UpgradePathGiver.Enable();
             SSSManager.Enable();
+            ScoringManager.Enable();
 
             PlayerEvents.UpdatedEffect += OnUpdatedEffect;
             PlayerEvents.ChangedRole += OnChangedRole;
@@ -69,6 +71,7 @@ namespace SwiftArcadeMode
             UpgradePathManager.Disable();
             UpgradePathGiver.Disable();
             SSSManager.Disable();
+            ScoringManager.Disable();
 
             PlayerEvents.UpdatedEffect -= OnUpdatedEffect;
             PlayerEvents.ChangedRole -= OnChangedRole;
@@ -78,6 +81,7 @@ namespace SwiftArcadeMode
         {
             PerkManager.Tick();
             SSSManager.Tick();
+            ScoringManager.Tick();
         }
 
         /*

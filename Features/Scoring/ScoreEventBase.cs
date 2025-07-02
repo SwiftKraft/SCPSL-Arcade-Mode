@@ -2,6 +2,10 @@
 {
     public abstract class ScoreEventBase
     {
-        public abstract void Init();
+        public abstract void Enable();
+
+        public abstract void Tick();
+
+        public abstract void Disable();
     }
 }

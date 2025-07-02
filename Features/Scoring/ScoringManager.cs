@@ -1,4 +1,7 @@
 ﻿using LabApi.Features.Wrappers;
+using SwiftArcadeMode.Features.Humans.Perks.Content.SixthSense;
+using SwiftArcadeMode.Utils.Extensions;
+using System;
 using System.Collections.Generic;
 
 namespace SwiftArcadeMode.Features.Scoring
@@ -10,17 +13,54 @@ namespace SwiftArcadeMode.Features.Scoring
         /// </summary>
         public static readonly Dictionary<string, int> Scores = [];
 
-        public static void Enabled()
-        {
+        public static readonly HashSet<ScoreEventBase> Events = [];
 
+        public static HashSet<Type> ScoreEventsCache
+        {
+            get
+            {
+                _scoreEventsCache ??= ReflectionExtensions.GetAllNonAbstractSubclasses<ScoreEventBase>();
+                return _scoreEventsCache;
+            }
+        }
+
+        private static HashSet<Type> _scoreEventsCache;
+
+        public static void Enable()
+        {
+            foreach (Type t in ScoreEventsCache)
+            {
+                ScoreEventBase b = (ScoreEventBase)Activator.CreateInstance(t);
+                Events.Add(b);
+                b.Enable();
+            }
+        }
+
+        public static void Tick()
+        {
+            foreach (ScoreEventBase b in Events)
+                b.Tick();
+        }
+
+        public static void Disable()
+        {
+            foreach (ScoreEventBase b in Events)
+                b.Disable();
         }
 
         public static void AddScore(this Player p, int amount)
         {
+            if (p.IsDummy || string.IsNullOrWhiteSpace(p.UserId))
+                return;
+
             if (Scores.ContainsKey(p.UserId))
                 Scores[p.UserId] += amount;
             else
                 Scores.Add(p.UserId, amount);
+
+            p.SendBroadcast($"+{amount} Score\nCurrent Score: {p.GetScore()}", 3, Broadcast.BroadcastFlags.Normal, true);
         }
+
+        public static int GetScore(this Player p) => Scores.ContainsKey(p.UserId) ? Scores[p.UserId] : 0;
     }
 }
