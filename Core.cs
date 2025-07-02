@@ -1,7 +1,6 @@
 ﻿using CustomPlayerEffects;
 using LabApi.Events.Handlers;
 using LabApi.Features;
-using LabApi.Features.Console;
 using LabApi.Loader.Features.Plugins;
 using MEC;
 using SwiftArcadeMode.Features;
@@ -12,6 +11,7 @@ using SwiftArcadeMode.Features.SCPs.Upgrades;
 using SwiftArcadeMode.ServerSpecificSettings;
 using System;
 using System.IO;
+using Logger = LabApi.Features.Console.Logger;
 
 namespace SwiftArcadeMode
 {
@@ -33,7 +33,9 @@ namespace SwiftArcadeMode
         {
             Logger.Info($"Arcade Mode {Version} by SwiftKraft: Loaded!");
 
-            SaveManager.SavePath = Path.Combine(FilePath, "Scoring", "scores.txt");
+            SaveManager.SaveDirectory = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "SCP Secret Laboratory", "Swift Arcade Mode", "Scoring");
+            SaveManager.SaveFileName = "scores.txt";
+            SaveManager.SavePath = Path.Combine(SaveManager.SaveDirectory, SaveManager.SaveFileName);
 
             Logger.Info($"Scoring save file path: {SaveManager.SavePath}");
 
@@ -47,9 +49,19 @@ namespace SwiftArcadeMode
             SSSManager.Enable();
             ScoringManager.Enable();
 
+            ServerEvents.RoundEnded += OnRoundEnded;
+            ServerEvents.RoundStarted += OnRoundStarted;
+            ServerEvents.MapGenerated += OnMapGenerated;
+            Shutdown.OnQuit += OnQuit;
             PlayerEvents.UpdatedEffect += OnUpdatedEffect;
             PlayerEvents.ChangedRole += OnChangedRole;
         }
+
+        private void OnMapGenerated(LabApi.Events.Arguments.ServerEvents.MapGeneratedEventArgs ev) => SaveManager.LoadScores();
+
+        private void OnRoundStarted() => SaveManager.LoadScores();
+
+        private void OnRoundEnded(LabApi.Events.Arguments.ServerEvents.RoundEndedEventArgs ev) => SaveManager.SaveScores();
 
         private void OnChangedRole(LabApi.Events.Arguments.PlayerEvents.PlayerChangedRoleEventArgs ev)
         {
@@ -73,9 +85,17 @@ namespace SwiftArcadeMode
             SSSManager.Disable();
             ScoringManager.Disable();
 
+            ServerEvents.RoundEnded -= OnRoundEnded;
+            ServerEvents.RoundStarted -= OnRoundStarted;
+            ServerEvents.MapGenerated -= OnMapGenerated;
+            Shutdown.OnQuit -= OnQuit;
             PlayerEvents.UpdatedEffect -= OnUpdatedEffect;
             PlayerEvents.ChangedRole -= OnChangedRole;
+
+            SaveManager.SaveScores();
         }
+
+        private void OnQuit() => SaveManager.SaveScores();
 
         public static void FixedUpdate()
         {

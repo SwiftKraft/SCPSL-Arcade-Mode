@@ -1,5 +1,5 @@
 ﻿using CommandSystem;
-using SwiftArcadeMode.Features;
+using SwiftArcadeMode.Features.Scoring;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -7,24 +7,24 @@ using System.Text;
 namespace SwiftArcadeMode.Commands.RA
 {
     [CommandHandler(typeof(RemoteAdminCommandHandler))]
-    public class ShowPerksCommand : ICommand
+    public class ShowScoresCommand : ICommand
     {
-        public string Command => "showperks";
+        public string Command => "showscores";
 
-        public string[] Aliases => ["sperks", "showp", "sp"];
+        public string[] Aliases => ["sscores", "ss"];
 
-        public string Description => "Shows all perks.";
+        public string Description => "Shows everyone's scores.";
 
         public bool Execute(ArraySegment<string> arguments, ICommandSender sender, out string response)
         {
-            StringBuilder builder = new("All available perks: \n");
+            StringBuilder builder = new("All scores: \n");
 
-            foreach (KeyValuePair<string, PerkAttribute> att in PerkManager.RegisteredPerks)
+            foreach (KeyValuePair<string, int> att in ScoringManager.Scores)
             {
                 builder.Append("  ");
-                builder.Append(att.Key);
+                builder.Append(ScoringManager.IDToName[att.Key]);
                 builder.Append(" - ");
-                builder.Append(att.Value.Profile.FancyName);
+                builder.Append(att.Value);
                 builder.Append("\n");
             }
 

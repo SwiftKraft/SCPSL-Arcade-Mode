@@ -1,4 +1,5 @@
-﻿using LabApi.Features.Wrappers;
+﻿using Hints;
+using LabApi.Features.Wrappers;
 using SwiftArcadeMode.Features.Humans.Perks.Content.SixthSense;
 using SwiftArcadeMode.Utils.Extensions;
 using System;
@@ -12,6 +13,7 @@ namespace SwiftArcadeMode.Features.Scoring
         /// User ID (Steam ID) to score number.
         /// </summary>
         public static readonly Dictionary<string, int> Scores = [];
+        public static readonly Dictionary<string, string> IDToName = [];
 
         public static readonly HashSet<ScoreEventBase> Events = [];
 
@@ -53,12 +55,17 @@ namespace SwiftArcadeMode.Features.Scoring
             if (p.IsDummy || string.IsNullOrWhiteSpace(p.UserId))
                 return;
 
+            if (!IDToName.ContainsKey(p.UserId))
+                IDToName.Add(p.UserId, p.Nickname);
+            else if (p.Nickname != IDToName[p.UserId])
+                IDToName[p.UserId] = p.Nickname;
+
             if (Scores.ContainsKey(p.UserId))
                 Scores[p.UserId] += amount;
             else
                 Scores.Add(p.UserId, amount);
 
-            p.SendBroadcast($"+{amount} Score\nCurrent Score: {p.GetScore()}", 3, Broadcast.BroadcastFlags.Normal, true);
+            p.SendHint($"+{amount} Score\nCurrent Score: {p.GetScore()}", [HintEffectPresets.FadeOut()], 0.5f);
         }
 
         public static int GetScore(this Player p) => Scores.ContainsKey(p.UserId) ? Scores[p.UserId] : 0;
