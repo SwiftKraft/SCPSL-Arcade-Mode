@@ -6,7 +6,7 @@ using UnityEngine;
 
 namespace SwiftArcadeMode.Features.Humans.Perks.Content.Shopkeeper
 {
-    public class ShopItem(Vector3 offset, params ItemType[][] pools) : ShopElement
+    public class ShopItem(Vector3 offset) : ShopElementOffset(offset)
     {
         public static readonly ItemType[][] PresetTiers =
         [
@@ -19,13 +19,13 @@ namespace SwiftArcadeMode.Features.Humans.Perks.Content.Shopkeeper
             [ItemType.KeycardFacilityManager, ItemType.SCP500, ItemType.Adrenaline, ItemType.Medkit, ItemType.GunRevolver, ItemType.GunAK, ItemType.GunE11SR, ItemType.GunCrossvec, ItemType.GunLogicer, ItemType.GunFRMG0, ItemType.ArmorHeavy, ItemType.GunCom45, ItemType.SCP207, ItemType.AntiSCP207],
         ];
 
-        public readonly Vector3 Offset = offset;
-
-        public readonly ItemType[][] Items = pools;
+        public readonly ItemType[][] Items;
 
         public Pickup Item { get; private set; }
 
         int lastRandom;
+
+        public ShopItem(Vector3 offset, params ItemType[][] pools) : this(offset) => Items = pools;
 
         public override void Init(Shopkeeper parent)
         {
@@ -49,7 +49,7 @@ namespace SwiftArcadeMode.Features.Humans.Perks.Content.Shopkeeper
 
             if (Item != null && Item.Base != null)
                 Item?.Destroy();
-            Item = Pickup.Create(pool.GetRandom(ref lastRandom), Parent.Shop.Position + Parent.Shop.Rotation * Offset, Parent.Shop.Rotation);
+            Item = Pickup.Create(pool.GetRandom(ref lastRandom), Position, Rotation);
             Item?.Spawn();
         }
 
