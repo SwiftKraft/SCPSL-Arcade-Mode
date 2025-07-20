@@ -9,7 +9,11 @@ namespace SwiftArcadeMode.Features.Humans.Perks.Content
     {
         public override string Name => "Micro Missiles";
 
-        public override string Description => "Every shot creates an explosive projectile.";
+        public override string Description => $"Every {Amount} shots creates an explosive projectile.";
+
+        public virtual int Amount => 5;
+
+        int counter = 0;
 
         public override void Init()
         {
@@ -27,6 +31,13 @@ namespace SwiftArcadeMode.Features.Humans.Perks.Content
         {
             if (ev.Player != Player)
                 return;
+
+            counter++;
+
+            if (counter < Amount)
+                return;
+
+            counter = 0;
 
             ExplosiveGrenadeProjectile pick = TimedGrenadeProjectile.SpawnActive(Player.Camera.position, ItemType.GrenadeHE, Player, 3d) as ExplosiveGrenadeProjectile;
             pick.Base.MaxRadius = 2f;
