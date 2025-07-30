@@ -18,15 +18,11 @@ namespace SwiftArcadeMode.Features.Humans.Perks.Content
         public virtual float Amount => 20f;
         public virtual float Efficacy => 1f;
 
-        AhpStat.AhpProcess ahp;
-
         public override void Init()
         {
             base.Init();
 
             PlayerEvents.PickedUpItem += OnPickedUpItem;
-
-            ahp = Player.CreateAhpProcess(0f, 75f, 0f, Efficacy, 1f, true);
 
             Player.AddAmmo(ItemType.Ammo44cal, 50);
         }
@@ -36,8 +32,6 @@ namespace SwiftArcadeMode.Features.Humans.Perks.Content
             base.Remove();
 
             PlayerEvents.PickedUpItem -= OnPickedUpItem;
-
-            Player.ServerKillProcess(ahp);
         }
 
         protected override void OnPlayerDying(PlayerDyingEventArgs ev)
@@ -45,7 +39,7 @@ namespace SwiftArcadeMode.Features.Humans.Perks.Content
             if (ev.Attacker != Player || Player.CurrentItem == null || Player.CurrentItem.Type != ItemType.GunRevolver)
                 return;
 
-            ahp.CurrentAmount += Amount;
+            Player.ArtificialHealth += Amount;
 
             if (Player.CurrentItem is FirearmItem it && it.Base.TryGetModule(out CylinderAmmoModule mod))
                 mod.ServerModifyAmmo(1);

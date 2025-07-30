@@ -1,8 +1,6 @@
-﻿using InventorySystem.Items.ThrowableProjectiles;
-using LabApi.Events.Arguments.PlayerEvents;
+﻿using LabApi.Events.Arguments.PlayerEvents;
 using LabApi.Events.Handlers;
 using LabApi.Features.Wrappers;
-using MEC;
 using UnityEngine;
 
 namespace SwiftArcadeMode.Features.Humans.Perks.Content
@@ -46,6 +44,9 @@ namespace SwiftArcadeMode.Features.Humans.Perks.Content
 
             void OnCollide(Collision col)
             {
+                if (col.collider.isTrigger)
+                    return;
+
                 proj.Base.OnCollided -= OnCollide;
                 proj.FuseEnd();
             }
