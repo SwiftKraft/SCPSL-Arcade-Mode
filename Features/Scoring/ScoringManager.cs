@@ -64,8 +64,6 @@ namespace SwiftArcadeMode.Features.Scoring
                 Scores[p.UserId] += amount;
             else
                 Scores.Add(p.UserId, amount);
-
-            p.SendHint($"+{amount} Score\nCurrent Score: {p.GetScore()}", [HintEffectPresets.FadeOut()], 0.5f);
         }
 
         public static int GetScore(this Player p) => Scores.ContainsKey(p.UserId) ? Scores[p.UserId] : 0;
