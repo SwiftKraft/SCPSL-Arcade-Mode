@@ -1,5 +1,4 @@
-﻿using InventorySystem.Items.Firearms.Modules;
-using LabApi.Events.Handlers;
+﻿using LabApi.Events.Handlers;
 using LabApi.Features.Wrappers;
 
 namespace SwiftArcadeMode.Features.Humans.Perks.Content
@@ -11,7 +10,7 @@ namespace SwiftArcadeMode.Features.Humans.Perks.Content
 
         public override string Description => $"Every {Amount} shots creates an explosive projectile.";
 
-        public virtual int Amount => 5;
+        public virtual int Amount => 10;
 
         int counter = 0;
 

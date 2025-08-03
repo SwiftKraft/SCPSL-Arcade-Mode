@@ -1,6 +1,7 @@
 ﻿using LabApi.Events.Arguments.PlayerEvents;
 using LabApi.Events.Handlers;
 using LabApi.Features.Wrappers;
+using Mirror;
 using UnityEngine;
 
 namespace SwiftArcadeMode.Features.Humans.Perks.Content
@@ -8,6 +9,8 @@ namespace SwiftArcadeMode.Features.Humans.Perks.Content
     [Perk("Rocketeer", Rarity.Rare)]
     public class Rocketeer(PerkInventory inv) : PerkBase(inv)
     {
+        public static readonly LayerMask CollisionLayers = LayerMask.GetMask("Default", "Door", "Glass");
+
         public override string Name => "Rocketeer";
 
         public override string Description => "Throwing a grenade will turn it into a rocket projectile.";
@@ -34,22 +37,16 @@ namespace SwiftArcadeMode.Features.Humans.Perks.Content
 
         public static void ConvertRocket(Player player, ExplosiveGrenadeProjectile proj, float speed)
         {
+            float time = 5f;
+            if (Physics.Raycast(player.Camera.position, player.Camera.forward, out RaycastHit hit, Mathf.Infinity, CollisionLayers, QueryTriggerInteraction.Ignore))
+                time = hit.distance / speed;
             proj.Rigidbody.position = player.Camera.position;
             proj.Rigidbody.rotation = player.Camera.rotation;
             proj.Rigidbody.useGravity = false;
             proj.Rigidbody.linearVelocity = player.Camera.forward * speed;
             proj.Rigidbody.angularVelocity = default;
             proj.Rigidbody.mass = 99999f;
-            proj.Base.OnCollided += OnCollide;
-
-            void OnCollide(Collision col)
-            {
-                if (col.collider.isTrigger)
-                    return;
-
-                proj.Base.OnCollided -= OnCollide;
-                proj.FuseEnd();
-            }
+            proj.Base.TargetTime = NetworkTime.time + time - 0.05f;
         }
     }
 }
