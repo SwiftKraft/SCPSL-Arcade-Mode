@@ -7,11 +7,11 @@ namespace SwiftArcadeMode.Features.Humans.Perks.Content
     {
         public override string Name => "Marathoner";
 
-        public override string Description => $"Regenerates your stamina by {Amount} every {Cooldown} seconds.";
+        public override string Description => $"Regenerates your stamina by {Amount * 100f}% every {Cooldown} seconds.";
 
         public override string PerkDescription => "";
 
-        public virtual float Amount => 5f;
+        public virtual float Amount => 0.1f;
 
         public override string ReadyMessage => "";
 
@@ -19,8 +19,9 @@ namespace SwiftArcadeMode.Features.Humans.Perks.Content
 
         public override void Effect()
         {
-            if (Player.StaminaRemaining < Player.GetStatModule<StaminaStat>().MaxValue)
-                Player.StaminaRemaining += Amount;
+            StaminaStat stat = Player.GetStatModule<StaminaStat>();
+            if (Player.StaminaRemaining < stat.MaxValue)
+                Player.StaminaRemaining += stat.MaxValue * Amount;
         }
     }
 }

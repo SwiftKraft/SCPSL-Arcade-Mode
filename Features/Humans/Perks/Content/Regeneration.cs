@@ -16,7 +16,7 @@ namespace SwiftArcadeMode.Features.Humans.Perks.Content
             base.Tick();
 
             if (Player.Health / Player.MaxHealth >= HealthThresholdPercentage && Player.Health < Player.MaxHealth)
-                Player.Heal(Rate * Time.fixedDeltaTime);
+                Player.Heal((Player.IsSCP ? 0.5f : 1f) * Rate * Time.fixedDeltaTime);
         }
     }
 }

@@ -11,7 +11,8 @@ namespace SwiftArcadeMode.Features.Humans.Perks.Content
 
         public override string Description => "Every kill increases your speed.";
 
-        public virtual byte Amount => 15;
+        public virtual byte Amount => (byte)(Player.IsSCP ? 3 : 15);
+        public virtual byte MaxValue => byte.MaxValue;
 
         byte currentStack;
 
@@ -20,9 +21,9 @@ namespace SwiftArcadeMode.Features.Humans.Perks.Content
             if (ev.Attacker != Player)
                 return;
 
-            if (currentStack < byte.MaxValue)
+            if (currentStack < MaxValue)
             {
-                currentStack = (byte)Mathf.Clamp(currentStack + Amount, 0, byte.MaxValue);
+                currentStack = (byte)Mathf.Clamp(currentStack + Amount, 0, MaxValue);
                 Player.EnableEffect<MovementBoost>(currentStack);
                 SendMessage("Gained Kill, Speed Level: " + currentStack);
             }

@@ -55,7 +55,7 @@ namespace SwiftArcadeMode.Features
 
             if (ev.Player.TryGetPerkInventory(out PerkInventory inv))
             {
-                inv.BaseLimit = ev.Player.IsSCP ? 3 : 5;
+                inv.BaseLimit = ev.Player.IsSCP ? 2 : 5;
 
                 if (inv.Perks.Count > 0)
                 {

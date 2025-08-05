@@ -5,6 +5,7 @@ using LabApi.Loader.Features.Plugins;
 using MEC;
 using SwiftArcadeMode.Features;
 using SwiftArcadeMode.Features.Humans.Perks;
+using SwiftArcadeMode.Features.Humans.Perks.Crafting;
 using SwiftArcadeMode.Features.Scoring;
 using SwiftArcadeMode.Features.Scoring.Saving;
 using SwiftArcadeMode.Features.SCPs.Upgrades;
@@ -48,6 +49,7 @@ namespace SwiftArcadeMode
             UpgradePathGiver.Enable();
             SSSManager.Enable();
             ScoringManager.Enable();
+            RecipeManager.Enable();
 
             ServerEvents.RoundEnded += OnRoundEnded;
             ServerEvents.RoundStarted += OnRoundStarted;

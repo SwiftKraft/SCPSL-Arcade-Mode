@@ -1,5 +1,6 @@
 ﻿using Hints;
 using LabApi.Features.Wrappers;
+using SwiftArcadeMode.Features.Humans.Perks.Crafting;
 using SwiftArcadeMode.Features.SCPs.Upgrades;
 using SwiftArcadeMode.Utils.Extensions;
 using System;
@@ -105,6 +106,8 @@ namespace SwiftArcadeMode.Features
             p.Init();
             Parent.SendHint($"Acquired Perk ({LimitUsage}/{Limit}): {prof.FancyName}\n{prof.Description}\n\nPress \"~\" and type \".sp\" (for more detail) \nOR bind a key in <b>Server Specific Settings</b> to see what perks you have!", [HintEffectPresets.FadeOut()], 10f);
             OnPerksUpdated();
+
+            Parent.CheckCrafts();
             return true;
         }
 
