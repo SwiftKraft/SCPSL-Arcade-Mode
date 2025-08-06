@@ -57,6 +57,8 @@ namespace SwiftArcadeMode
             Shutdown.OnQuit += OnQuit;
             PlayerEvents.UpdatedEffect += OnUpdatedEffect;
             PlayerEvents.ChangedRole += OnChangedRole;
+
+            SaveManager.LoadScores();
         }
 
         private void OnMapGenerated(LabApi.Events.Arguments.ServerEvents.MapGeneratedEventArgs ev) => SaveManager.LoadScores();

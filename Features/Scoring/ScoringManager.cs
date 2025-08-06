@@ -60,10 +60,10 @@ namespace SwiftArcadeMode.Features.Scoring
             else if (p.Nickname != IDToName[p.UserId])
                 IDToName[p.UserId] = p.Nickname;
 
-            if (Scores.ContainsKey(p.UserId))
-                Scores[p.UserId] += amount;
-            else
+            if (!Scores.ContainsKey(p.UserId))
                 Scores.Add(p.UserId, amount);
+            else
+                Scores[p.UserId] += amount;
         }
 
         public static int GetScore(this Player p) => Scores.ContainsKey(p.UserId) ? Scores[p.UserId] : 0;

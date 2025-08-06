@@ -1,5 +1,6 @@
 ﻿using LabApi.Features.Console;
 using LabApi.Features.Wrappers;
+using System;
 using System.IO;
 using System.Text;
 
@@ -45,18 +46,20 @@ namespace SwiftArcadeMode.Features.Scoring.Saving
 
             string[] str = File.ReadAllLines(SavePath);
 
-            try
-            {
-                ScoringManager.Scores.Clear();
+            ScoringManager.Scores.Clear();
+            ScoringManager.IDToName.Clear();
 
-                foreach (var s in str)
+            foreach (var s in str)
+            {
+                try
                 {
                     string[] split = s.Split(';');
                     ScoringManager.Scores.Add(split[0], int.Parse(split[1]));
                     ScoringManager.IDToName.Add(split[0], split[2]);
                 }
+                catch (Exception e) { Logger.Error(e); }
             }
-            catch { }
+
             Logger.Info("Loaded all scores!");
         }
     }

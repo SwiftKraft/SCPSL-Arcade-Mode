@@ -60,9 +60,13 @@ namespace SwiftArcadeMode.Features.Humans.Perks.Crafting
 
         public bool CanCraft(PerkInventory inv)
         {
+            if (inv.HasPerk(ResultingPerk.Perk))
+                return false;
+
             for (int i = 0; i < RequiredPerks.Length; i++)
                 if (!inv.HasPerk(RequiredPerks[i]))
                     return false;
+
             return true;
         }
 
