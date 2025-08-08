@@ -7,18 +7,6 @@
 	<Nullable>disable</Nullable>
 	<AllowUnsafeBlocks>True</AllowUnsafeBlocks>
   </PropertyGroup>
-	
-  <PropertyGroup Condition="'$(Configuration)' == 'Debug'">
-    <AssemblyName>SwiftArcade</AssemblyName>
-  </PropertyGroup>
-
-  <PropertyGroup Condition="'$(Configuration)' == 'Release'">
-    <AssemblyName>SwiftArcade</AssemblyName>
-  </PropertyGroup>
-
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'" />
-
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'" />
 
 	<ItemGroup>
 		<Reference Include="Assembly-CSharp-firstpass">
