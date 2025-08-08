@@ -9,7 +9,7 @@ namespace SwiftArcadeMode.Commands.RA
     [CommandHandler(typeof(RemoteAdminCommandHandler))]
     public class ShowPerksCommand : ICommand
     {
-        public string Command => "showperks";
+        public string Command => "seeperks";
 
         public string[] Aliases => ["sperks", "showp", "sp"];
 
