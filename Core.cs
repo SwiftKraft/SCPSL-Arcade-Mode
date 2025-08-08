@@ -9,7 +9,6 @@ using SwiftArcadeMode.Features.Humans.Perks.Crafting;
 using SwiftArcadeMode.Features.Scoring;
 using SwiftArcadeMode.Features.Scoring.Saving;
 using SwiftArcadeMode.Features.SCPs.Upgrades;
-using SwiftArcadeMode.ServerSpecificSettings;
 using System;
 using System.IO;
 using Logger = LabApi.Features.Console.Logger;
@@ -26,7 +25,7 @@ namespace SwiftArcadeMode
 
         public override string Author => "SwiftKraft";
 
-        public override Version Version => new(1, 7, 0);
+        public override Version Version => new(1, 8, 0);
 
         public override Version RequiredApiVersion => new(LabApiProperties.CompiledVersion);
 
@@ -47,7 +46,6 @@ namespace SwiftArcadeMode
             PerkSpawner.Enable();
             UpgradePathManager.Enable();
             UpgradePathGiver.Enable();
-            SSSManager.Enable();
             ScoringManager.Enable();
             RecipeManager.Enable();
 
@@ -86,7 +84,6 @@ namespace SwiftArcadeMode
             PerkSpawner.Disable();
             UpgradePathManager.Disable();
             UpgradePathGiver.Disable();
-            SSSManager.Disable();
             ScoringManager.Disable();
 
             ServerEvents.RoundEnded -= OnRoundEnded;
@@ -104,7 +101,6 @@ namespace SwiftArcadeMode
         public static void FixedUpdate()
         {
             PerkManager.Tick();
-            SSSManager.Tick();
             ScoringManager.Tick();
         }
 
@@ -112,7 +108,6 @@ namespace SwiftArcadeMode
         Ideas:
 
         Random round events and mini modes.
-        Perk crafting
         */
     }
 }
