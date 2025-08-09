@@ -29,17 +29,13 @@ namespace SwiftArcadeMode.Features.Humans.Perks.Content
 
             Vector3 pos = Player.Position;
 
-            Timing.CallDelayed(0.2f, temp);
-
-            void temp()
+            PerkBase[] perks = [.. inv.Perks];
+            foreach (PerkBase type in perks)
             {
-                for (int i = inv.Perks.Count - 1; i >= 0; i--)
-                {
-                    Type removed = inv.Perks[i].GetType();
-                    inv.RemovePerk(removed);
-                    if (Random.Range(0f, 1f) <= DropChance || inv.Perks[i] == this)
-                        PerkSpawner.SpawnPerk(PerkManager.GetPerk(removed), pos);
-                }
+                Type removed = type.GetType();
+                inv.RemovePerk(removed);
+                if (Random.Range(0f, 1f) <= DropChance || type == this)
+                    PerkSpawner.SpawnPerk(PerkManager.GetPerk(removed), pos);
             }
         }
 

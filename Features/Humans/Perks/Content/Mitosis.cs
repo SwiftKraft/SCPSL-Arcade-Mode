@@ -39,6 +39,10 @@ namespace SwiftArcadeMode.Features.Humans.Perks.Content
                 return;
 
             Player target = Player.List.Where(p => p.Role == RoleTypeId.Spectator).ToArray().GetRandom();
+
+            if (target == null)
+                return;
+
             target.SetRole(Player.Role);
             target.Position = Player.Position;
             target.ClearInventory();
