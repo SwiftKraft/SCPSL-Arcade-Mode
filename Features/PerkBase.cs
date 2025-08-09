@@ -3,7 +3,7 @@ using LabApi.Features.Wrappers;
 
 namespace SwiftArcadeMode.Features
 {
-    public abstract class PerkBase(PerkInventory inv)
+    public abstract class PerkBase(PerkInventory inv) : IPerkInfo
     {
         public Rarity Rarity { get; set; }
 

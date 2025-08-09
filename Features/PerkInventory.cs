@@ -77,6 +77,12 @@ namespace SwiftArcadeMode.Features
 
             PerkManager.PerkProfile prof = type.Profile;
 
+            if (Parent.HasRestrictions(type))
+            {
+                Parent.SendHint($"{prof.FancyName} cannot be obtained by your role!", [HintEffectPresets.FadeOut()], 5f);
+                return false;
+            }
+
             if (type.HasConflicts(this, out PerkBase conf))
             {
                 Parent.SendHint($"{prof.FancyName} conflicts with {conf.FancyName}!", [HintEffectPresets.FadeOut()], 5f);

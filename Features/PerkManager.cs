@@ -49,6 +49,8 @@ namespace SwiftArcadeMode.Features
             ServerEvents.RoundRestarted -= OnRoundRestarted;
         }
 
+        public static bool HasRestrictions(this Player player, IPerkInfo perk) => player.IsAlive && ((player.IsHuman && perk.Restriction == PerkRestriction.SCP) || (player.IsSCP && perk.Restriction == PerkRestriction.Human));
+
         private static void OnChangedRole(PlayerChangedRoleEventArgs ev)
         {
             ev.Player.SendHint("", 1f);
@@ -59,16 +61,16 @@ namespace SwiftArcadeMode.Features
 
                 if (inv.Perks.Count > 0)
                 {
-                    List<PerkBase> perks = [];
+                    List<PerkBase> perksToRemove = [];
                     foreach (PerkBase p in inv.Perks)
-                        if (ev.Player.IsAlive && ev.Player.IsHuman && p.Restriction == PerkRestriction.SCP)
-                            perks.Add(p);
-                    if (perks.Count > 0)
+                        if (ev.Player.HasRestrictions(p))
+                            perksToRemove.Add(p);
+                    if (perksToRemove.Count > 0)
                     {
-                        foreach (PerkBase p in perks)
+                        foreach (PerkBase p in perksToRemove)
                             inv.RemovePerk(p);
 
-                        ev.Player.SendHint("Removed " + perks.Count + " perks, because of role incompatibility.", 5f);
+                        ev.Player.SendHint("Removed " + perksToRemove.Count + " perks, because of role incompatibility.", 5f);
                     }
                 }
             }
