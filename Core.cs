@@ -9,6 +9,7 @@ using SwiftArcadeMode.Features.Humans.Perks.Crafting;
 using SwiftArcadeMode.Features.Scoring;
 using SwiftArcadeMode.Features.Scoring.Saving;
 using SwiftArcadeMode.Features.SCPs.Upgrades;
+using SwiftArcadeMode.Features.ServerSpecificSettings;
 using System;
 using System.IO;
 using Logger = LabApi.Features.Console.Logger;
@@ -48,6 +49,7 @@ namespace SwiftArcadeMode
             UpgradePathGiver.Enable();
             ScoringManager.Enable();
             RecipeManager.Enable();
+            SSSManager.Enable();
 
             ServerEvents.RoundEnded += OnRoundEnded;
             ServerEvents.RoundStarted += OnRoundStarted;
@@ -85,6 +87,7 @@ namespace SwiftArcadeMode
             UpgradePathManager.Disable();
             UpgradePathGiver.Disable();
             ScoringManager.Disable();
+            SSSManager.Disable();
 
             ServerEvents.RoundEnded -= OnRoundEnded;
             ServerEvents.RoundStarted -= OnRoundStarted;

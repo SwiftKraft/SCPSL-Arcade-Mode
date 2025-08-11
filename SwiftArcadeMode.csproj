@@ -19,12 +19,6 @@
 		<Reference Include="CommandSystem.Core">
 			<HintPath>$(SCPSLREFERENCES)\CommandSystem.Core.dll</HintPath>
 		</Reference>
-		<Reference Include="Exiled.API">
-		  <HintPath>$(SCPSLREFERENCES)\Exiled.API.dll</HintPath>
-		</Reference>
-		<Reference Include="Exiled.Loader">
-		  <HintPath>$(SCPSLREFERENCES)\Exiled.Loader.dll</HintPath>
-		</Reference>
 		<Reference Include="LabApi">
 			<HintPath>$(SCPSLREFERENCES)\LabApi.dll</HintPath>
 		</Reference>
