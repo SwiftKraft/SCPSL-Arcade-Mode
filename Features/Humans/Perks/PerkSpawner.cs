@@ -14,6 +14,8 @@ namespace SwiftArcadeMode.Features.Humans.Perks
 {
     public static class PerkSpawner
     {
+        public static bool AllowSpawn { get; set; } = true;
+
         public static readonly Dictionary<ushort, PerkAttribute> PerkPickups = [];
         public static readonly Dictionary<ushort, LightSourceToy> LightSources = [];
 
@@ -26,6 +28,8 @@ namespace SwiftArcadeMode.Features.Humans.Perks
             ServerEvents.GeneratorActivated += OnGeneratorActivated;
             PlayerEvents.PickedUpItem += OnPickedUpItem;
             PlayerEvents.SearchingPickup += OnSearchingPickup;
+
+            AllowSpawn = !Core.Instance.Config.DisablePerkSpawning;
         }
 
         public static void Disable()
@@ -90,6 +94,9 @@ namespace SwiftArcadeMode.Features.Humans.Perks
 
         public static void SpawnPerks()
         {
+            if (!AllowSpawn)
+                return;
+
             foreach (Room r in Room.List)
             {
                 if (r == null || r.Base == null || (Random.Range(0f, 1f) > Mathf.Lerp(0.3f, 0.6f, Mathf.InverseLerp(5, 25, Server.PlayerCount)) && !SpawnRooms.Contains(r.Name)))

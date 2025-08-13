@@ -3,9 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.12.35527.113
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SwiftArcadeMode", "SwiftArcadeMode.csproj", "{33EAF652-DBCB-46C6-B6FE-346F526C5968}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SwiftArcadeModeSSS", "..\SwiftArcadeModeSSS\SwiftArcadeModeSSS.csproj", "{6B3CA426-8987-546D-EB5B-BC417F562B30}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SwiftArcadeMode", "SwiftArcadeMode.csproj", "{33EAF652-DBCB-46C6-B6FE-346F526C5968}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -17,10 +15,6 @@ Global
 		{33EAF652-DBCB-46C6-B6FE-346F526C5968}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{33EAF652-DBCB-46C6-B6FE-346F526C5968}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{33EAF652-DBCB-46C6-B6FE-346F526C5968}.Release|Any CPU.Build.0 = Release|Any CPU
-		{6B3CA426-8987-546D-EB5B-BC417F562B30}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{6B3CA426-8987-546D-EB5B-BC417F562B30}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{6B3CA426-8987-546D-EB5B-BC417F562B30}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{6B3CA426-8987-546D-EB5B-BC417F562B30}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
