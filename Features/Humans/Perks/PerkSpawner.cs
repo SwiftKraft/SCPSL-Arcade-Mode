@@ -29,7 +29,7 @@ namespace SwiftArcadeMode.Features.Humans.Perks
             PlayerEvents.PickedUpItem += OnPickedUpItem;
             PlayerEvents.SearchingPickup += OnSearchingPickup;
 
-            AllowSpawn = !Core.Instance.Config.DisablePerkSpawning;
+            AllowSpawn = Core.Instance.Config.AllowPerkSpawning;
         }
 
         public static void Disable()

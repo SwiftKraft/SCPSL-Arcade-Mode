@@ -13,7 +13,7 @@ namespace SwiftArcadeMode.Features.SCPs.Upgrades
 
         public static void Enable()
         {
-            if (!Core.Instance.Config.DisableBaseContent)
+            if (Core.Instance.Config.AllowBaseContent)
                 RegisterUpgrades();
         }
 

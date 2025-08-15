@@ -69,7 +69,9 @@ namespace SwiftArcadeMode.Features.Humans.Perks.Content
                 return;
 
             if (TeleportExists && ev.UsableItem.Type == TrackedType)
-                SendMessage($"{(CooldownTimer.Ended ? "<color=#00FF00>You will be teleported!</color>" : "<color=#FF0000>On cooldown, you will NOT be teleported!</color>")} Cancel to abort.");
+                SendMessage($"{(CooldownTimer.Ended ? "<color=#00FF00>You will be teleported!</color>" : "<color=#FF0000>On cooldown, you will <b>NOT</b> be teleported!</color>")} Cancel to abort.");
+            else if (!TeleportExists && Player.Room.Name == MapGeneration.RoomName.Pocket)
+                SendMessage($"Cannot create teleport point in this room!");
         }
 
         protected virtual void OnUsedItem(PlayerUsedItemEventArgs ev) // Teleport point follows elevator
@@ -81,6 +83,12 @@ namespace SwiftArcadeMode.Features.Humans.Perks.Content
             {
                 if (ev.UsableItem.Type == TrackedType)
                     Trigger();
+                return;
+            }
+
+            if (Player.Room.Name == MapGeneration.RoomName.Pocket)
+            {
+                SendMessage($"Cannot create teleport point in this room!");
                 return;
             }
 

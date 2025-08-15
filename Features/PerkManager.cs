@@ -29,7 +29,7 @@ namespace SwiftArcadeMode.Features
 
         public static void Enable()
         {
-            if (!Core.Instance.Config.DisableBaseContent)
+            if (Core.Instance.Config.AllowBaseContent)
             {
                 RegisterPerks(PerkNameSpace);
                 Gambler.RegisterEffects();

@@ -8,12 +8,14 @@ namespace SwiftArcadeMode.Features.SCPs.Upgrades
 {
     public static class UpgradePathGiver
     {
+        public static bool AllowLeveling { get; set; } = true;
+
         public static int SCPTeamExperience
         {
             get => _scpTeamExperience;
             set
             {
-                if (_scpTeamExperience == value)
+                if (_scpTeamExperience == value || !AllowLeveling)
                     return;
 
                 _scpTeamExperience = value;
@@ -42,7 +44,7 @@ namespace SwiftArcadeMode.Features.SCPs.Upgrades
                         foreach (Player p in Player.List)
                             if (p.IsSCP && p.TryGetPerkInventory(out PerkInventory inv))
                             {
-                                inv.UpgradeQueue.Create(3, UpgradePathManager.RegisteredUpgrades.Where((u) => inv.TryGetPerk(u.Perk.Perk, out PerkBase ba) && ba is UpgradePathPerkBase b && b.Maxed).ToList());
+                                inv.UpgradeQueue.Create(3, [.. UpgradePathManager.RegisteredUpgrades.Where((u) => inv.TryGetPerk(u.Perk.Perk, out PerkBase ba) && ba is UpgradePathPerkBase b && b.Maxed)]);
                                 p.SendBroadcast("SCP Team Leveled Up! \nCurrent Level: " + value, 5);
                             }
 
@@ -54,12 +56,10 @@ namespace SwiftArcadeMode.Features.SCPs.Upgrades
         public static void Enable()
         {
             PlayerEvents.Dying += OnPlayerDying;
+            AllowLeveling = Core.Instance.Config.AllowScpLeveling;
         }
 
-        public static void Disable()
-        {
-            PlayerEvents.Dying -= OnPlayerDying;
-        }
+        public static void Disable() => PlayerEvents.Dying -= OnPlayerDying;
 
         private static void OnPlayerDying(PlayerDyingEventArgs ev)
         {

@@ -20,7 +20,7 @@ namespace SwiftArcadeMode.Features.Humans.Perks.Crafting
 
         public static void Enable()
         {
-            if (Core.Instance.Config.DisableBaseContent)
+            if (!Core.Instance.Config.AllowBaseContent)
                 return;
 
             for (int i = 0; i < BaseContent.Length; i++)
