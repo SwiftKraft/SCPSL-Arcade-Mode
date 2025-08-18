@@ -1,8 +1,11 @@
-﻿using Hints;
+﻿using CustomPlayerEffects;
+using Hints;
 using LabApi.Features.Wrappers;
+using PlayerStatsSystem;
 using SwiftArcadeMode.Features.Humans.Perks.Crafting;
 using SwiftArcadeMode.Features.SCPs.Upgrades;
 using SwiftArcadeMode.Utils.Extensions;
+using SwiftArcadeMode.Utils.Structures;
 using System;
 using System.Collections.Generic;
 using System.Linq;
