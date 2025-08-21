@@ -3,11 +3,10 @@ using PlayerStatsSystem;
 
 namespace SwiftArcadeMode.Features.Humans.Perks.Content
 {
-    [Perk("Bodybuilder", Rarity.Uncommon)]
-    public class Bodybuilder(PerkInventory inv) : PerkBase(inv)
+    [Perk("Resilience", Rarity.Uncommon)]
+    public class Resilience(PerkInventory inv) : PerkBase(inv)
     {
-        public override string Name => "Bodybuilder";
-
+        public override string Name => "Resilience";
         public override string Description => "What doesn't kill you makes you stronger.\nTaking damage increases your max health.\nResets on death.";
 
         public virtual float Percentage => 0.05f;
