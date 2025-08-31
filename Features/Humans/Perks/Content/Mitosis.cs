@@ -9,7 +9,7 @@ using System.Linq;
 
 namespace SwiftArcadeMode.Features.Humans.Perks.Content
 {
-    [Perk("Mitosis", Rarity.Epic)]
+    [Perk("Mitosis", Rarity.Mythic)]
     public class Mitosis(PerkInventory inv) : PerkBase(inv)
     {
         public override string Name => "Mitosis";
@@ -49,6 +49,8 @@ namespace SwiftArcadeMode.Features.Humans.Perks.Content
 
             foreach (Item it in Player.Items)
                 target.AddItem(it.Type);
+            foreach (ItemType bullet in Player.Ammo.Keys)
+                target.AddAmmo(bullet, Player.Ammo[bullet]);
 
             Spawned.Add(target);
         }

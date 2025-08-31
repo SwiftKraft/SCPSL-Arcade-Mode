@@ -155,6 +155,8 @@ namespace SwiftArcadeMode.Features
             return t != null;
         }
 
+        public static bool GivePerk(this Player p, Type t) => TryGetPerk(t, out PerkAttribute att) && p.GivePerk(att);
+
         public static bool GivePerk(this Player p, PerkAttribute t)
         {
             if (!Inventories.ContainsKey(p))

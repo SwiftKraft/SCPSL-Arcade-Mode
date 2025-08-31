@@ -56,15 +56,29 @@ namespace SwiftArcadeMode.Features.SCPs.Upgrades
         public static void Enable()
         {
             PlayerEvents.Dying += OnPlayerDying;
+            ServerEvents.WaveRespawned += OnWaveRespawned;
             AllowLeveling = Core.Instance.Config.AllowScpLeveling;
         }
 
-        public static void Disable() => PlayerEvents.Dying -= OnPlayerDying;
+        private static void OnWaveRespawned(LabApi.Events.Arguments.ServerEvents.WaveRespawnedEventArgs ev)
+        {
+            if (ev.Players.Count > 4)
+                SCPLevel++;
+        }
+
+        public static void Disable()
+        {
+            PlayerEvents.Dying -= OnPlayerDying;
+            ServerEvents.WaveRespawned -= OnWaveRespawned;
+        }
 
         private static void OnPlayerDying(PlayerDyingEventArgs ev)
         {
             if (ev.Player.IsHuman && ((ev.Attacker != null && ev.Attacker.IsSCP) || (ev.DamageHandler is UniversalDamageHandler dmg && dmg.TranslationId == DeathTranslations.PocketDecay.Id)))
+            {
                 SCPTeamExperience++;
+                ev.Attacker.SendHitMarker(2f);
+            }
         }
     }
 }

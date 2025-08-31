@@ -102,7 +102,6 @@ namespace SwiftArcadeMode.Features
 
             PerkBase p = (PerkBase)Activator.CreateInstance(type.Perk, this);
 
-
             if (LimitUsage >= Limit && p.SlotUsage > 0)
             {
                 Parent.SendHint("You've hit your perk limit!", [HintEffectPresets.FadeOut()], 5f);

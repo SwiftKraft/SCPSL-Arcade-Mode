@@ -12,7 +12,7 @@ namespace SwiftArcadeMode.Features.Humans.Perks.Content
 
         public override string Description => "Push people when you are near them.";
 
-        public virtual float Strength => 5f;
+        public virtual float Strength => 2f;
         public virtual float Distance => 0.4f;
 
         public override void Tick()

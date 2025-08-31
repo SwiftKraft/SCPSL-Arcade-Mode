@@ -75,8 +75,8 @@ namespace SwiftArcadeMode
 
         private void OnUpdatedEffect(LabApi.Events.Arguments.PlayerEvents.PlayerEffectUpdatedEventArgs ev)
         {
-            if (Config.SkeletonBalance && ev.Effect is Strangled)
-                Timing.CallDelayed(1f, ev.Player.DisableEffect<Strangled>);
+            if (Config.SkeletonBalance && ev.Effect is Strangled str)
+                str.ServerChangeDuration(2f);
         }
 
         public override void Disable()
