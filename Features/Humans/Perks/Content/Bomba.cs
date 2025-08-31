@@ -15,7 +15,7 @@ namespace SwiftArcadeMode.Features.Humans.Perks.Content
             if (ev.Player != Player)
                 return;
 
-            TimedGrenadeProjectile.SpawnActive(Player.Position, ItemType.GrenadeHE, Player, 1.5f);
+            TimedGrenadeProjectile.SpawnActive(Player.Position, ItemType.GrenadeHE, Player, 1.75f);
         }
     }
 }

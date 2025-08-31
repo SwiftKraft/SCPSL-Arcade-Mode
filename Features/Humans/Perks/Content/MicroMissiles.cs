@@ -1,5 +1,6 @@
 ﻿using LabApi.Events.Handlers;
 using LabApi.Features.Wrappers;
+using PlayerStatsSystem;
 
 namespace SwiftArcadeMode.Features.Humans.Perks.Content
 {
@@ -42,6 +43,7 @@ namespace SwiftArcadeMode.Features.Humans.Perks.Content
             pick.Base.MaxRadius = 2f;
 
             Rocketeer.ConvertRocket(Player, pick, 45f);
+            pick.Base.ScpDamageMultiplier = 1f;
         }
     }
 }

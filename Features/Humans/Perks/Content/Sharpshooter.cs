@@ -13,7 +13,7 @@ namespace SwiftArcadeMode.Features.Humans.Perks.Content
     {
         public override string Name => "Sharpshooter";
 
-        public override string Description => "Every firearm you pick up turns into a revolver. \nKills with the revolver grant you AHP and 1 ammo in the chamber.";
+        public override string Description => "Every firearm you pick up turns into a revolver. \nKills with the revolver grant you AHP and 1 ammo in the chamber.\n2x damage when damaging SCPs with the Revolver.";
 
         public virtual float Amount => 20f;
         public virtual float Efficacy => 1f;
@@ -23,6 +23,7 @@ namespace SwiftArcadeMode.Features.Humans.Perks.Content
             base.Init();
 
             PlayerEvents.PickedUpItem += OnPickedUpItem;
+            PlayerEvents.Hurting += OnHurting;
 
             Player.AddAmmo(ItemType.Ammo44cal, 50);
         }
@@ -32,6 +33,15 @@ namespace SwiftArcadeMode.Features.Humans.Perks.Content
             base.Remove();
 
             PlayerEvents.PickedUpItem -= OnPickedUpItem;
+            PlayerEvents.Hurting -= OnHurting;
+        }
+
+        private void OnHurting(PlayerHurtingEventArgs ev)
+        {
+            if (ev.Attacker != Player || Player.CurrentItem == null || Player.CurrentItem.Type != ItemType.GunRevolver || !ev.Player.IsSCP || ev.DamageHandler is not FirearmDamageHandler handler)
+                return;
+
+            handler.Damage *= 2f;
         }
 
         protected override void OnPlayerDying(PlayerDyingEventArgs ev)

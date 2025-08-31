@@ -13,6 +13,7 @@ namespace SwiftArcadeMode.Features.SCPs.Upgrades.Content.SCP173.Tank
 
         public override Type[] AllUpgrades => [
             typeof(DefensiveSpeed),
+            typeof(BlastResistant)
             ];
     }
 }

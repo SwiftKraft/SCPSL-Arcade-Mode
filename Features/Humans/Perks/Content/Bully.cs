@@ -1,5 +1,6 @@
 ﻿using LabApi.Features.Wrappers;
 using PlayerRoles.FirstPersonControl;
+using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
@@ -15,15 +16,21 @@ namespace SwiftArcadeMode.Features.Humans.Perks.Content
         public virtual float Strength => 2f;
         public virtual float Distance => 0.4f;
 
+        readonly Dictionary<Player, Vector3> pushes = [];
+
         public override void Tick()
         {
-            foreach (Player p in Player.List.Where(p => p != Player && (p.Position - Player.Position).sqrMagnitude <= Distance * Distance))
-                if (p.RoleBase is IFpcRole role)
-                {
-                    Vector3 dirForce = (p.Position - Player.Position).normalized * (Strength * Time.fixedDeltaTime);
-                    role.FpcModule.ServerOverridePosition(p.Position + dirForce);
-                }
+            foreach (Player player in pushes.Keys)
+                if (player.RoleBase is IFpcRole role)
+                    role.FpcModule.ServerOverridePosition(pushes[player]);
 
+            pushes.Clear();
+
+            foreach (Player p in Player.List.Where(p => p != Player && (p.Position - Player.Position).sqrMagnitude <= Distance * Distance))
+            {
+                Vector3 dirForce = (p.Position - Player.Position).normalized * (Strength * Time.fixedDeltaTime);
+                pushes.Add(p, p.Position + dirForce);
+            }
         }
     }
 }

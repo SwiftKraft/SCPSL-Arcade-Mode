@@ -13,7 +13,7 @@ namespace SwiftArcadeMode.Features.Humans.Perks.Content
 
         public override string Name => "Rocketeer";
 
-        public override string Description => "Throwing a grenade will turn it into a rocket projectile.";
+        public override string Description => "Throwing a grenade will turn it into a rocket projectile. \nRockets have reduced SCP damage.";
 
         public override void Init()
         {
@@ -47,6 +47,7 @@ namespace SwiftArcadeMode.Features.Humans.Perks.Content
             proj.Rigidbody.angularVelocity = default;
             proj.Rigidbody.mass = 99999f;
             proj.Base.TargetTime = NetworkTime.time + time - 0.05f;
+            proj.Base.ScpDamageMultiplier = 1.5f;
         }
     }
 }

@@ -46,6 +46,7 @@ namespace SwiftArcadeMode.Features.SCPs.Upgrades
                             {
                                 inv.UpgradeQueue.Create(3, [.. UpgradePathManager.RegisteredUpgrades.Where((u) => inv.TryGetPerk(u.Perk.Perk, out PerkBase ba) && ba is UpgradePathPerkBase b && b.Maxed)]);
                                 p.SendBroadcast("SCP Team Leveled Up! \nCurrent Level: " + value, 5);
+                                p.Heal(p.MaxHealth * 0.2f);
                             }
 
                 _scpLevel = value;
