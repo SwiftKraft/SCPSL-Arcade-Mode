@@ -3,7 +3,7 @@ using LabApi.Events.Handlers;
 
 namespace SwiftArcadeMode.Features.Humans.Perks.Content
 {
-    [Perk("Phoenix", Rarity.Rare)]
+    [Perk("Phoenix", Rarity.Legendary)]
     public class Phoenix(PerkInventory inv) : PerkBase(inv)
     {
         public override string Name => "Phoenix";

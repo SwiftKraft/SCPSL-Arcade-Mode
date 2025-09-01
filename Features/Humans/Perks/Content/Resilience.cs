@@ -9,7 +9,7 @@ namespace SwiftArcadeMode.Features.Humans.Perks.Content
         public override string Name => "Resilience";
         public override string Description => "What doesn't kill you makes you stronger.\nTaking damage increases your max health.\nResets on death.";
 
-        public virtual float Percentage => 0.05f;
+        public virtual float Percentage => 0.1f;
         public virtual float Cap => 400f;
 
         public override void Init()
