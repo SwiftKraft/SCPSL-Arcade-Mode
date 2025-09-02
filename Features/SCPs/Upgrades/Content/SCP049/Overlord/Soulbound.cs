@@ -53,6 +53,8 @@ namespace SwiftArcadeMode.Features.SCPs.Upgrades.Content.SCP049.Overlord
             foreach (Player zombie in zombies)
                 zombie.Damage(dmg, ev.Attacker, (Player.Position - zombie.Position).normalized * 100f, 100);
 
+            ev.Attacker?.SendHitMarker();
+
             ev.IsAllowed = false;
         }
     }

@@ -1,10 +1,11 @@
 ﻿using LabApi.Events.Handlers;
+using LabApi.Features.Console;
 using LabApi.Features.Wrappers;
 using System.Linq;
 
 namespace SwiftArcadeMode.Features.SCPs.Upgrades.Content.SCP049.Overlord
 {
-    public class Siphon(UpgradePathPerkBase parent) : UpgradeBase<Overlord>(parent)
+    public class Siphon(UpgradePathPerkBase parent) : UpgradeCooldownBase<Overlord>(parent)
     {
         public override string Name => "Siphon";
 
@@ -12,6 +13,24 @@ namespace SwiftArcadeMode.Features.SCPs.Upgrades.Content.SCP049.Overlord
 
         public float Amount => 100f;
         public float Range => 15f;
+
+        public override float Cooldown => 3f;
+
+        public override string UpgradeDescription => "";
+
+        public override void Effect()
+        {
+            foreach (Player p in Player.List.Where(p => p.IsSCP && p.Role == PlayerRoles.RoleTypeId.Scp0492 && (p.Position - Player.Position).sqrMagnitude <= Range * Range))
+            {
+                if (p.Health <= 1f)
+                    continue;
+
+                bool canSupply = p.Health > Amount;
+                float amount = !canSupply ? p.Health - 1f : Amount;
+                Player.Heal(amount);
+                p.Health -= amount;
+            }
+        }
 
         public override void Init()
         {
@@ -30,15 +49,7 @@ namespace SwiftArcadeMode.Features.SCPs.Upgrades.Content.SCP049.Overlord
             if (ev.Player != Player)
                 return;
 
-            foreach (Player p in Player.List.Where(p => p.IsSCP && p.Role == PlayerRoles.RoleTypeId.Scp0492 && (p.Position - Player.Position).sqrMagnitude <= Range * Range))
-            {
-                if (p.Health <= 1f)
-                    continue;
-
-                bool canSupply = p.Health <= Amount;
-                Player.Heal(!canSupply ? p.Health - 1f : Amount);
-                p.Health = !canSupply ? 1f : p.Health - Amount;
-            }
+            Trigger();
         }
     }
 }

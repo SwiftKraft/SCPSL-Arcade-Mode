@@ -56,7 +56,7 @@ namespace SwiftArcadeMode.Features.Humans.Perks.Content
 
         protected void OnReloadingWeapon(PlayerReloadingWeaponEventArgs ev)
         {
-            if (ev.Player != Player || Player.CurrentItem == null || Player.CurrentItem.Type == ItemType.GunSCP127 || Player.CurrentItem.Type == ItemType.ParticleDisruptor || Player.CurrentItem is not FirearmItem item || !item.Base.TryGetModule(out IPrimaryAmmoContainerModule mod) || !item.Base.TryGetModule(out IReloaderModule mod2) || mod2.IsReloadingOrUnloading || mod.AmmoType == ItemType.None)
+            if (ev.Player != Player || Player.CurrentItem == null || Player.CurrentItem.Type == ItemType.GunSCP127 || Player.CurrentItem.Type == ItemType.ParticleDisruptor || Player.CurrentItem is not FirearmItem item || !item.Base.TryGetModule(out IPrimaryAmmoContainerModule mod) || mod.AmmoType == ItemType.None)
                 return;
 
             Player.SetAmmo(mod.AmmoType, (ushort)(mod.AmmoMax - mod.AmmoStored + 1));
