@@ -1,4 +1,5 @@
-﻿using SwiftArcadeMode.Utils.Extensions;
+﻿using SwiftArcadeMode.Features.Humans.Perks.Content;
+using SwiftArcadeMode.Utils.Extensions;
 using System;
 
 namespace SwiftArcadeMode.Features.SCPs.Upgrades.Content.SCP3114
@@ -14,7 +15,9 @@ namespace SwiftArcadeMode.Features.SCPs.Upgrades.Content.SCP3114
         public override void Init()
         {
             base.Init();
-            PerkManager.GetRandomPerk(p => p.Rarity == Rarity);
+            PerkAttribute att = PerkManager.GetRandomPerk(p => p.Rarity == Rarity);
+            if (!Player.HasPerk(att.Perk))
+                Player.GivePerk(att);
         }
     }
 }

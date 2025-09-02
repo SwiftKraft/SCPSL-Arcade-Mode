@@ -1,11 +1,5 @@
 ﻿using LabApi.Events.Handlers;
-using LabApi.Features.Console;
 using PlayerStatsSystem;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace SwiftArcadeMode.Features.Humans.Perks.Content
 {
