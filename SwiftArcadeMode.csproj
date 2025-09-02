@@ -49,7 +49,6 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <Folder Include="Features\SCPs\Upgrades\Content\SCP049\Overlord\" />
 	  <Folder Include="Features\SCPs\Upgrades\Content\SCP079\" />
 	  <Folder Include="Features\SCPs\Upgrades\Content\SCP096\" />
 	</ItemGroup>

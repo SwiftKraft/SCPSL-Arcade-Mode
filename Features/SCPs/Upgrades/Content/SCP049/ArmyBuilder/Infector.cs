@@ -10,7 +10,7 @@ namespace SwiftArcadeMode.Features.SCPs.Upgrades.Content.SCP049.ArmyBuilder
     {
         public override string Name => "Infector";
 
-        public override string Description => $"Zombies have a chance of {Chance * 100f}% of turning a human into a zombie upon kill.";
+        public override string Description => $"Zombies have a chance of {Chance * 100f}% of infecting a human upon kill.";
 
         public virtual float Chance => 0.35f;
 
