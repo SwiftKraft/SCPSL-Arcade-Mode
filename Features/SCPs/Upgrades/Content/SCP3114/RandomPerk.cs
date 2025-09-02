@@ -1,5 +1,4 @@
-﻿using SwiftArcadeMode.Features.Humans.Perks.Content;
-using SwiftArcadeMode.Utils.Extensions;
+﻿using SwiftArcadeMode.Utils.Extensions;
 using System;
 
 namespace SwiftArcadeMode.Features.SCPs.Upgrades.Content.SCP3114
