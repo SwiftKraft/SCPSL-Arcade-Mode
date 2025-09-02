@@ -36,8 +36,8 @@ namespace SwiftArcadeMode.Features.SCPs.Upgrades.Content.SCP049.Overlord
                     continue;
 
                 bool canSupply = p.Health <= Amount;
-                Player.Heal(canSupply ? p.Health - 1f : Amount);
-                p.Health = canSupply ? 1f : p.Health - Amount;
+                Player.Heal(!canSupply ? p.Health - 1f : Amount);
+                p.Health = !canSupply ? 1f : p.Health - Amount;
             }
         }
     }

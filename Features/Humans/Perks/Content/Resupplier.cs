@@ -16,14 +16,15 @@ namespace SwiftArcadeMode.Features.Humans.Perks.Content
         {
             base.Init();
 
-            Player.AddAmmo(ItemType.Ammo12gauge, 1);
-            Player.AddAmmo(ItemType.Ammo9x19, 1);
-            Player.AddAmmo(ItemType.Ammo44cal, 1);
-            Player.AddAmmo(ItemType.Ammo556x45, 1);
-            Player.AddAmmo(ItemType.Ammo762x39, 1);
+            Player.SetAmmo(ItemType.Ammo12gauge, 1);
+            Player.SetAmmo(ItemType.Ammo9x19, 1);
+            Player.SetAmmo(ItemType.Ammo44cal, 1);
+            Player.SetAmmo(ItemType.Ammo556x45, 1);
+            Player.SetAmmo(ItemType.Ammo762x39, 1);
 
             PlayerEvents.ReloadingWeapon += OnReloadingWeapon;
-            PlayerEvents.DroppedAmmo += OnDroppedAmmo;
+            PlayerEvents.AimedWeapon += OnAimedWeapon;
+            PlayerEvents.DroppingAmmo += OnDroppingAmmo;
         }
 
         public override void Remove()
@@ -31,21 +32,31 @@ namespace SwiftArcadeMode.Features.Humans.Perks.Content
             base.Remove();
 
             PlayerEvents.ReloadingWeapon -= OnReloadingWeapon;
-            PlayerEvents.DroppedAmmo -= OnDroppedAmmo;
+            PlayerEvents.AimedWeapon -= OnAimedWeapon;
+            PlayerEvents.DroppingAmmo -= OnDroppingAmmo;
         }
 
-        private void OnDroppedAmmo(PlayerDroppedAmmoEventArgs ev)
+        private void OnAimedWeapon(PlayerAimedWeaponEventArgs ev)
+        {
+            if (ev.Player != Player)
+                return;
+
+            Player.SetAmmo(ItemType.Ammo12gauge, 1);
+            Player.SetAmmo(ItemType.Ammo9x19, 1);
+            Player.SetAmmo(ItemType.Ammo44cal, 1);
+            Player.SetAmmo(ItemType.Ammo556x45, 1);
+            Player.SetAmmo(ItemType.Ammo762x39, 1);
+        }
+
+        private void OnDroppingAmmo(PlayerDroppingAmmoEventArgs ev)
         {
             if (ev.Player == Player)
-            {
-                ev.AmmoPickup.Destroy();
-                ev.Player.SetAmmo(ev.Type, 1);
-            }
+                ev.IsAllowed = false;
         }
 
         protected void OnReloadingWeapon(PlayerReloadingWeaponEventArgs ev)
         {
-            if (ev.Player != Player || Player.CurrentItem == null || Player.CurrentItem.Type == ItemType.GunSCP127 || Player.CurrentItem is not FirearmItem item || !item.Base.TryGetModule(out IPrimaryAmmoContainerModule mod) || !item.Base.TryGetModule(out IReloaderModule mod2) || mod2.IsReloadingOrUnloading)
+            if (ev.Player != Player || Player.CurrentItem == null || Player.CurrentItem.Type == ItemType.GunSCP127 || Player.CurrentItem.Type == ItemType.ParticleDisruptor || Player.CurrentItem is not FirearmItem item || !item.Base.TryGetModule(out IPrimaryAmmoContainerModule mod) || !item.Base.TryGetModule(out IReloaderModule mod2) || mod2.IsReloadingOrUnloading || mod.AmmoType == ItemType.None)
                 return;
 
             Player.SetAmmo(mod.AmmoType, (ushort)(mod.AmmoMax - mod.AmmoStored + 1));
