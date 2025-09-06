@@ -14,8 +14,8 @@ namespace SwiftArcadeMode.Features.SCPs.Upgrades.Content.SCP3114
         public override string PathDescription => "Gives you a random perk every upgrade. \nThis upgrade path takes up 0 slots.";
 
         public override Type[] AllUpgrades => [
-            typeof(RandomPerk),
             typeof(SlotUpgrade),
+            typeof(RandomPerk),
             typeof(RandomPerk),
             typeof(RandomPerk),
             typeof(RandomPerk),
