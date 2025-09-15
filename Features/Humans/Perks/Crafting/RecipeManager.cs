@@ -12,10 +12,11 @@ namespace SwiftArcadeMode.Features.Humans.Perks.Crafting
         public static readonly List<Recipe> All = [];
 
         public static readonly Recipe[] BaseContent = [
-            new Recipe(1, "What a level up! ", typeof(SuperRegeneration), typeof(Regeneration), typeof(Raise)),
-            new Recipe(2, "More attacks.", typeof(MicroMissiles), typeof(Rocketeer), typeof(Raise)),
+            new Recipe(2, "What a level up! ", typeof(SuperRegeneration), typeof(Regeneration), typeof(Raise)),
+            new Recipe(3, "More attacks.", typeof(MicroMissiles), typeof(Rocketeer), typeof(Raise)),
             new Recipe(5, "Become the undying.", typeof(Streamer), typeof(FlashCoin), typeof(SuperRegeneration)),
-            new Recipe(3, "Faster and faster.", typeof(RaceCar), typeof(HitAndRun), typeof(Raise))
+            new Recipe(4, "Faster and faster.", typeof(RaceCar), typeof(HitAndRun), typeof(Raise)),
+            new Recipe(1, "Ducks.", typeof(BombDuck), typeof(BombHen), typeof(Raise))
             ];
 
         public static void Enable()

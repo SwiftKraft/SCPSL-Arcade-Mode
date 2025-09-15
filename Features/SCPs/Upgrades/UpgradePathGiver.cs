@@ -78,7 +78,7 @@ namespace SwiftArcadeMode.Features.SCPs.Upgrades
             if (ev.Player.IsHuman && ((ev.Attacker != null && ev.Attacker.IsSCP) || (ev.DamageHandler is UniversalDamageHandler dmg && dmg.TranslationId == DeathTranslations.PocketDecay.Id)))
             {
                 SCPTeamExperience++;
-                ev.Attacker.SendHitMarker(2f);
+                ev.Attacker?.SendHitMarker(2f);
             }
         }
     }

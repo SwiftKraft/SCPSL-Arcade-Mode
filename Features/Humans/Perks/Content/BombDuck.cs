@@ -3,7 +3,7 @@ using PlayerStatsSystem;
 
 namespace SwiftArcadeMode.Features.Humans.Perks.Content
 {
-    [Perk("BombDuck", Rarity.Legendary)]
+    [Perk("BombDuck", Rarity.Legendary, PerkRestriction.DontSpawn)]
     public class BombDuck(PerkInventory inv) : BombHen(inv)
     {
         public override string Name => "Bomb Duck";

@@ -13,15 +13,15 @@ namespace SwiftArcadeMode.Features.Humans.Perks.Content.Gambler
 
         public override int Weight => 1;
 
-        public override string Explanation => "Ammo OVERFLOW...";
+        public override string Explanation => "Added ammo...";
 
         public override void Effect(Player player)
         {
-            player.AddAmmo(ItemType.Ammo12gauge, 200);
-            player.AddAmmo(ItemType.Ammo44cal, 200);
-            player.AddAmmo(ItemType.Ammo556x45, 400);
-            player.AddAmmo(ItemType.Ammo762x39, 400);
-            player.AddAmmo(ItemType.Ammo9x19, 600);
+            player.AddAmmo(ItemType.Ammo12gauge, 20);
+            player.AddAmmo(ItemType.Ammo44cal, 20);
+            player.AddAmmo(ItemType.Ammo556x45, 40);
+            player.AddAmmo(ItemType.Ammo762x39, 40);
+            player.AddAmmo(ItemType.Ammo9x19, 60);
         }
     }
 }

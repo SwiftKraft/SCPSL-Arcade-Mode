@@ -49,11 +49,11 @@ namespace SwiftArcadeMode.Features.Humans.Perks.Content
 
         private void OnChangedItem(LabApi.Events.Arguments.PlayerEvents.PlayerChangedItemEventArgs ev)
         {
-            if (!Pizzas.Contains(ev.NewItem.Serial))
+            if (ev.NewItem == null || !Pizzas.Contains(ev.NewItem.Serial))
                 return;
 
             if (ev.Player != Player)
-                ev.Player.SendHint($"Equipped {Player}'s pizza.", [HintEffectPresets.FadeOut()]);
+                ev.Player.SendHint($"Equipped {Player.DisplayName}'s pizza.", [HintEffectPresets.FadeOut()]);
             else
                 SendMessage("Equipped your pizza.");
         }
@@ -65,8 +65,8 @@ namespace SwiftArcadeMode.Features.Humans.Perks.Content
 
             if (ev.Player != Player)
             {
-                SendMessage($"{ev.Player} has eaten your pizza.");
-                ev.Player.SendHint($"You've eaten {Player}'s pizza.", [HintEffectPresets.FadeOut()]);
+                SendMessage($"{ev.Player.DisplayName} has eaten your pizza.");
+                ev.Player.SendHint($"You've eaten {Player.DisplayName}'s pizza.", [HintEffectPresets.FadeOut()]);
             }
             else
                 SendMessage("You've eaten your own pizza.");
