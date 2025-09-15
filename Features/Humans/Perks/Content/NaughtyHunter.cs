@@ -56,7 +56,7 @@ namespace SwiftArcadeMode.Features.Humans.Perks.Content
 
         private void OnChangedItem(LabApi.Events.Arguments.PlayerEvents.PlayerChangedItemEventArgs ev)
         {
-            if (ev.NewItem.Serial == CurrentGun)
+            if (ev.NewItem != null && ev.NewItem.Serial == CurrentGun)
                 ev.Player.SendHint("Equipped the NAUGHTY GUN.\nSends people to the NAUGHTY ROOM.\nCannot be reloaded or unloaded.", [HintEffectPresets.FadeOut()], 5f);
         }
 
@@ -65,7 +65,6 @@ namespace SwiftArcadeMode.Features.Humans.Perks.Content
             if (ev.Attacker == null || ev.Attacker.CurrentItem == null || ev.Attacker.CurrentItem.Serial != CurrentGun)
                 return;
 
-            Logger.Info(ev.Player);
             Timing.RunCoroutine(NaughtyCoroutine(ev.Player, ev.Player.Position));
         }
 
