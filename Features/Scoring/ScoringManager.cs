@@ -52,7 +52,7 @@ namespace SwiftArcadeMode.Features.Scoring
 
         public static void AddScore(this Player p, int amount)
         {
-            if (p.IsDummy || string.IsNullOrWhiteSpace(p.UserId))
+            if (p.IsDummy || string.IsNullOrWhiteSpace(p.UserId) || p.DoNotTrack)
                 return;
 
             if (!IDToName.ContainsKey(p.UserId))
