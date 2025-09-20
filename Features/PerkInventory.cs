@@ -142,7 +142,13 @@ namespace SwiftArcadeMode.Features
 
         public PerkBase GetPerk(Type t) => Perks.FirstOrDefault((p) => p.GetType() == t);
 
-        public void ClearPerks() => Perks.Clear();
+        public void ClearPerks()
+        {
+            foreach (PerkBase perk in Perks)
+                perk.Remove();
+
+            Perks.Clear();
+        }
 
         public void RemovePerk(PerkBase perk)
         {

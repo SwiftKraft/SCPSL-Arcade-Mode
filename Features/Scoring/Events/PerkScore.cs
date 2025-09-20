@@ -5,11 +5,11 @@ namespace SwiftArcadeMode.Features.Scoring.Events
 {
     public class PerkScore : ScoreEventBase
     {
-        public override void Disable() => PerkSpawner.OnPickedUpPerk -= OnPickedUpPerk;
+        public override void Disable() => PerkEvents.PickedUpPerk -= OnPickedUpPerk;
 
-        public override void Enable() => PerkSpawner.OnPickedUpPerk += OnPickedUpPerk;
+        public override void Enable() => PerkEvents.PickedUpPerk += OnPickedUpPerk;
 
-        protected virtual void OnPickedUpPerk(Player p, PerkAttribute obj) => p.AddScore(obj.Profile.Rarity switch
+        protected virtual void OnPickedUpPerk(PickedUpPerkEventArgs ev) => ev.Player.AddScore(ev.Perk.Profile.Rarity switch
         {
             Rarity.Secret => 50,
             Rarity.Mythic => 35,

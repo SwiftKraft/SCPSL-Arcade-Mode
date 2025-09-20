@@ -1,4 +1,5 @@
 ﻿using Hints;
+using LabApi.Events.Arguments.Interfaces;
 using LabApi.Events.Arguments.PlayerEvents;
 using LabApi.Events.Arguments.ServerEvents;
 using LabApi.Events.Handlers;
@@ -18,23 +19,6 @@ namespace SwiftArcadeMode.Features.Humans.Perks
 
         public static readonly Dictionary<ushort, PerkAttribute> PerkPickups = [];
         public static readonly Dictionary<ushort, LightSourceToy> LightSources = [];
-
-        public static event Action<Player, PerkAttribute> OnPickedUpPerk;
-        public static event Action<PickupEvent> OnTryingPickup;
-        public static event Action<CheckEvent> OnCheckPickup;
-
-        public class PickupEvent
-        {
-            public bool IsAllowed { get; set; }
-        }
-
-        public class CheckEvent(Type perk, PerkManager.PerkProfile prof)
-        {
-            public string OverrideHint { get; set; } = null;
-
-            public readonly Type Perk = perk;
-            public readonly PerkManager.PerkProfile Profile = prof;
-        }
 
         public static void Enable()
         {
@@ -66,8 +50,8 @@ namespace SwiftArcadeMode.Features.Humans.Perks
             Type type = PerkPickups[ev.Pickup.Serial].Perk;
             PerkManager.PerkProfile prof = PerkPickups[ev.Pickup.Serial].Profile;
 
-            CheckEvent chk = new(type, prof);
-            OnCheckPickup?.Invoke(chk);
+            CheckPickupEventArgs chk = new(type, prof, ev);
+            PerkEvents.OnCheckPickup(chk);
 
             ev.Player.SendHint(!string.IsNullOrWhiteSpace(chk.OverrideHint) ? chk.OverrideHint : $"Picking Up Perk: {prof.FancyName}\n{prof.Description}{(PerkManager.HasPerk(ev.Player, type) ? "\n\n<color=#FF0000><b>WARNING: Picking this up will remove the perk of the same type.</b></color>" : "")}", [HintEffectPresets.FadeOut()], 5f);
         }
@@ -79,8 +63,8 @@ namespace SwiftArcadeMode.Features.Humans.Perks
 
             ev.Player.RemoveItem(ev.Item);
 
-            PickupEvent pick = new();
-            OnTryingPickup?.Invoke(pick);
+            TryingPickupEventArgs pick = new(ev);
+            PerkEvents.OnTryingPickup(pick);
 
             if (!pick.IsAllowed || !PerkManager.GivePerk(ev.Player, PerkPickups[ev.Item.Serial]))
             {
@@ -88,9 +72,10 @@ namespace SwiftArcadeMode.Features.Humans.Perks
                 return;
             }
 
-            OnPickedUpPerk?.Invoke(ev.Player, PerkPickups[ev.Item.Serial]);
+            PerkEvents.OnPickedUpPerk(new(ev.Player, PerkPickups[ev.Item.Serial]));
 
             PerkPickups.Remove(ev.Item.Serial);
+
             if (LightSources.ContainsKey(ev.Item.Serial))
             {
                 LightSources[ev.Item.Serial].Destroy();
@@ -149,5 +134,30 @@ namespace SwiftArcadeMode.Features.Humans.Perks
             }
             return p;
         }
+    }
+
+    public class PickedUpPerkEventArgs(Player p, PerkAttribute att) : EventArgs, IPlayerEvent
+    {
+        public Player Player { get; } = p;
+        public PerkAttribute Perk { get; } = att;
+    }
+
+    public class TryingPickupEventArgs(PlayerPickedUpItemEventArgs ev) : EventArgs, IPlayerEvent, IItemEvent, ICancellableEvent
+    {
+        public bool IsAllowed { get; set; } = true;
+
+        public Player Player { get; } = ev.Player;
+        public Item Item { get; } = ev.Item;
+    }
+
+    public class CheckPickupEventArgs(Type perk, PerkManager.PerkProfile prof, PlayerSearchingPickupEventArgs ev) : EventArgs, IPlayerEvent, IPickupEvent
+    {
+        public string OverrideHint { get; set; } = null;
+
+        public Player Player { get; } = ev.Player;
+        public Pickup Pickup { get; } = ev.Pickup;
+
+        public Type Perk { get; } = perk;
+        public PerkManager.PerkProfile Profile { get; } = prof;
     }
 }

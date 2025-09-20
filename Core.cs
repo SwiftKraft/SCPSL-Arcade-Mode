@@ -57,8 +57,15 @@ namespace SwiftArcadeMode
             Shutdown.OnQuit += OnQuit;
             PlayerEvents.UpdatedEffect += OnUpdatedEffect;
             PlayerEvents.ChangedRole += OnChangedRole;
+            PlayerEvents.Left += OnLeft;
 
             SaveManager.LoadScores();
+        }
+
+        private void OnLeft(LabApi.Events.Arguments.PlayerEvents.PlayerLeftEventArgs ev)
+        {
+            if (ev.Player.TryGetPerkInventory(out PerkInventory inv))
+                inv.ClearPerks();
         }
 
         private void OnMapGenerated(LabApi.Events.Arguments.ServerEvents.MapGeneratedEventArgs ev) => SaveManager.LoadScores();
@@ -95,6 +102,7 @@ namespace SwiftArcadeMode
             Shutdown.OnQuit -= OnQuit;
             PlayerEvents.UpdatedEffect -= OnUpdatedEffect;
             PlayerEvents.ChangedRole -= OnChangedRole;
+            PlayerEvents.Left -= OnLeft;
 
             SaveManager.SaveScores();
         }
