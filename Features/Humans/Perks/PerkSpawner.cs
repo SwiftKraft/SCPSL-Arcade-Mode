@@ -20,12 +20,20 @@ namespace SwiftArcadeMode.Features.Humans.Perks
         public static readonly Dictionary<ushort, LightSourceToy> LightSources = [];
 
         public static event Action<Player, PerkAttribute> OnPickedUpPerk;
-
         public static event Action<PickupEvent> OnTryingPickup;
+        public static event Action<CheckEvent> OnCheckPickup;
 
         public class PickupEvent
         {
             public bool IsAllowed { get; set; }
+        }
+
+        public class CheckEvent(Type perk, PerkManager.PerkProfile prof)
+        {
+            public string OverrideHint { get; set; } = null;
+
+            public readonly Type Perk = perk;
+            public readonly PerkManager.PerkProfile Profile = prof;
         }
 
         public static void Enable()
@@ -57,7 +65,11 @@ namespace SwiftArcadeMode.Features.Humans.Perks
 
             Type type = PerkPickups[ev.Pickup.Serial].Perk;
             PerkManager.PerkProfile prof = PerkPickups[ev.Pickup.Serial].Profile;
-            ev.Player.SendHint($"Picking Up Perk: {prof.FancyName}\n{prof.Description}{(PerkManager.HasPerk(ev.Player, type) ? "\n\n<color=#FF0000><b>WARNING: Picking this up will remove the perk of the same type.</b></color>" : "")}", [HintEffectPresets.FadeOut()], 5f);
+
+            CheckEvent chk = new(type, prof);
+            OnCheckPickup?.Invoke(chk);
+
+            ev.Player.SendHint(!string.IsNullOrWhiteSpace(chk.OverrideHint) ? chk.OverrideHint : $"Picking Up Perk: {prof.FancyName}\n{prof.Description}{(PerkManager.HasPerk(ev.Player, type) ? "\n\n<color=#FF0000><b>WARNING: Picking this up will remove the perk of the same type.</b></color>" : "")}", [HintEffectPresets.FadeOut()], 5f);
         }
 
         private static void OnPickedUpItem(PlayerPickedUpItemEventArgs ev)
