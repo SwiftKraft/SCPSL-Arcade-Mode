@@ -63,8 +63,8 @@ namespace SwiftArcadeMode.Features.Humans.Perks
 
             ev.Player.RemoveItem(ev.Item);
 
-            TryingPickupEventArgs pick = new(ev);
-            PerkEvents.OnTryingPickup(pick);
+            AttemptAddEventArgs pick = new(ev, PerkPickups[ev.Item.Serial]);
+            PerkEvents.OnAttemptAdd(pick);
 
             if (!pick.IsAllowed || !PerkManager.GivePerk(ev.Player, PerkPickups[ev.Item.Serial]))
             {
@@ -142,10 +142,11 @@ namespace SwiftArcadeMode.Features.Humans.Perks
         public PerkAttribute Perk { get; } = att;
     }
 
-    public class TryingPickupEventArgs(PlayerPickedUpItemEventArgs ev) : EventArgs, IPlayerEvent, IItemEvent, ICancellableEvent
+    public class AttemptAddEventArgs(PlayerPickedUpItemEventArgs ev, PerkAttribute att) : EventArgs, IPlayerEvent, IItemEvent, ICancellableEvent
     {
         public bool IsAllowed { get; set; } = true;
 
+        public PerkAttribute Perk { get; } = att;
         public Player Player { get; } = ev.Player;
         public Item Item { get; } = ev.Item;
     }
