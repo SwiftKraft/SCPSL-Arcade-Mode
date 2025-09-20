@@ -21,6 +21,13 @@ namespace SwiftArcadeMode.Features.Humans.Perks
 
         public static event Action<Player, PerkAttribute> OnPickedUpPerk;
 
+        public static event Action<PickupEvent> OnTryingPickup;
+
+        public class PickupEvent
+        {
+            public bool IsAllowed { get; set; }
+        }
+
         public static void Enable()
         {
             ServerEvents.RoundStarted += OnRoundStarted;
@@ -60,7 +67,10 @@ namespace SwiftArcadeMode.Features.Humans.Perks
 
             ev.Player.RemoveItem(ev.Item);
 
-            if (!PerkManager.GivePerk(ev.Player, PerkPickups[ev.Item.Serial]))
+            PickupEvent pick = new();
+            OnTryingPickup?.Invoke(pick);
+
+            if (!pick.IsAllowed || !PerkManager.GivePerk(ev.Player, PerkPickups[ev.Item.Serial]))
             {
                 SpawnPerk(PerkPickups[ev.Item.Serial], ev.Player.Position);
                 return;
