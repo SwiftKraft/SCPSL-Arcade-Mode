@@ -1,5 +1,4 @@
 ﻿using LabApi.Events.Arguments.PlayerEvents;
-using LabApi.Events.Arguments.Scp939Events;
 using LabApi.Events.Handlers;
 using LabApi.Features.Console;
 using LabApi.Features.Wrappers;
@@ -24,7 +23,7 @@ namespace SwiftArcadeMode.Features.SCPs.Upgrades.Content.SCP939.Diseased
         public override void Init()
         {
             base.Init();
-            Scp939Events.Attacking += Attacking;
+            PlayerEvents.Hurt += OnHurt;
         }
 
         public override void Tick()
@@ -54,18 +53,22 @@ namespace SwiftArcadeMode.Features.SCPs.Upgrades.Content.SCP939.Diseased
         public override void Remove()
         {
             base.Remove();
-            Scp939Events.Attacking -= Attacking;
+            PlayerEvents.Hurt -= OnHurt;
         }
 
-        private void Attacking(Scp939AttackingEventArgs ev)
+        private void OnHurt(PlayerHurtEventArgs ev)
         {
-            if (ev.Player != Player)
+            if (ev.Attacker != Player || ev.DamageHandler is not Scp939DamageHandler)
                 return;
 
-            if (!Players.ContainsKey(ev.Target))
-                Players.Add(ev.Target, new(Duration));
+            if (!Players.ContainsKey(ev.Player))
+            {
+                Timer timer = new(Duration);
+                timer.Reset();
+                Players.Add(ev.Player, timer);
+            }
             else
-                Players[ev.Target].Reset();
+                Players[ev.Player].Reset();
         }
     }
 }
