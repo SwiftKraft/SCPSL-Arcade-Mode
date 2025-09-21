@@ -2,6 +2,7 @@
 using LabApi.Events.Handlers;
 using LabApi.Features.Wrappers;
 using PlayerStatsSystem;
+using System;
 using System.Linq;
 
 namespace SwiftArcadeMode.Features.SCPs.Upgrades
@@ -49,10 +50,17 @@ namespace SwiftArcadeMode.Features.SCPs.Upgrades
                                 p.Heal(p.MaxHealth * 0.2f);
                             }
 
+                PerkEvents.OnScpTeamLevelUp(new(_scpLevel, value));
                 _scpLevel = value;
             }
         }
         private static int _scpLevel = 1;
+
+        public class ScpTeamLevelUpEventArgs(int prevLevel, int newLevel) : EventArgs
+        {
+            public int PreviousLevel { get; } = prevLevel;
+            public int NewLevel { get; } = newLevel;
+        }
 
         public static void Enable()
         {

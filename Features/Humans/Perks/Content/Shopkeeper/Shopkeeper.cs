@@ -23,8 +23,11 @@ namespace SwiftArcadeMode.Features.Humans.Perks.Content.Shopkeeper
 
         public virtual ShopElement[] PresetElements => [
             new ShopItem(new(-5.5f, 1f, -5.25f), ShopItem.PresetTiers),
+            new ShopItem(new(-5f, 1f, -5.25f), ShopItem.PresetTiers),
             new ShopItem(new(-4.5f, 1f, -5.25f), ShopItem.PresetTiers),
+            new ShopItem(new(-4f, 1f, -5.25f), ShopItem.PresetTiers),
             new ShopItem(new(-3.5f, 1f, -5.25f), ShopItem.PresetTiers),
+            new ShopItem(new(-3f, 1f, -5.25f), ShopItem.PresetTiers),
             new ShopItem(new(0.72f, 0.8f, -5.25f), ShopItem.PresetTiers),
             new ShopItem(new(1.84f, 0.8f, -5.25f), ShopItem.PresetTiers),
             new ShopItem(new(-1.37f, 0.8f, -5.25f), ShopItem.PresetTiers),
