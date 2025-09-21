@@ -21,7 +21,7 @@ namespace SwiftArcadeMode.Utils.Structures
                     timeRemaining = 0f;
                 return timeRemaining;
             }
-            protected set
+            set
             {
                 if (value > 0f)
                 {
