@@ -4,6 +4,7 @@ using LabApi.Features;
 using LabApi.Loader.Features.Plugins;
 using MEC;
 using SwiftArcadeMode.Features;
+using SwiftArcadeMode.Features.Game.Modes;
 using SwiftArcadeMode.Features.Humans.Perks;
 using SwiftArcadeMode.Features.Humans.Perks.Crafting;
 using SwiftArcadeMode.Features.Scoring;
@@ -50,6 +51,7 @@ namespace SwiftArcadeMode
             ScoringManager.Enable();
             RecipeManager.Enable();
             SSSManager.Enable();
+            GameModeManager.Enable();
 
             ServerEvents.RoundEnded += OnRoundEnded;
             ServerEvents.RoundStarted += OnRoundStarted;
@@ -95,6 +97,7 @@ namespace SwiftArcadeMode
             UpgradePathGiver.Disable();
             ScoringManager.Disable();
             SSSManager.Disable();
+            GameModeManager.Disable();
 
             ServerEvents.RoundEnded -= OnRoundEnded;
             ServerEvents.RoundStarted -= OnRoundStarted;
@@ -111,6 +114,7 @@ namespace SwiftArcadeMode
 
         public static void FixedUpdate()
         {
+            GameModeManager.Tick();
             PerkManager.Tick();
             ScoringManager.Tick();
         }
