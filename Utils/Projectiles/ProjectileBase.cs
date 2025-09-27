@@ -6,7 +6,10 @@ using System.Threading.Tasks;
 
 namespace SwiftArcadeMode.Utils.Projectiles
 {
-    internal class ProjectileBase
+    public abstract class ProjectileBase
     {
+        public abstract void Init();
+        public abstract void Tick();
+        public abstract void Destroy();
     }
 }
