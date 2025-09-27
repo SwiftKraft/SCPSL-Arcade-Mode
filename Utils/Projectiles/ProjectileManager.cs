@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-
-namespace SwiftArcadeMode.Utils.Projectiles
+﻿namespace SwiftArcadeMode.Utils.Projectiles
 {
     public static class ProjectileManager
     {
