@@ -19,7 +19,7 @@ namespace SwiftArcadeMode.Features.Humans.Perks.Content.Wizard
 
         public override float CastTime => 0.5f;
 
-        public override void Cast() => new Projectile(Wizard.Player.Camera.position + Wizard.Player.Camera.forward * 0.4f, Wizard.Player.Camera.rotation, Wizard.Player.Camera.forward * 30f, 3f, Wizard.Player);
+        public override void Cast() => new Projectile(Wizard.Player.Camera.position + Wizard.Player.Camera.forward * 0.4f, Wizard.Player.Camera.rotation, Wizard.Player.Camera.forward * 30f, 6f, Wizard.Player);
 
         public class Projectile(Vector3 initialPosition, Quaternion initialRotation, Vector3 initialVelocity, float lifetime = 3f, Player owner = null) : Caster.MagicProjectileBase(initialPosition, initialRotation, initialVelocity, lifetime, owner)
         {
