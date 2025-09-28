@@ -62,9 +62,11 @@ namespace SwiftArcadeMode.Features.Humans.Perks.Content.Wizard
 
                     player.playerStats.DealDamage(new ExplosionDamageHandler(new Footprint(Owner.ReferenceHub), InitialVelocity, damage * (player.IsSCP() ? 3f : 1f), 100, ExplosionType.Disruptor));
                     Owner?.SendHitMarker(2f);
+                    TimedGrenadeProjectile.PlayEffect(player.transform.position - Vector3.up, ItemType.SCP2176);
                 }
+                else
+                    TimedGrenadeProjectile.PlayEffect(Rigidbody.position, ItemType.SCP2176);
 
-                TimedGrenadeProjectile.PlayEffect(Rigidbody.position, ItemType.SCP2176);
                 Destroy();
             }
         }

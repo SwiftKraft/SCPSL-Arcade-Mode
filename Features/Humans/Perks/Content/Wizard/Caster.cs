@@ -98,6 +98,9 @@ namespace SwiftArcadeMode.Features.Humans.Perks.Content.Wizard
 
         private void OnChangingItem(LabApi.Events.Arguments.PlayerEvents.PlayerChangingItemEventArgs ev)
         {
+            if (ev.Player == Player && ev.NewItem == CurrentSpellItem)
+                SendMessage("Equipped " + CurrentSpell.Name);
+
             if (!casting || ev.Player != Player || ev.OldItem != CurrentSpellItem)
                 return;
 
@@ -126,7 +129,12 @@ namespace SwiftArcadeMode.Features.Humans.Perks.Content.Wizard
         private void OnDying(LabApi.Events.Arguments.PlayerEvents.PlayerDyingEventArgs ev)
         {
             if (ev.Player != Player)
+            {
+                if (ev.Attacker == Player)
+                    CooldownTimer.Tick(2f);
+
                 return;
+            }
 
             casting = false;
             RemoveCurrentSpellItem();
