@@ -31,7 +31,6 @@ namespace SwiftArcadeMode.Features.Humans.Perks.Content.Wizard
             Vector3 vel;
 
             public override PrimitiveObjectToy[] CreateBalls() => [PrimitiveObjectToy.Create(default, Quaternion.identity, new(0.05f, 0.05f, 0.4f), Parent.Transform, false)];
-
             public override LightSourceToy[] CreateLights() => [LightSourceToy.Create(Vector3.left * 0.1f, Parent.Transform, false), LightSourceToy.Create(Vector3.forward * 0.4f, Parent.Transform, false), LightSourceToy.Create(Vector3.back * 0.4f, Parent.Transform, false), LightSourceToy.Create(Vector3.right * 0.1f, Parent.Transform, false)];
 
             public override void Init()
