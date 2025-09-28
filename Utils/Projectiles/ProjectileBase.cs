@@ -68,8 +68,11 @@ namespace SwiftArcadeMode.Utils.Projectiles
             Lifetime.Tick(Time.fixedDeltaTime);
 
             if (Lifetime.Ended)
-                Destroy();
+                EndLife();
         }
+
+        public virtual void EndLife() => Destroy();
+
         public virtual void Destroy()
         {
             ProjectileManager.All.Remove(this);

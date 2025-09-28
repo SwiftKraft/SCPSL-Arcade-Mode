@@ -1,12 +1,12 @@
 ﻿using Footprinting;
-using InventorySystem.Items.ThrowableProjectiles;
 using LabApi.Features.Wrappers;
 using MEC;
 using PlayerRoles.FirstPersonControl;
 using PlayerStatsSystem;
-using RelativePositioning;
-using SwiftArcadeMode.Utils.Projectiles;
+using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
+using static UnityEngine.GraphicsBuffer;
 
 namespace SwiftArcadeMode.Features.Humans.Perks.Content.Wizard
 {
@@ -26,7 +26,7 @@ namespace SwiftArcadeMode.Features.Humans.Perks.Content.Wizard
 
         public override void Cast()
         {
-            new Projectile(Wizard.Player.Camera.position, Wizard.Player.Camera.rotation, Wizard.Player.Camera.forward * 8f, 20f, Wizard.Player);
+            new Projectile(Wizard.Player.Camera.position, Wizard.Player.Camera.rotation, Wizard.Player.Camera.forward * 8f, 10f, Wizard.Player);
 
             coroutine = Timing.CallPeriodically(1.6f, 0.2f, () =>
             {
@@ -40,51 +40,79 @@ namespace SwiftArcadeMode.Features.Humans.Perks.Content.Wizard
             });
         }
 
-        public class Projectile(Vector3 initialPosition, Quaternion initialRotation, Vector3 initialVelocity, float lifetime = 10f, Player owner = null) : ProjectileBase(initialPosition, initialRotation, initialVelocity, lifetime, owner)
+        public class Projectile(Vector3 initialPosition, Quaternion initialRotation, Vector3 initialVelocity, float lifetime = 10f, Player owner = null) : Caster.MagicProjectileBase(initialPosition, initialRotation, initialVelocity, lifetime, owner)
         {
-            PrimitiveObjectToy ball;
-            LightSourceToy light;
-            LightSourceToy light2;
+            const float homingRangeSqr = 25f;
+            float initialSpeed;
+            Player homing;
+
+            List<Player> targets;
+
+            public override PrimitiveObjectToy[] CreateBalls() => [PrimitiveObjectToy.Create(default, Quaternion.identity, new(0.2f, 0.2f, 0.5f), Parent.Transform, false)];
+
+            public override LightSourceToy[] CreateLights() => [LightSourceToy.Create(new(0.2f, 0f, 0.2f), Parent.Transform, false), LightSourceToy.Create(new(-0.2f, 0f, 0.2f), Parent.Transform, false)];
 
             public override void Construct()
             {
                 CollisionRadius = 0.1f;
-
-                ball = PrimitiveObjectToy.Create(default, Quaternion.identity, new(0.2f, 0.2f, 0.5f), Parent.Transform, false);
-                light = LightSourceToy.Create(new(0.2f, 0f, 0.2f), Parent.Transform, false);
-                light2 = LightSourceToy.Create(new(-0.2f, 0f, 0.2f), Parent.Transform, false);
-
-                light.Color = new Color(1f, 0f, 1f, 1f);
-                light.Intensity = 0.1f;
-
-                light2.Color = new Color(1f, 0f, 1f, 1f);
-                light2.Intensity = 0.1f;
-
-                ball.Type = PrimitiveType.Sphere;
-                ball.Color = new Color(1f, 0f, 1f, 1f);
-                ball.Flags = AdminToys.PrimitiveFlags.Visible;
-                Rigidbody.useGravity = false;
+                SpinSpeed = 1200f;
+                BaseColor = new Color(1f, 0f, 1f, 1f);
+                LightColor = new Color(1f, 0f, 1f, 1f);
+                LightIntensity = 0.1f;
+                UseGravity = false;
+                base.Construct();
             }
 
             public override void Init()
             {
                 base.Init();
-                light.Spawn();
-                light2.Spawn();
-                ball.Spawn();
+                initialSpeed = InitialVelocity.magnitude;
+                targets = [.. Player.List.Where(p => p != Owner && p.IsAlive && (Owner == null || p.Faction != Owner.Faction))];
             }
 
             public override void Tick()
             {
                 base.Tick();
-                Rigidbody.transform.Rotate(Vector3.forward * (Time.fixedDeltaTime * 1200f), Space.Self);
+
+                if (homing == null)
+                {
+                    Player targetHoming = null;
+                    float dist = float.MaxValue;
+                    foreach (Player p in targets)
+                    {
+                        float distSqr = (p.Position - Rigidbody.position).sqrMagnitude;
+
+                        if (distSqr > homingRangeSqr)
+                            continue;
+
+                        if (dist > distSqr)
+                        {
+                            targetHoming = p;
+                            dist = distSqr;
+                        }
+                    }
+                    homing = targetHoming;
+                }
+                else
+                {
+                    Vector3 dir = (homing.Position - Rigidbody.position).normalized;
+                    Quaternion lookRot = Quaternion.LookRotation(dir);
+                    Rigidbody.MoveRotation(Quaternion.RotateTowards(Rigidbody.rotation, lookRot, 120f * Time.fixedDeltaTime));
+                    Rigidbody.linearVelocity = Rigidbody.transform.forward * initialSpeed;
+
+                    if (!homing.IsAlive)
+                    {
+                        targets.Remove(homing);
+                        homing = null;
+                    }
+                }
             }
 
             public override void Hit(Collision col, ReferenceHub player)
             {
                 if (player != null)
                 {
-                    player.playerStats.DealDamage(new ExplosionDamageHandler(new Footprint(Owner.ReferenceHub), InitialVelocity, 25f, 100, ExplosionType.Disruptor));
+                    player.playerStats.DealDamage(new ExplosionDamageHandler(new Footprint(Owner.ReferenceHub), InitialVelocity, 20f, 100, ExplosionType.Disruptor));
 
                     if (player.roleManager.CurrentRole is IFpcRole role)
                     {
@@ -96,17 +124,6 @@ namespace SwiftArcadeMode.Features.Humans.Perks.Content.Wizard
                 }
 
                 Destroy();
-            }
-
-            public override void Destroy()
-            {
-                base.Destroy();
-                if (ball.GameObject != null)
-                    ball.Destroy();
-                if (light.GameObject != null)
-                    light.Destroy();
-                if (light2.GameObject != null)
-                    light2.Destroy();
             }
         }
     }

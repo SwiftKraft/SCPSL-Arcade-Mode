@@ -28,43 +28,21 @@ namespace SwiftArcadeMode.Features.Humans.Perks.Content.Wizard
 
         public override void Cast() => new Projectile(Wizard.Player.Camera.position + Wizard.Player.Camera.forward * 0.4f, Wizard.Player.Camera.rotation, Wizard.Player.Camera.forward * 25f, 10f, Wizard.Player);
 
-        public class Projectile(Vector3 initialPosition, Quaternion initialRotation, Vector3 initialVelocity, float lifetime = 10f, Player owner = null) : ProjectileBase(initialPosition, initialRotation, initialVelocity, lifetime, owner)
+        public class Projectile(Vector3 initialPosition, Quaternion initialRotation, Vector3 initialVelocity, float lifetime = 10f, Player owner = null) : Caster.MagicProjectileBase(initialPosition, initialRotation, initialVelocity, lifetime, owner)
         {
-            PrimitiveObjectToy ball;
-            LightSourceToy light;
-            LightSourceToy light2;
+            public override PrimitiveObjectToy[] CreateBalls() => [PrimitiveObjectToy.Create(default, Quaternion.identity, new(0.2f, 0.2f, 0.7f), Parent.Transform, false)];
+
+            public override LightSourceToy[] CreateLights() => [LightSourceToy.Create(new(0.125f, 0f, 0f), Parent.Transform, false), LightSourceToy.Create(new(-0.125f, 0f, 0f), Parent.Transform, false)];
 
             public override void Construct()
             {
                 CollisionRadius = 0.1f;
-                ball = PrimitiveObjectToy.Create(default, Quaternion.identity, new(0.2f, 0.2f, 0.7f), Parent.Transform, false);
-                light = LightSourceToy.Create(new(0.125f, 0f, 0f), Parent.Transform, false);
-                light2 = LightSourceToy.Create(new(-0.125f, 0f, 0f), Parent.Transform, false);
-
-                light.Color = new Color(0f, 1f, 1f, 1f);
-                light.Intensity = 3f;
-
-                light2.Color = new Color(0f, 1f, 1f, 1f);
-                light2.Intensity = 3f;
-
-                ball.Type = PrimitiveType.Sphere;
-                ball.Color = new Color(0f, 1f, 1f, 1f);
-                ball.Flags = AdminToys.PrimitiveFlags.Visible;
-                Rigidbody.useGravity = false;
-            }
-
-            public override void Init()
-            {
-                base.Init();
-                light.Spawn();
-                light2.Spawn();
-                ball.Spawn();
-            }
-
-            public override void Tick()
-            {
-                base.Tick();
-                Rigidbody.transform.Rotate(Vector3.back * (Time.fixedDeltaTime * 700f), Space.Self);
+                SpinSpeed = -400f;
+                BaseColor = new(0f, 1f, 1f, 1f);
+                LightColor = new(0f, 1f, 1f, 1f);
+                LightIntensity = 3f;
+                UseGravity = false;
+                base.Construct();
             }
 
             public override void Hit(Collision col, ReferenceHub player)
@@ -87,17 +65,6 @@ namespace SwiftArcadeMode.Features.Humans.Perks.Content.Wizard
 
                 TimedGrenadeProjectile.PlayEffect(Rigidbody.position, ItemType.GrenadeFlash);
                 Destroy();
-            }
-
-            public override void Destroy()
-            {
-                base.Destroy();
-                if (ball.GameObject != null)
-                    ball.Destroy();
-                if (light.GameObject != null)
-                    light.Destroy();
-                if (light2.GameObject != null)
-                    light2.Destroy();
             }
         }
     }
