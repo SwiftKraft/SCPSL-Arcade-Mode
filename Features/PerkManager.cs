@@ -2,6 +2,8 @@
 using LabApi.Events.Handlers;
 using LabApi.Features.Wrappers;
 using SwiftArcadeMode.Features.Humans.Perks.Content.Gambler;
+using SwiftArcadeMode.Features.Humans.Perks.Content.SixthSense;
+using SwiftArcadeMode.Features.Humans.Perks.Content.Wizard;
 using SwiftArcadeMode.Utils.Extensions;
 using System;
 using System.Collections.Generic;
@@ -33,6 +35,8 @@ namespace SwiftArcadeMode.Features
             {
                 RegisterPerks(PerkNameSpace);
                 Gambler.RegisterEffects();
+                SixthSense.RegisterSenses();
+                Wizard.RegisterSpells();
             }
 
             PlayerEvents.Death += OnPlayerDeath;

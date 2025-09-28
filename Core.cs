@@ -11,6 +11,7 @@ using SwiftArcadeMode.Features.Scoring;
 using SwiftArcadeMode.Features.Scoring.Saving;
 using SwiftArcadeMode.Features.SCPs.Upgrades;
 using SwiftArcadeMode.Features.ServerSpecificSettings;
+using SwiftArcadeMode.Utils.Projectiles;
 using System;
 using System.IO;
 using Logger = LabApi.Features.Console.Logger;
@@ -116,6 +117,7 @@ namespace SwiftArcadeMode
         {
             GameModeManager.Tick();
             PerkManager.Tick();
+            ProjectileManager.Tick();
             ScoringManager.Tick();
         }
 

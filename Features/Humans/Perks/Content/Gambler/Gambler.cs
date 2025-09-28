@@ -20,10 +20,9 @@ namespace SwiftArcadeMode.Features.Humans.Perks.Content.Gambler
         {
             Assembly callingAssembly = Assembly.GetCallingAssembly();
 
-            List<Type> types = callingAssembly
+            List<Type> types = [.. callingAssembly
                 .GetTypes()
-                .Where(t => t.IsClass && !t.IsAbstract && typeof(GamblerEffectBase).IsAssignableFrom(t))
-                .ToList();
+                .Where(t => t.IsClass && !t.IsAbstract && typeof(GamblerEffectBase).IsAssignableFrom(t))];
 
             foreach (Type t in types)
             {

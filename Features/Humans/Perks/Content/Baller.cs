@@ -34,8 +34,9 @@ namespace SwiftArcadeMode.Features.Humans.Perks.Content
             rb.interpolation = RigidbodyInterpolation.Interpolate;
             rb.collisionDetectionMode = CollisionDetectionMode.ContinuousDynamic;
             ball.IsStatic = false;
-            ball.SyncInterval = 0.01f;
+            ball.SyncInterval = 0f;
             ball.Flags = AdminToys.PrimitiveFlags.Visible;
+            ball.MovementSmoothing = 1;
             ball.Spawn();
         }
 

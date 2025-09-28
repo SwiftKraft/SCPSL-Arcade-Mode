@@ -65,10 +65,9 @@ namespace SwiftArcadeMode.Features.Humans.Perks.Content.SixthSense
         {
             Assembly callingAssembly = Assembly.GetCallingAssembly();
 
-            List<Type> types = callingAssembly
+            List<Type> types = [.. callingAssembly
                 .GetTypes()
-                .Where(t => t.IsClass && !t.IsAbstract && typeof(SenseBase).IsAssignableFrom(t))
-                .ToList();
+                .Where(t => t.IsClass && !t.IsAbstract && typeof(SenseBase).IsAssignableFrom(t))];
 
             foreach (Type t in types)
                 if (!SenseCache.Contains(t))
