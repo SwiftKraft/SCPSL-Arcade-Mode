@@ -2,6 +2,7 @@
 using Footprinting;
 using InventorySystem.Items.ThrowableProjectiles;
 using LabApi.Features.Wrappers;
+using PlayerRoles;
 using PlayerRoles.FirstPersonControl;
 using PlayerStatsSystem;
 using SwiftArcadeMode.Utils.Projectiles;
@@ -59,11 +60,11 @@ namespace SwiftArcadeMode.Features.Humans.Perks.Content.Wizard
                             damage = 60f;
                     }
 
-                    player.playerStats.DealDamage(new ExplosionDamageHandler(new Footprint(Owner.ReferenceHub), InitialVelocity, damage, 100, ExplosionType.Disruptor));
+                    player.playerStats.DealDamage(new ExplosionDamageHandler(new Footprint(Owner.ReferenceHub), InitialVelocity, damage * (player.IsSCP() ? 3f : 1f), 100, ExplosionType.Disruptor));
                     Owner?.SendHitMarker(2f);
                 }
 
-                TimedGrenadeProjectile.PlayEffect(Rigidbody.position, ItemType.GrenadeFlash);
+                TimedGrenadeProjectile.PlayEffect(Rigidbody.position, ItemType.SCP2176);
                 Destroy();
             }
         }

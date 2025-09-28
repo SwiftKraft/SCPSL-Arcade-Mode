@@ -1,6 +1,7 @@
 ﻿using Footprinting;
 using LabApi.Features.Wrappers;
 using MEC;
+using PlayerRoles;
 using PlayerRoles.FirstPersonControl;
 using PlayerStatsSystem;
 using System.Collections.Generic;
@@ -26,7 +27,7 @@ namespace SwiftArcadeMode.Features.Humans.Perks.Content.Wizard
 
         public override void Cast()
         {
-            new Projectile(Wizard.Player.Camera.position, Wizard.Player.Camera.rotation, Wizard.Player.Camera.forward * 8f, 10f, Wizard.Player);
+            new Projectile(Wizard.Player.Camera.position, Wizard.Player.Camera.rotation, Wizard.Player.Camera.forward * 12f, 10f, Wizard.Player);
 
             coroutine = Timing.CallPeriodically(1.6f, 0.2f, () =>
             {
@@ -36,7 +37,7 @@ namespace SwiftArcadeMode.Features.Humans.Perks.Content.Wizard
                     return;
                 }
 
-                new Projectile(Wizard.Player.Camera.position + Wizard.Player.Camera.forward * 0.4f, Wizard.Player.Camera.rotation, Wizard.Player.Camera.forward * 8f, 10f, Wizard.Player);
+                new Projectile(Wizard.Player.Camera.position + Wizard.Player.Camera.forward * 0.4f, Wizard.Player.Camera.rotation, Wizard.Player.Camera.forward * 13f, 10f, Wizard.Player);
             });
         }
 
@@ -112,7 +113,7 @@ namespace SwiftArcadeMode.Features.Humans.Perks.Content.Wizard
             {
                 if (player != null)
                 {
-                    player.playerStats.DealDamage(new ExplosionDamageHandler(new Footprint(Owner.ReferenceHub), InitialVelocity, 20f, 100, ExplosionType.Disruptor));
+                    player.playerStats.DealDamage(new ExplosionDamageHandler(new Footprint(Owner.ReferenceHub), InitialVelocity, 20f * (player.IsSCP() ? 3f : 1f), 100, ExplosionType.Disruptor));
 
                     if (player.roleManager.CurrentRole is IFpcRole role)
                     {

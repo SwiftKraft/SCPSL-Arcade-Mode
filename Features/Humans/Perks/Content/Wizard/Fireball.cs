@@ -1,7 +1,6 @@
 ﻿using InventorySystem.Items.ThrowableProjectiles;
 using LabApi.Features.Wrappers;
 using PlayerRoles.FirstPersonControl;
-using SwiftArcadeMode.Utils.Projectiles;
 using UnityEngine;
 
 namespace SwiftArcadeMode.Features.Humans.Perks.Content.Wizard
@@ -16,9 +15,9 @@ namespace SwiftArcadeMode.Features.Humans.Perks.Content.Wizard
 
         public override int RankIndex => 1;
 
-        public override float CastTime => 1f;
+        public override float CastTime => 1.3f;
 
-        public override void Cast() => new Projectile(Wizard.Player.Camera.position + (Wizard.Player.Camera.forward * 0.5f), Wizard.Player.Camera.rotation, Wizard.Player.Camera.forward * 10f, 15f, Wizard.Player);
+        public override void Cast() => new Projectile(Wizard.Player.Camera.position + (Wizard.Player.Camera.forward * 0.5f), Wizard.Player.Camera.rotation, Wizard.Player.Camera.forward * 11f, 15f, Wizard.Player);
 
         public class Projectile(Vector3 initialPosition, Quaternion initialRotation, Vector3 initialVelocity, float lifetime = 10f, Player owner = null) : Caster.MagicProjectileBase(initialPosition, initialRotation, initialVelocity, lifetime, owner)
         {
@@ -37,24 +36,29 @@ namespace SwiftArcadeMode.Features.Humans.Perks.Content.Wizard
                 base.Construct();
             }
 
-            public void Explode(ReferenceHub player)
+            public void Explode()
             {
                 TimedGrenadeProjectile proj = TimedGrenadeProjectile.SpawnActive(Parent.Position, ItemType.GrenadeHE, Owner, 0f);
                 if (proj.Base is ExplosionGrenade gr)
                     gr.ScpDamageMultiplier = 2f;
-                if (player != null && player.roleManager.CurrentRole is IFpcRole fpc)
-                    fpc.FpcModule.Motor.JumpController.ForceJump(10f);
+
+                foreach (Player player in Player.List)
+                {
+                    float distSqr = (player.Position - Rigidbody.position).sqrMagnitude;
+                    if (player != null && distSqr <= 25f && player.RoleBase is IFpcRole fpc)
+                        fpc.FpcModule.Motor.JumpController.ForceJump(Mathf.Lerp(1f, 10f, Mathf.InverseLerp(25f, 4f, distSqr)));
+                }
             }
 
             public override void EndLife()
             {
-                Explode(null);
+                Explode();
                 base.EndLife();
             }
 
             public override void Hit(Collision col, ReferenceHub player)
             {
-                Explode(player);
+                Explode();
                 Destroy();
             }
         }
