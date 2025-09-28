@@ -46,7 +46,7 @@ namespace SwiftArcadeMode.Features.Humans.Perks.Content.Wizard
                 SpinSpeed = 1500f;
                 BaseColor = new(1f, 1f, 1f, 1f);
                 LightColor = new(1f, 1f, 1f, 1f);
-                LightIntensity = 5f;
+                LightIntensity = 3f;
                 UseGravity = false;
                 base.Construct();
             }
@@ -63,6 +63,9 @@ namespace SwiftArcadeMode.Features.Humans.Perks.Content.Wizard
                 {
                     Vector3 normal = col.GetContact(0).normal.normalized;
                     Vector3 direction = Vector3.Reflect(vel.normalized, -normal);
+
+                    if (FindTargetInDirection(direction, 25f, 15f, out Vector3 dir))
+                        direction = dir;
 
                     Rigidbody.angularVelocity = Vector3.zero;
                     Rigidbody.transform.forward = direction.normalized;
@@ -90,6 +93,36 @@ namespace SwiftArcadeMode.Features.Humans.Perks.Content.Wizard
                     TimedGrenadeProjectile.PlayEffect(Rigidbody.position, ItemType.GrenadeFlash);
                     Destroy();
                 }
+            }
+
+            private bool FindTargetInDirection(Vector3 dir, float maxDistance, float maxAngle, out Vector3 dirToTarget)
+            {
+                Player best = null;
+                float bestDot = 0f;
+                dirToTarget = default;
+
+                foreach (Player player in Player.List)
+                {
+                    if (player == Owner || !player.IsAlive || (Owner != null && player.Faction == Owner.Faction)) 
+                        continue;
+
+                    Vector3 toTarget = player.Position - Rigidbody.position;
+                    float dist = toTarget.magnitude;
+
+                    if (dist > maxDistance) continue;
+
+                    Vector3 _dirToTarget = toTarget.normalized;
+                    float dot = Vector3.Dot(dir.normalized, _dirToTarget);
+
+                    if (dot > Mathf.Cos(maxAngle * Mathf.Deg2Rad) && dot > bestDot)
+                    {
+                        bestDot = dot;
+                        best = player;
+                        dirToTarget = _dirToTarget;
+                    }
+                }
+
+                return best != null;
             }
         }
     }
