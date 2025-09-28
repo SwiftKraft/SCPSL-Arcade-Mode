@@ -4,7 +4,7 @@ namespace SwiftArcadeMode.Features.Humans.Perks.Content.Wizard
 {
     public abstract class SpellBase
     {
-        public Caster Wizard { get; private set; }
+        public Caster Caster { get; private set; }
 
         public abstract string Name { get; }
         public abstract Color BaseColor { get; }
@@ -12,7 +12,7 @@ namespace SwiftArcadeMode.Features.Humans.Perks.Content.Wizard
         public abstract int RankIndex { get; }
         public abstract float CastTime { get; }
 
-        public virtual void Init(Caster wiz) => Wizard = wiz;
+        public virtual void Init(Caster wiz) => Caster = wiz;
         public abstract void Cast();
     }
 }

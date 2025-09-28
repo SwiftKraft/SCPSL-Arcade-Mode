@@ -131,7 +131,7 @@ namespace SwiftArcadeMode.Features.Humans.Perks.Content.Wizard
             if (ev.Player != Player)
             {
                 if (ev.Attacker == Player)
-                    CooldownTimer.Tick(2f);
+                    CooldownTimer.Tick(4f);
 
                 return;
             }
@@ -229,15 +229,26 @@ namespace SwiftArcadeMode.Features.Humans.Perks.Content.Wizard
             {
                 base.Destroy();
 
+                DestroyBalls();
+                DestroyLights();
+            }
+
+            public void DestroyBalls()
+            {
                 if (balls != null)
                     foreach (var ball in balls)
                         if (ball.GameObject != null)
                             ball.Destroy();
+                balls = null;
+            }
 
+            public void DestroyLights()
+            {
                 if (lights != null)
                     foreach (var light in lights)
                         if (light.GameObject != null)
                             light.Destroy();
+                lights = null;
             }
         }
     }

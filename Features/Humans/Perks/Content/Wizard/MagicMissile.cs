@@ -27,17 +27,17 @@ namespace SwiftArcadeMode.Features.Humans.Perks.Content.Wizard
 
         public override void Cast()
         {
-            new Projectile(Wizard.Player.Camera.position, Wizard.Player.Camera.rotation, Wizard.Player.Camera.forward * 12f, 10f, Wizard.Player);
+            new Projectile(Caster.Player.Camera.position, Caster.Player.Camera.rotation, Caster.Player.Camera.forward * 12f, 10f, Caster.Player);
 
             coroutine = Timing.CallPeriodically(1.6f, 0.2f, () =>
             {
-                if (!Wizard.Player.IsAlive)
+                if (!Caster.Player.IsAlive)
                 {
                     Timing.KillCoroutines(coroutine);
                     return;
                 }
 
-                new Projectile(Wizard.Player.Camera.position + Wizard.Player.Camera.forward * 0.4f, Wizard.Player.Camera.rotation, Wizard.Player.Camera.forward * 13f, 10f, Wizard.Player);
+                new Projectile(Caster.Player.Camera.position + Caster.Player.Camera.forward * 0.4f, Caster.Player.Camera.rotation, Caster.Player.Camera.forward * 13f, 10f, Caster.Player);
             });
         }
 

@@ -19,6 +19,7 @@ namespace SwiftArcadeMode.Utils.Projectiles
         public Vector3 InitialVelocity { get; private set; }
         public float CollisionRadius { get; set; }
         public Rigidbody Rigidbody { get; private set; }
+        public SphereCollider Collider { get; private set; }
         public readonly Timer Lifetime = new();
 
         public ProjectileBase(Vector3 initialPosition, Quaternion initialRotation, Vector3 initialVelocity, float lifetime = 10f, Player owner = null)
@@ -52,14 +53,13 @@ namespace SwiftArcadeMode.Utils.Projectiles
 
             Construct();
 
-            SphereCollider col = Parent.GameObject.AddComponent<SphereCollider>();
-            col.radius = CollisionRadius;
-
-            Parent.GameObject.AddComponent<ProjectileComponent>().projectile = this;
+            Collider = Parent.GameObject.AddComponent<SphereCollider>();
+            Collider.radius = CollisionRadius;
 
             if (Owner != null && Owner.RoleBase is IFpcRole role)
-                Physics.IgnoreCollision(col, role.FpcModule.CharController, true);
+                Physics.IgnoreCollision(Collider, role.FpcModule.CharController, true);
 
+            Parent.GameObject.AddComponent<ProjectileComponent>().projectile = this;
             Parent.Spawn();
         }
         public abstract void Construct();
