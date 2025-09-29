@@ -22,7 +22,6 @@ namespace SwiftArcadeMode.Features.Humans.Perks.Content.Wizard
         public class Projectile(Vector3 initialPosition, Quaternion initialRotation, Vector3 initialVelocity, float lifetime = 10f, Player owner = null) : Caster.MagicProjectileBase(initialPosition, initialRotation, initialVelocity, lifetime, owner)
         {
             public override LightSourceToy[] CreateLights() => [LightSourceToy.Create(Vector3.down * 0.4f, Parent.Transform, false), LightSourceToy.Create(Vector3.up * 0.4f, Parent.Transform, false), LightSourceToy.Create(Vector3.left * 0.4f, Parent.Transform, false), LightSourceToy.Create(Vector3.forward * 0.4f, Parent.Transform, false), LightSourceToy.Create(Vector3.back * 0.4f, Parent.Transform, false), LightSourceToy.Create(Vector3.right * 0.4f, Parent.Transform, false)];
-
             public override PrimitiveObjectToy[] CreateBalls() => [PrimitiveObjectToy.Create(default, Quaternion.identity, Vector3.one * 0.5f, Parent.Transform, false)];
 
             public override void Construct()
@@ -40,7 +39,10 @@ namespace SwiftArcadeMode.Features.Humans.Perks.Content.Wizard
             {
                 TimedGrenadeProjectile proj = TimedGrenadeProjectile.SpawnActive(Parent.Position, ItemType.GrenadeHE, Owner, 0f);
                 if (proj.Base is ExplosionGrenade gr)
+                {
                     gr.ScpDamageMultiplier = 2f;
+                    gr.MaxRadius = 3f;
+                }
 
                 foreach (Player player in Player.List)
                 {
