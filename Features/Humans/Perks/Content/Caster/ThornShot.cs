@@ -1,4 +1,5 @@
 ﻿using Footprinting;
+using Interactables.Interobjects;
 using LabApi.Events.Handlers;
 using LabApi.Features.Wrappers;
 using PlayerRoles;
@@ -77,7 +78,7 @@ namespace SwiftArcadeMode.Features.Humans.Perks.Content.Caster
             {
                 if (hit != null)
                 {
-                    hit.playerStats.DealDamage(new ExplosionDamageHandler(new Footprint(Owner.ReferenceHub), InitialVelocity, 25f * (hit.IsSCP() ? 3f : 1f), 100, ExplosionType.Disruptor));
+                    hit.playerStats.DealDamage(new ExplosionDamageHandler(new Footprint(Owner.ReferenceHub), InitialVelocity, 25f * (hit.IsSCP() ? 3f : 1f), 60, ExplosionType.Disruptor));
 
                     if (hit.roleManager.CurrentRole is IFpcRole role)
                     {

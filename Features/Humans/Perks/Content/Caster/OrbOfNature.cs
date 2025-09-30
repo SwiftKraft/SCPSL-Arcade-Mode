@@ -53,7 +53,7 @@ namespace SwiftArcadeMode.Features.Humans.Perks.Content.Caster
                 toy.Color = BaseColor;
                 toy.ShadowType = LightShadows.Hard;
                 toy.Range = 30f;
-                LightExplosion.Create(toy, 300f);
+                LightExplosion.Create(toy, 100f);
                 Destroy();
             }
         }

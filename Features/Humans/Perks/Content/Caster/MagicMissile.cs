@@ -4,6 +4,7 @@ using MEC;
 using PlayerRoles;
 using PlayerRoles.FirstPersonControl;
 using PlayerStatsSystem;
+using SwiftArcadeMode.Utils.Projectiles;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -24,7 +25,7 @@ namespace SwiftArcadeMode.Features.Humans.Perks.Content.Caster
 
         public override void Cast()
         {
-            new Projectile(Caster.Player.Camera.position, Caster.Player.Camera.rotation, Caster.Player.Camera.forward * 12f, 10f, Caster.Player);
+            new Projectile(Caster.Player.Camera.position, Caster.Player.Camera.rotation, Caster.Player.Camera.forward * 13f, 10f, Caster.Player);
 
             coroutine = Timing.CallPeriodically(1.6f, 0.2f, () =>
             {
@@ -121,6 +122,10 @@ namespace SwiftArcadeMode.Features.Humans.Perks.Content.Caster
                     Owner?.SendHitMarker();
                 }
 
+                LightSourceToy toy = LightSourceToy.Create(Rigidbody.position, null, false);
+                toy.Color = BaseColor;
+                toy.Intensity = 10f;
+                LightExplosion.Create(toy, 40f);
                 Destroy();
             }
         }
