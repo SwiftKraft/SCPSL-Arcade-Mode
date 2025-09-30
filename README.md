@@ -1,8 +1,6 @@
 # Installation
 
-Download the EXILED version if you are using an EXILED server, download the LabAPI version otherwise.
-
-For both cases, place the `.dll` file in `%appdata%/SCP Secret Laboratory/LabAPI/plugins/%port%`, do **NOT** place the EXILED version in the EXILED plugins folder.
+Download and place the `.dll` file in `%appdata%/SCP Secret Laboratory/LabAPI/plugins/%port%`, do **NOT** place the EXILED version in the EXILED plugins folder.
 
 # Commands
 
