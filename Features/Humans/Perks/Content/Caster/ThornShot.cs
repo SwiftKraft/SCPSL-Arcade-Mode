@@ -35,7 +35,7 @@ namespace SwiftArcadeMode.Features.Humans.Perks.Content.Caster
                 Quaternion rotation = Quaternion.Euler(0f, currentAngle, 0f); 
                 Vector3 direction = rotation * Caster.Player.Camera.forward; 
 
-                colliders.Add(new Projectile(Caster.Player.Camera.position + direction * 0.25f, Quaternion.LookRotation(direction), direction * 35f, 15f, Caster.Player).Collider);
+                colliders.Add(new Projectile(Caster.Player.Camera.position + direction * 0.25f, Quaternion.LookRotation(direction), direction * 40f, 15f, Caster.Player).Collider);
             }
 
             for (int i = 0; i < colliders.Count; i++)
