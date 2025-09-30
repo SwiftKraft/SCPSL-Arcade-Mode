@@ -87,4 +87,30 @@ namespace SwiftArcadeMode.Utils.Projectiles
 
         public abstract void Hit(Collision col, ReferenceHub hit);
     }
+
+    public class LightExplosion : MonoBehaviour
+    {
+        public LightSourceToy Toy;
+        public float FadeSpeed = 20f;
+
+        public void FixedUpdate()
+        {
+            Toy.Intensity = Mathf.MoveTowards(Toy.Intensity, 0f, Time.fixedDeltaTime * FadeSpeed);
+            if (Toy.Intensity <= 0f)
+            {
+                Destroy(this);
+                Toy.Destroy();
+            }
+        }
+
+        public static LightExplosion Create(LightSourceToy unspawned, float fadeSpeed = 20f)
+        {
+            unspawned.SyncInterval = 0;
+            LightExplosion exp = unspawned.GameObject.AddComponent<LightExplosion>();
+            exp.Toy = unspawned;
+            exp.FadeSpeed = fadeSpeed;
+            unspawned.Spawn();
+            return exp;
+        }
+    }
 }

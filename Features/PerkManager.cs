@@ -1,7 +1,7 @@
 ﻿using LabApi.Events.Arguments.PlayerEvents;
 using LabApi.Events.Handlers;
+using LabApi.Features.Console;
 using LabApi.Features.Wrappers;
-using SwiftArcadeMode.Features.Humans.Perks.Content.Caster;
 using SwiftArcadeMode.Features.Humans.Perks.Content.Gambler;
 using SwiftArcadeMode.Features.Humans.Perks.Content.SixthSense;
 using SwiftArcadeMode.Utils.Extensions;
@@ -125,10 +125,17 @@ namespace SwiftArcadeMode.Features
 
             foreach (KeyValuePair<Type, PerkAttribute> attr in atts)
             {
-                attr.Value.Perk = attr.Key;
-                RegisteredPerks.Add((RegisteredPerks.ContainsKey(attr.Value.ID) ? nameSpace.ToLower() + "." : "") + attr.Value.ID.ToLower(), attr.Value);
-                PerkBase p = (PerkBase)Activator.CreateInstance(attr.Key, new PerkInventory(null));
-                attr.Value.Profile = new(attr.Value.Rarity, p.Name, p.Description);
+                try
+                {
+                    attr.Value.Perk = attr.Key;
+                    RegisteredPerks.Add((RegisteredPerks.ContainsKey(attr.Value.ID) ? nameSpace.ToLower() + "." : "") + attr.Value.ID.ToLower(), attr.Value);
+                    PerkBase p = (PerkBase)Activator.CreateInstance(attr.Key, new PerkInventory(null));
+                    attr.Value.Profile = new(attr.Value.Rarity, p.Name, p.Description);
+                }
+                catch (Exception ex)
+                {
+                    Logger.Error("Failed to load perk \"" + attr.Key + "\": \n" + ex);
+                }
             }
         }
 

@@ -8,7 +8,6 @@ namespace SwiftArcadeMode.Features.Humans.Perks.Content.Caster
 
         public abstract string Name { get; }
         public abstract Color BaseColor { get; }
-        public abstract Color AccentColor { get; }
         public abstract int RankIndex { get; }
         public abstract float CastTime { get; }
 

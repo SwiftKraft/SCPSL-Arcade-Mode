@@ -3,9 +3,7 @@ using LabApi.Features.Wrappers;
 using MEC;
 using SwiftArcadeMode.Utils.Projectiles;
 using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Reflection;
 using UnityEngine;
 
 namespace SwiftArcadeMode.Features.Humans.Perks.Content.Caster
@@ -22,7 +20,7 @@ namespace SwiftArcadeMode.Features.Humans.Perks.Content.Caster
         public virtual float KillCooldownReduction => 4f;
         public virtual float NoItemsCooldown => 3f;
         public abstract float RegularCooldown { get; }
-        public override float Cooldown => Player.IsWithoutItems ? NoItemsCooldown : RegularCooldown;
+        public override float Cooldown => Player == null || Player.IsWithoutItems ? NoItemsCooldown : RegularCooldown;
         public override int Limit => int.MaxValue;
 
         public override string ReadyMessage => Player.IsInventoryFull ? "Failed to refresh, no space in inventory." : "Spells refreshed!";
@@ -58,7 +56,7 @@ namespace SwiftArcadeMode.Features.Humans.Perks.Content.Caster
 
             Spells = ListSpells();
 
-            if (Spells.Length <= 0)
+            if (Player != null && Spells.Length <= 0)
                 Player.GetPerkInventory().RemovePerk(this);
 
             CurrentSpellIndex = 0;

@@ -15,8 +15,6 @@ namespace SwiftArcadeMode.Features.Humans.Perks.Content.Caster
 
         public override Color BaseColor => Color.green;
 
-        public override Color AccentColor => new(0.97f, 0.8f, 0.5f);
-
         public override int RankIndex => 2;
 
         public override float CastTime => 1.3f;
