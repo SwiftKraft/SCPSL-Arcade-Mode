@@ -1,4 +1,4 @@
-﻿using Footprinting;
+using Footprinting;
 using LabApi.Features.Wrappers;
 using PlayerRoles;
 using PlayerRoles.FirstPersonControl;
@@ -64,7 +64,7 @@ namespace SwiftArcadeMode.Features.Humans.Perks.Content.Caster
                     Vector3 normal = col.GetContact(0).normal.normalized;
                     Vector3 direction = Vector3.Reflect(vel.normalized, -normal);
 
-                    if (FindTargetInDirection(direction, 25f, 15f, out Vector3 dir))
+                    if (FindTargetInDirection(direction, 25f, 30f, out Vector3 dir))
                         direction = dir;
 
                     Rigidbody.angularVelocity = Vector3.zero;
