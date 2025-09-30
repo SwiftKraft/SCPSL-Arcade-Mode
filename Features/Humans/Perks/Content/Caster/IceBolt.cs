@@ -55,7 +55,7 @@ namespace SwiftArcadeMode.Features.Humans.Perks.Content.Caster
                         if (!playerEffect.IsEnabled)
                             player.playerEffectsController.EnableEffect<Ensnared>(1f);
                         else
-                            damage = 60f;
+                            damage = 90f;
                     }
 
                     player.playerStats.DealDamage(new ExplosionDamageHandler(new Footprint(Owner.ReferenceHub), InitialVelocity, damage * (player.IsSCP() ? 3f : 1f), 100, ExplosionType.Disruptor));

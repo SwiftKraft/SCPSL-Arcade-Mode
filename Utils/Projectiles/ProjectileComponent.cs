@@ -12,5 +12,6 @@ namespace SwiftArcadeMode.Utils.Projectiles
         public ProjectileBase projectile;
 
         private void OnCollisionEnter(Collision cols) => projectile.OnCollide(cols);
+        private void OnCollisionStay(Collision cols) => projectile.OnCollide(cols);
     }
 }

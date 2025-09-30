@@ -18,9 +18,9 @@ namespace SwiftArcadeMode.Features.Humans.Perks.Content.Caster
         public override string PerkDescription => $"Allows you to cast {Name} spells.\nDrop the keycard to change spell, inspect to cast.";
 
         public virtual float KillCooldownReduction => 4f;
-        public virtual float NoItemsCooldown => 3f;
+        public virtual float LessItemsCooldown => 3f;
         public abstract float RegularCooldown { get; }
-        public override float Cooldown => Player == null || Player.IsWithoutItems ? NoItemsCooldown : RegularCooldown;
+        public override float Cooldown => Player == null || Player.Items.Count() < 3 ? LessItemsCooldown : RegularCooldown;
         public override int Limit => int.MaxValue;
 
         public override string ReadyMessage => Player.IsInventoryFull ? "Failed to refresh, no space in inventory." : "Spells refreshed!";

@@ -95,7 +95,7 @@ namespace SwiftArcadeMode.Features.Humans.Perks.Content.Caster
                 {
                     Vector3 dir = (homing.Position - Rigidbody.position).normalized;
                     Quaternion lookRot = Quaternion.LookRotation(dir);
-                    Rigidbody.MoveRotation(Quaternion.RotateTowards(Rigidbody.rotation, lookRot, 120f * Time.fixedDeltaTime));
+                    Rigidbody.MoveRotation(Quaternion.RotateTowards(Rigidbody.rotation, lookRot, 180f * Time.fixedDeltaTime));
                     Rigidbody.linearVelocity = Rigidbody.transform.forward * initialSpeed;
 
                     if (!homing.IsAlive)
