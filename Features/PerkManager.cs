@@ -1,9 +1,9 @@
 ﻿using LabApi.Events.Arguments.PlayerEvents;
 using LabApi.Events.Handlers;
 using LabApi.Features.Wrappers;
+using SwiftArcadeMode.Features.Humans.Perks.Content.Caster;
 using SwiftArcadeMode.Features.Humans.Perks.Content.Gambler;
 using SwiftArcadeMode.Features.Humans.Perks.Content.SixthSense;
-using SwiftArcadeMode.Features.Humans.Perks.Content.Wizard;
 using SwiftArcadeMode.Utils.Extensions;
 using System;
 using System.Collections.Generic;

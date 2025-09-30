@@ -5,7 +5,7 @@ using PlayerRoles.FirstPersonControl;
 using PlayerStatsSystem;
 using UnityEngine;
 
-namespace SwiftArcadeMode.Features.Humans.Perks.Content.Wizard
+namespace SwiftArcadeMode.Features.Humans.Perks.Content.Caster
 {
     public class LightArrow : SpellBase
     {

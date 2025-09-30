@@ -3,7 +3,7 @@ using LabApi.Features.Wrappers;
 using PlayerRoles.FirstPersonControl;
 using UnityEngine;
 
-namespace SwiftArcadeMode.Features.Humans.Perks.Content.Wizard
+namespace SwiftArcadeMode.Features.Humans.Perks.Content.Caster
 {
     public class Fireball : SpellBase
     {

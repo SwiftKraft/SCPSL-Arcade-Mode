@@ -8,7 +8,7 @@ using System.Linq;
 using System.Reflection;
 using UnityEngine;
 
-namespace SwiftArcadeMode.Features.Humans.Perks.Content.Wizard
+namespace SwiftArcadeMode.Features.Humans.Perks.Content.Caster
 {
     [Perk("Caster", Rarity.Legendary)]
     public class Caster(PerkInventory inv) : PerkItemReceiveBase(inv)

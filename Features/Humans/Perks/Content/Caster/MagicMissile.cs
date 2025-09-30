@@ -7,9 +7,8 @@ using PlayerStatsSystem;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
-using static UnityEngine.GraphicsBuffer;
 
-namespace SwiftArcadeMode.Features.Humans.Perks.Content.Wizard
+namespace SwiftArcadeMode.Features.Humans.Perks.Content.Caster
 {
     public class MagicMissile : SpellBase
     {

@@ -7,7 +7,7 @@ using PlayerStatsSystem;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace SwiftArcadeMode.Features.Humans.Perks.Content.Wizard
+namespace SwiftArcadeMode.Features.Humans.Perks.Content.Caster
 {
     public class ThornShot : SpellBase
     {
