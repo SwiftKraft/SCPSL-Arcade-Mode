@@ -44,7 +44,7 @@ namespace SwiftArcadeMode.Features.Humans.Perks.Content.Caster
                     Physics.IgnoreCollision(colliders[i], colliders[j], true);
         }
 
-        public class Projectile(Vector3 initialPosition, Quaternion initialRotation, Vector3 initialVelocity, float lifetime = 10, Player owner = null) : Caster.MagicProjectileBase(initialPosition, initialRotation, initialVelocity, lifetime, owner)
+        public class Projectile(Vector3 initialPosition, Quaternion initialRotation, Vector3 initialVelocity, float lifetime = 10, Player owner = null) : CasterBase.MagicProjectileBase(initialPosition, initialRotation, initialVelocity, lifetime, owner)
         {
             public override PrimitiveObjectToy[] CreateBalls() => [PrimitiveObjectToy.Create(default, Quaternion.identity, new(0.02f, 0.02f, 0.5f), Parent.Transform, false)];
 

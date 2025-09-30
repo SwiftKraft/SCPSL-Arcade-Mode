@@ -19,7 +19,7 @@ namespace SwiftArcadeMode.Features.Humans.Perks.Content.Caster
 
         public override void Cast() => new Projectile(Caster.Player.Camera.position + (Caster.Player.Camera.forward * 0.5f), Caster.Player.Camera.rotation, Caster.Player.Camera.forward * 11f, 15f, Caster.Player);
 
-        public class Projectile(Vector3 initialPosition, Quaternion initialRotation, Vector3 initialVelocity, float lifetime = 10f, Player owner = null) : Caster.MagicProjectileBase(initialPosition, initialRotation, initialVelocity, lifetime, owner)
+        public class Projectile(Vector3 initialPosition, Quaternion initialRotation, Vector3 initialVelocity, float lifetime = 10f, Player owner = null) : CasterBase.MagicProjectileBase(initialPosition, initialRotation, initialVelocity, lifetime, owner)
         {
             public override LightSourceToy[] CreateLights() => [LightSourceToy.Create(Vector3.down * 0.4f, Parent.Transform, false), LightSourceToy.Create(Vector3.up * 0.4f, Parent.Transform, false), LightSourceToy.Create(Vector3.left * 0.4f, Parent.Transform, false), LightSourceToy.Create(Vector3.forward * 0.4f, Parent.Transform, false), LightSourceToy.Create(Vector3.back * 0.4f, Parent.Transform, false), LightSourceToy.Create(Vector3.right * 0.4f, Parent.Transform, false)];
             public override PrimitiveObjectToy[] CreateBalls() => [PrimitiveObjectToy.Create(default, Quaternion.identity, Vector3.one * 0.5f, Parent.Transform, false)];

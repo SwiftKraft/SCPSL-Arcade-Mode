@@ -10,27 +10,19 @@ using UnityEngine;
 
 namespace SwiftArcadeMode.Features.Humans.Perks.Content.Caster
 {
-    [Perk("Caster", Rarity.Legendary)]
-    public class Caster(PerkInventory inv) : PerkItemReceiveBase(inv)
+    public abstract class CasterBase(PerkInventory inv) : PerkItemReceiveBase(inv)
     {
-        public static readonly List<Type> Spells = [];
-        public static void RegisterSpells()
-        {
-            Assembly callingAssembly = Assembly.GetCallingAssembly();
+        public abstract Type[] ListSpells();
 
-            List<Type> types = [.. callingAssembly
-                .GetTypes()
-                .Where(t => t.IsClass && !t.IsAbstract && typeof(SpellBase).IsAssignableFrom(t))];
-
-            foreach (Type t in types)
-                Spells.Add(t);
-        }
+        public Type[] Spells { get; private set; }
 
         public override ItemType ItemType => ItemType.KeycardCustomTaskForce;
-        public override string Name => "Caster";
-        public override string PerkDescription => "Allows you to cast spells.\nDrop the keycard to change spell, inspect to cast.";
+        public override string PerkDescription => $"Allows you to cast {Name} spells.\nDrop the keycard to change spell, inspect to cast.";
 
-        public override float Cooldown => 10f;
+        public virtual float KillCooldownReduction => 4f;
+        public virtual float NoItemsCooldown => 3f;
+        public abstract float RegularCooldown { get; }
+        public override float Cooldown => Player.IsWithoutItems ? NoItemsCooldown : RegularCooldown;
         public override int Limit => int.MaxValue;
 
         public override string ReadyMessage => Player.IsInventoryFull ? "Failed to refresh, no space in inventory." : "Spells refreshed!";
@@ -43,10 +35,10 @@ namespace SwiftArcadeMode.Features.Humans.Perks.Content.Caster
             get => currentSpellIndex;
             set
             {
-                if (value < 0 || Spells.Count <= 0)
+                if (value < 0 || Spells.Length <= 0)
                     return;
 
-                currentSpellIndex = value % Spells.Count;
+                currentSpellIndex = value % Spells.Length;
                 CurrentSpell = Activator.CreateInstance(Spells[currentSpellIndex]) as SpellBase;
                 CurrentSpell?.Init(this);
             }
@@ -64,7 +56,9 @@ namespace SwiftArcadeMode.Features.Humans.Perks.Content.Caster
             PlayerEvents.Dying += OnDying;
             PlayerEvents.ChangingItem += OnChangingItem;
 
-            if (Spells.Count <= 0)
+            Spells = ListSpells();
+
+            if (Spells.Length <= 0)
                 Player.GetPerkInventory().RemovePerk(this);
 
             CurrentSpellIndex = 0;
@@ -131,7 +125,7 @@ namespace SwiftArcadeMode.Features.Humans.Perks.Content.Caster
             if (ev.Player != Player)
             {
                 if (ev.Attacker == Player)
-                    CooldownTimer.Tick(4f);
+                    CooldownTimer.Tick(KillCooldownReduction);
 
                 return;
             }

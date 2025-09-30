@@ -36,7 +36,6 @@ namespace SwiftArcadeMode.Features
                 RegisterPerks(PerkNameSpace);
                 Gambler.RegisterEffects();
                 SixthSense.RegisterSenses();
-                Caster.RegisterSpells();
             }
 
             PlayerEvents.Death += OnPlayerDeath;
