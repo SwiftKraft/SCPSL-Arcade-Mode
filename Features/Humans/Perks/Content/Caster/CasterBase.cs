@@ -161,7 +161,7 @@ namespace SwiftArcadeMode.Features.Humans.Perks.Content.Caster
         {
             RemoveCurrentSpellItem();
 
-            CurrentSpellItem = KeycardItem.CreateCustomKeycardTaskForce(Player, CurrentSpell.Name, CurrentSpell.Name, default, CurrentSpell.BaseColor, CurrentSpell.AccentColor, default, CurrentSpell.RankIndex);
+            CurrentSpellItem = KeycardItem.CreateCustomKeycardTaskForce(Player, CurrentSpell.Name, CurrentSpell.Name, default, CurrentSpell.BaseColor, CurrentSpell.BaseColor, default, CurrentSpell.RankIndex);
             if (CurrentSpellItem != null)
                 CurrentSpellItemSerial = CurrentSpellItem.Serial;
 

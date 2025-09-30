@@ -23,7 +23,7 @@ namespace SwiftArcadeMode.Features.Humans.Perks.Content.Caster
         {
             const int maxBounces = 2;
             int currentBounces = 0;
-            float initialSpeed;
+            float speed;
             float currentDamage = 60f;
             float currentScpMultiplier = 3f;
             Vector3 vel;
@@ -33,7 +33,7 @@ namespace SwiftArcadeMode.Features.Humans.Perks.Content.Caster
 
             public override void Init()
             {
-                initialSpeed = InitialVelocity.magnitude;
+                speed = InitialVelocity.magnitude;
                 vel = InitialVelocity;
                 base.Init();
             }
@@ -67,7 +67,9 @@ namespace SwiftArcadeMode.Features.Humans.Perks.Content.Caster
 
                     Rigidbody.angularVelocity = Vector3.zero;
                     Rigidbody.transform.forward = direction.normalized;
-                    vel = direction.normalized * initialSpeed;
+
+                    speed *= 1.5f;
+                    vel = direction.normalized * speed;
 
                     currentDamage += 25f;
                     currentScpMultiplier += 0.5f;
