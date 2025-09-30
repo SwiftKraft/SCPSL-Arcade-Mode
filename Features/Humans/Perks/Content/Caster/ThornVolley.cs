@@ -25,7 +25,7 @@ namespace SwiftArcadeMode.Features.Humans.Perks.Content.Caster
         {
             new ThornShot.Projectile(Caster.Player.Camera.position, Caster.Player.Camera.rotation, Caster.Player.Camera.forward * 60f, 10f, Caster.Player);
 
-            coroutine = Timing.CallPeriodically(1f, 0.2f, () =>
+            coroutine = Timing.CallPeriodically(0.6f, 0.1f, () =>
             {
                 if (!Caster.Player.IsAlive)
                 {
