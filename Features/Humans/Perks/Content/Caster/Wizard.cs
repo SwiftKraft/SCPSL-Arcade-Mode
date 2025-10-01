@@ -13,7 +13,8 @@ namespace SwiftArcadeMode.Features.Humans.Perks.Content.Caster
             typeof(Fireball),
             typeof(IceBolt),
             typeof(MagicMissile),
-            typeof(LightArrow)
+            typeof(LightArrow),
+            typeof(ElementalBolt)
             ];
     }
 }

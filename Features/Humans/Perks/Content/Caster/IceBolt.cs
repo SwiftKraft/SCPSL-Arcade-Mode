@@ -53,7 +53,7 @@ namespace SwiftArcadeMode.Features.Humans.Perks.Content.Caster
                     if (player.playerEffectsController.TryGetEffect<Ensnared>(out var playerEffect) && playerEffect != null)
                     {
                         if (!playerEffect.IsEnabled)
-                            player.playerEffectsController.EnableEffect<Ensnared>(1f);
+                            player.playerEffectsController.EnableEffect<Ensnared>(2f);
                         else
                             damage = 90f;
                     }

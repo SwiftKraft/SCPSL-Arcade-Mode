@@ -2,6 +2,7 @@
 using LabApi.Events.Handlers;
 using LabApi.Features.Console;
 using LabApi.Features.Wrappers;
+using MEC;
 using SwiftArcadeMode.Features.Humans.Perks.Content.Gambler;
 using SwiftArcadeMode.Features.Humans.Perks.Content.SixthSense;
 using SwiftArcadeMode.Utils.Extensions;
@@ -10,6 +11,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using System.Text;
+using UnityEngine;
+using Logger = LabApi.Features.Console.Logger;
 
 namespace SwiftArcadeMode.Features
 {
