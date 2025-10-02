@@ -48,10 +48,13 @@ namespace SwiftArcadeMode.Features.Humans.Perks.Content
 
         private void OnWarheadDetonated(LabApi.Events.Arguments.WarheadEvents.WarheadDetonatedEventArgs ev)
         {
-            TrackedElevator = null;
-            TrackedType = ItemType.None;
-            TeleportExists = false;
-            SendMessage("Warhead detonated! Teleport point destroyed.");
+            if (TeleportExists && (!Room.TryGetRoomAtPosition(TrackedElevator != null ? TrackedElevator.Base.transform.position + TeleportPoint : TeleportPoint, out Room room) || room.Zone != MapGeneration.FacilityZone.Surface))
+            {
+                TrackedElevator = null;
+                TrackedType = ItemType.None;
+                TeleportExists = false;
+                SendMessage("Warhead detonated! Teleport point destroyed.");
+            }
         }
 
         public override void Remove()
