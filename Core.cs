@@ -56,6 +56,7 @@ namespace SwiftArcadeMode
 
             ServerEvents.RoundEnded += OnRoundEnded;
             ServerEvents.RoundStarted += OnRoundStarted;
+            ServerEvents.RoundRestarted += OnRoundRestarted;
             ServerEvents.MapGenerated += OnMapGenerated;
             Shutdown.OnQuit += OnQuit;
             PlayerEvents.UpdatedEffect += OnUpdatedEffect;
@@ -64,6 +65,8 @@ namespace SwiftArcadeMode
 
             SaveManager.LoadScores();
         }
+
+        private void OnRoundRestarted() => SaveManager.SaveScores();
 
         private void OnLeft(LabApi.Events.Arguments.PlayerEvents.PlayerLeftEventArgs ev)
         {
@@ -102,6 +105,7 @@ namespace SwiftArcadeMode
 
             ServerEvents.RoundEnded -= OnRoundEnded;
             ServerEvents.RoundStarted -= OnRoundStarted;
+            ServerEvents.RoundRestarted -= OnRoundRestarted;
             ServerEvents.MapGenerated -= OnMapGenerated;
             Shutdown.OnQuit -= OnQuit;
             PlayerEvents.UpdatedEffect -= OnUpdatedEffect;
