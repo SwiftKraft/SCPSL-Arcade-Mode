@@ -115,7 +115,6 @@ namespace SwiftArcadeMode.Features.Humans.Perks.Content.Caster
 
                     if (player.roleManager.CurrentRole is IFpcRole role)
                     {
-                        role.FpcModule.ServerOverridePosition(role.FpcModule.Position + Rigidbody.linearVelocity.normalized * 0.1f);
                         role.FpcModule.Motor.JumpController.ForceJump(1f);
                     }
 
