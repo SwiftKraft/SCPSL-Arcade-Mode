@@ -2,17 +2,17 @@
 
 namespace SwiftArcadeMode.Features.Humans.Perks.Content.Caster
 {
-    [Perk("Wizard", Rarity.Legendary)]
-    public class Wizard(PerkInventory inv) : CasterBase(inv)
+    [Perk("Sorcerer", Rarity.Legendary)]
+    public class Sorcerer(PerkInventory inv) : CasterBase(inv)
     {
-        public override string Name => "Wizard";
-
         public override float RegularCooldown => 10f;
 
+        public override string Name => "Sorcerer";
+
         public override Type[] ListSpells() => [
+            typeof(ElementalBolt),
+            typeof(LightArrow),
             typeof(Fireball),
-            typeof(IceBolt),
-            typeof(MagicMissile)
             ];
     }
 }
