@@ -21,7 +21,7 @@ namespace SwiftArcadeMode.Features.Humans.Perks.Content
         public virtual float GainRate => 2f;
 
         LightSourceToy toy;
-        bool ascended;
+        bool ascended = true;
 
         public override void Init()
         {
