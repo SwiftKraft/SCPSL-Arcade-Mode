@@ -57,7 +57,7 @@ namespace SwiftArcadeMode.Features.Humans.Perks.Content
             toy.Intensity = Mathf.MoveTowards(toy.Intensity, Degree >= 10f ? Degree * Degree : 0f, (Degree >= 20f ? 2000f : 10f) * Time.fixedDeltaTime);
 
             if (Degree >= 30f)
-                (TimedGrenadeProjectile.SpawnActive(Player.Position, ItemType.GrenadeHE, Player, 0f).Base as ExplosionGrenade).ScpDamageMultiplier = 8f;
+                (TimedGrenadeProjectile.SpawnActive(Player.Position, ItemType.GrenadeHE, Player, 0f).Base as ExplosionGrenade).ScpDamageMultiplier = 6f;
             else if (Degree >= 10f)
             {
                 Player.StaminaRemaining += Time.fixedDeltaTime;
@@ -75,6 +75,7 @@ namespace SwiftArcadeMode.Features.Humans.Perks.Content
                 return;
 
             Degree = 0f;
+            toy.Intensity = 0f;
         }
 
         private void OnSendVoiceMessage(LabApi.Events.Arguments.PlayerEvents.PlayerSendingVoiceMessageEventArgs ev)
