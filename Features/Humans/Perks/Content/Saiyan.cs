@@ -21,12 +21,13 @@ namespace SwiftArcadeMode.Features.Humans.Perks.Content
         public virtual float GainRate => 2f;
 
         LightSourceToy toy;
+        bool ascended;
 
         public override void Init()
         {
             base.Init();
             PlayerEvents.SendingVoiceMessage += OnSendVoiceMessage;
-            PlayerEvents.Dying += OnDying;
+            PlayerEvents.Death += OnDeath;
             toy = LightSourceToy.Create(Player.Position, networkSpawn: false);
             toy.Color = Color.yellow;
             toy.Intensity = 0f;
@@ -39,7 +40,7 @@ namespace SwiftArcadeMode.Features.Humans.Perks.Content
         {
             base.Remove();
             PlayerEvents.SendingVoiceMessage -= OnSendVoiceMessage;
-            PlayerEvents.Dying -= OnDying;
+            PlayerEvents.Death -= OnDeath;
             toy.Destroy();
         }
 
@@ -56,8 +57,11 @@ namespace SwiftArcadeMode.Features.Humans.Perks.Content
 
             toy.Intensity = Mathf.MoveTowards(toy.Intensity, Degree >= 10f ? Degree * Degree : 0f, (Degree >= 20f ? 2000f : 10f) * Time.fixedDeltaTime);
 
-            if (Degree >= 30f)
+            if (Degree >= 30f && !ascended)
+            {
                 (TimedGrenadeProjectile.SpawnActive(Player.Position, ItemType.GrenadeHE, Player, 0f).Base as ExplosionGrenade).ScpDamageMultiplier = 6f;
+                ascended = true;
+            }
             else if (Degree >= 10f)
             {
                 Player.StaminaRemaining += Time.fixedDeltaTime;
@@ -69,11 +73,12 @@ namespace SwiftArcadeMode.Features.Humans.Perks.Content
             }
         }
 
-        private void OnDying(LabApi.Events.Arguments.PlayerEvents.PlayerDyingEventArgs ev)
+        private void OnDeath(LabApi.Events.Arguments.PlayerEvents.PlayerDeathEventArgs ev)
         {
             if (ev.Player != Player)
                 return;
 
+            ascended = false;
             Degree = 0f;
             toy.Intensity = 0f;
         }
