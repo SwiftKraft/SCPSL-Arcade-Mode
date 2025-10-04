@@ -48,7 +48,7 @@ namespace SwiftArcadeMode.Features.Humans.Perks.Content
 
         private void OnWarheadDetonated(LabApi.Events.Arguments.WarheadEvents.WarheadDetonatedEventArgs ev)
         {
-            if (TeleportExists && (!Room.TryGetRoomAtPosition(TrackedElevator != null ? TrackedElevator.Base.transform.position + TeleportPoint : TeleportPoint, out Room room) || room.Zone != MapGeneration.FacilityZone.Surface))
+            if (TeleportExists && (TrackedElevator != null || !Room.TryGetRoomAtPosition(TeleportPoint, out Room room) || room.Zone != MapGeneration.FacilityZone.Surface))
             {
                 TrackedElevator = null;
                 TrackedType = ItemType.None;
