@@ -28,7 +28,7 @@ namespace SwiftArcadeMode.Features.Humans.Perks.Content
             }
         }
 
-        public float StandingStill { get; private set; }
+        public float Moving { get; private set; }
 
         public override void Init()
         {
@@ -51,8 +51,9 @@ namespace SwiftArcadeMode.Features.Humans.Perks.Content
         {
             base.Tick();
 
-            CurrentDegree = (byte)Mathf.Lerp(255, Mathf.Lerp(255, 0, HealthPercentage), StandingStill);
-            StandingStill = Mathf.MoveTowards(StandingStill, lastCheckedPosition != Player.Position ? 1f : 0f, Time.fixedDeltaTime * 0.25f);
+            CurrentDegree = (byte)Mathf.Lerp(255, Mathf.Lerp(255, 0, HealthPercentage), Moving);
+            bool moving = lastCheckedPosition != Player.Position;
+            Moving = Mathf.MoveTowards(Moving, moving ? 1f : 0f, Time.fixedDeltaTime * (moving ? 2f : 0.25f));
 
             lastCheckedPosition = Player.Position;
         }
