@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace SwiftArcadeMode.Features.Humans.Perks.Content
 {
-    [Perk("Ghostly", Rarity.Epic)]
+    [Perk("Ghostly", Rarity.Legendary)]
     public class Ghostly(PerkInventory inv) : PerkBase(inv)
     {
         public override string Name => "Ghostly";
