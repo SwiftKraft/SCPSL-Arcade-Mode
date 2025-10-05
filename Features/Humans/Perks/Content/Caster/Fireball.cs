@@ -35,7 +35,10 @@ namespace SwiftArcadeMode.Features.Humans.Perks.Content.Caster
 
             public void Explode()
             {
-                TimedGrenadeProjectile proj = TimedGrenadeProjectile.SpawnActive(Parent.Position, ItemType.GrenadeHE, Owner, 0f);
+                if (Rigidbody == null)
+                    return;
+
+                TimedGrenadeProjectile proj = TimedGrenadeProjectile.SpawnActive(Rigidbody.position, ItemType.GrenadeHE, Owner, 0f);
                 if (proj.Base is ExplosionGrenade gr)
                 {
                     gr.ScpDamageMultiplier = 2f;

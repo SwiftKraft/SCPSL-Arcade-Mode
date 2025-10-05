@@ -51,7 +51,7 @@ namespace SwiftArcadeMode.Features.Humans.Perks.Content.Caster
             PlayerEvents.DroppingItem += OnDroppingItem;
             PlayerEvents.DroppedItem += OnDroppedItem;
             PlayerEvents.InspectingKeycard += OnInspectingKeycard;
-            PlayerEvents.Dying += OnDying;
+            PlayerEvents.Death += OnDeath;
             PlayerEvents.ChangingItem += OnChangingItem;
 
             Spells = ListSpells();
@@ -68,7 +68,7 @@ namespace SwiftArcadeMode.Features.Humans.Perks.Content.Caster
             PlayerEvents.DroppingItem -= OnDroppingItem;
             PlayerEvents.DroppedItem -= OnDroppedItem;
             PlayerEvents.InspectingKeycard -= OnInspectingKeycard;
-            PlayerEvents.Dying -= OnDying;
+            PlayerEvents.Death -= OnDeath;
             PlayerEvents.ChangingItem -= OnChangingItem;
 
             RemoveCurrentSpellItem();
@@ -118,7 +118,7 @@ namespace SwiftArcadeMode.Features.Humans.Perks.Content.Caster
             });
         }
 
-        private void OnDying(LabApi.Events.Arguments.PlayerEvents.PlayerDyingEventArgs ev)
+        private void OnDeath(LabApi.Events.Arguments.PlayerEvents.PlayerDeathEventArgs ev)
         {
             if (ev.Player != Player)
             {
@@ -214,7 +214,7 @@ namespace SwiftArcadeMode.Features.Humans.Perks.Content.Caster
             public override void Tick()
             {
                 base.Tick();
-                Rigidbody.transform.Rotate(Vector3.forward * (Time.fixedDeltaTime * SpinSpeed), Space.Self);
+                Rigidbody?.transform.Rotate(Vector3.forward * (Time.fixedDeltaTime * SpinSpeed), Space.Self);
             }
 
             public override void Destroy()

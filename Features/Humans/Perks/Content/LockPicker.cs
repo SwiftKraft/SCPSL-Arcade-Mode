@@ -3,7 +3,7 @@ using LabApi.Features.Enums;
 
 namespace SwiftArcadeMode.Features.Humans.Perks.Content
 {
-    [Perk("LockPicker", Rarity.Mythic)]
+    //[Perk("LockPicker", Rarity.Mythic)]
     public class LockPicker(PerkInventory inv) : PerkDoorBase(inv)
     {
         public override string Name => "Lock Picker";

@@ -66,7 +66,14 @@ namespace SwiftArcadeMode.Features.SCPs.Upgrades
         {
             PlayerEvents.Dying += OnPlayerDying;
             ServerEvents.WaveRespawned += OnWaveRespawned;
+            ServerEvents.RoundStarted += OnRoundStarted;
             AllowLeveling = Core.Instance.Config.AllowScpLeveling;
+        }
+
+        private static void OnRoundStarted()
+        {
+            SCPLevel = 0;
+            SCPTeamExperience = 0;
         }
 
         private static void OnWaveRespawned(LabApi.Events.Arguments.ServerEvents.WaveRespawnedEventArgs ev)
@@ -79,6 +86,7 @@ namespace SwiftArcadeMode.Features.SCPs.Upgrades
         {
             PlayerEvents.Dying -= OnPlayerDying;
             ServerEvents.WaveRespawned -= OnWaveRespawned;
+            ServerEvents.RoundStarted -= OnRoundStarted;
         }
 
         private static void OnPlayerDying(PlayerDyingEventArgs ev)

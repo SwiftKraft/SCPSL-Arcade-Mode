@@ -1,4 +1,5 @@
 ﻿using CustomPlayerEffects;
+using LabApi.Events.Handlers;
 using UnityEngine;
 
 namespace SwiftArcadeMode.Features.Humans.Perks.Content
@@ -17,6 +18,16 @@ namespace SwiftArcadeMode.Features.Humans.Perks.Content
         public override void Init()
         {
             base.Init();
+            PlayerEvents.ChangedRole += OnChangedRole;
+            Player.EnableEffect<CustomPlayerEffects.Ghostly>();
+            lastCheckedHealth = Player.Health;
+        }
+
+        private void OnChangedRole(LabApi.Events.Arguments.PlayerEvents.PlayerChangedRoleEventArgs ev)
+        {
+            if (ev.Player != Player)
+                return;
+
             Player.EnableEffect<CustomPlayerEffects.Ghostly>();
             lastCheckedHealth = Player.Health;
         }
@@ -33,6 +44,7 @@ namespace SwiftArcadeMode.Features.Humans.Perks.Content
         public override void Remove()
         {
             base.Remove();
+            PlayerEvents.ChangedRole -= OnChangedRole;
             Player.DisableEffect<CustomPlayerEffects.Ghostly>();
         }
     }
