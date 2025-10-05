@@ -1,6 +1,4 @@
 ﻿using Footprinting;
-using Interactables.Interobjects;
-using LabApi.Events.Handlers;
 using LabApi.Features.Wrappers;
 using PlayerRoles;
 using PlayerRoles.FirstPersonControl;
@@ -20,8 +18,8 @@ namespace SwiftArcadeMode.Features.Humans.Perks.Content.Caster
 
         public override float CastTime => 1.3f;
 
-        const float spreadAngle = 40f;
-        const int projectileCount = 5;
+        const float spreadAngle = 65f;
+        const int projectileCount = 10;
 
         public override void Cast()
         {
@@ -32,8 +30,8 @@ namespace SwiftArcadeMode.Features.Humans.Perks.Content.Caster
             for (int i = 0; i < projectileCount; i++)
             {
                 float currentAngle = startAngle + (angleStep * i);
-                Quaternion rotation = Quaternion.Euler(0f, currentAngle, 0f); 
-                Vector3 direction = rotation * Caster.Player.Camera.forward; 
+                Quaternion rotation = Quaternion.Euler(0f, currentAngle, 0f);
+                Vector3 direction = rotation * Caster.Player.Camera.forward;
 
                 colliders.Add(new Projectile(Caster.Player.Camera.position + direction * 0.25f, Quaternion.LookRotation(direction), direction * 40f, 15f, Caster.Player).Collider);
             }

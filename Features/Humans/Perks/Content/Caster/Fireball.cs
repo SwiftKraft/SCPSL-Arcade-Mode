@@ -24,7 +24,7 @@ namespace SwiftArcadeMode.Features.Humans.Perks.Content.Caster
 
             public override void Construct()
             {
-                CollisionRadius = 0.25f;
+                CollisionRadius = 0.2f;
                 SpinSpeed = 720f;
                 BaseColor = new(1f, 0.5f, 0f);
                 LightColor = new(1f, 0.7f, 0f);
