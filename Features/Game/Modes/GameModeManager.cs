@@ -1,10 +1,10 @@
 ﻿using LabApi.Events.Handlers;
+using SwiftArcadeMode.Features.Humans.Perks;
 using SwiftArcadeMode.Utils.Extensions;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
-using UnityEngine;
 using Random = UnityEngine.Random;
 
 namespace SwiftArcadeMode.Features.Game.Modes
@@ -25,10 +25,13 @@ namespace SwiftArcadeMode.Features.Game.Modes
 
                 current?.End();
                 current = value;
+                PerkSpawner.PerkSpawnRules = current != null && current.OverrideSpawnRules != null ? current.OverrideSpawnRules : PerkSpawner.DefaultSpawnRules;
                 current?.Start();
             }
         }
         private static GameModeBase current;
+
+        public static bool ForcedRound = false;
 
         public static void Enable()
         {
@@ -38,10 +41,17 @@ namespace SwiftArcadeMode.Features.Game.Modes
             ServerEvents.RoundRestarted += OnRoundRestarted;
         }
 
-        private static void OnRoundRestarted() => Current = null;
+        private static void OnRoundRestarted()
+        {
+            Current = null;
+            ForcedRound = false;
+        }
 
         private static void OnRoundStarted()
         {
+            if (ForcedRound)
+                return;
+
             Current = null;
             if (Random.Range(0f, 1f) <= Chance && Registry.Count > 0)
                 Current = (GameModeBase)Activator.CreateInstance(Registry.GetRandom());

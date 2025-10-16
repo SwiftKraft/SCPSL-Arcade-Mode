@@ -4,12 +4,10 @@ using LabApi.Events.Arguments.PlayerEvents;
 using LabApi.Events.Arguments.ServerEvents;
 using LabApi.Events.Handlers;
 using LabApi.Features.Wrappers;
-using MapGeneration;
 using MEC;
 using System;
 using System.Collections.Generic;
 using UnityEngine;
-using Random = UnityEngine.Random;
 
 namespace SwiftArcadeMode.Features.Humans.Perks
 {
@@ -87,33 +85,15 @@ namespace SwiftArcadeMode.Features.Humans.Perks
 
         private static void OnWaveRespawned(WaveRespawnedEventArgs ev) => SpawnPerks();
 
-        public static RoomName[] SpawnRooms = [
-            RoomName.Lcz914,
-            RoomName.Lcz173,
-            RoomName.LczGlassroom,
-            RoomName.LczArmory,
-            RoomName.EzIntercom,
-            RoomName.EzRedroom,
-            RoomName.Hcz096,
-            RoomName.Hcz127,
-            RoomName.HczServers
-            ];
+        public static PerkSpawnRulesBase DefaultSpawnRules = new PerkSpawnRulesBasic();
+        public static PerkSpawnRulesBase PerkSpawnRules = DefaultSpawnRules;
 
         public static void SpawnPerks()
         {
             if (!AllowSpawn)
                 return;
 
-            foreach (Room r in Room.List)
-            {
-                if (r == null || r.Base == null || (Random.Range(0f, 1f) > Mathf.Lerp(0.3f, 0.6f, Mathf.InverseLerp(5, 25, Server.PlayerCount)) && !SpawnRooms.Contains(r.Name)))
-                    continue;
-
-                Pickup pick = SpawnPerk(PerkManager.GetRandomPerk((p) => p.Restriction == PerkRestriction.None || p.Restriction == PerkRestriction.Human), r.Position + Vector3.up * 2f);
-
-                if (pick != null && pick.Rigidbody != null)
-                    pick.Rigidbody.AddForce(Random.insideUnitSphere * 3f);
-            }
+            PerkSpawnRules.SpawnPerks();
         }
 
         public static Pickup SpawnPerk(PerkAttribute ty, Vector3 location)
