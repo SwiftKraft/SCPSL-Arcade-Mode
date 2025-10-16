@@ -12,7 +12,7 @@ namespace SwiftArcadeMode.Features.Humans.Perks.Content.Caster
         public override Type[] ListSpells() => [
             typeof(ElementalBolt),
             typeof(LightArrow),
-            typeof(Fireball),
+            typeof(FireArrow),
             ];
     }
 }
