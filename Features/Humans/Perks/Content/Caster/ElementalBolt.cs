@@ -29,7 +29,7 @@ namespace SwiftArcadeMode.Features.Humans.Perks.Content.Caster
         {
             public override PrimitiveObjectToy[] CreateBalls() => [PrimitiveObjectToy.Create(Vector3.up * 0.1f, Quaternion.identity, new(0.05f, 0.05f, 0.4f), Parent.Transform, false), PrimitiveObjectToy.Create(Vector3.down * 0.1f, Quaternion.identity, new(0.05f, 0.05f, 0.4f), Parent.Transform, false), PrimitiveObjectToy.Create(Vector3.left * 0.1f, Quaternion.identity, new(0.05f, 0.05f, 0.4f), Parent.Transform, false), PrimitiveObjectToy.Create(Vector3.right * 0.1f, Quaternion.identity, new(0.05f, 0.05f, 0.4f), Parent.Transform, false)];
 
-            public override LightSourceToy[] CreateLights() => [LightSourceToy.Create(Parent.Transform, false)];
+            public override LightSourceToy[] CreateLights() => [LightSourceToy.Create(Parent.Transform, false), LightSourceToy.Create(new(0.1f, 0.1f, 0f), Parent.Transform, false), LightSourceToy.Create(new(-0.1f, 0.1f, 0f), Parent.Transform, false), LightSourceToy.Create(new(0.1f, -0.1f, 0f), Parent.Transform, false), LightSourceToy.Create(new(-0.1f, -0.1f, 0f), Parent.Transform, false)];
 
             public override void Construct()
             {
