@@ -28,7 +28,8 @@ namespace SwiftArcadeMode.Features.Game.Modes
                 typeof(Streamer),
                 typeof(Wizard),
                 typeof(Druid),
-                typeof(Sorcerer)
+                typeof(Sorcerer),
+                typeof(Warlock)
                 ];
 
             public override Func<PerkAttribute, bool> Criteria => (p) => Pool.Contains(p.Perk);

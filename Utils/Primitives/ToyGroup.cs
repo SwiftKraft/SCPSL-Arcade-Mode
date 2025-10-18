@@ -1,12 +1,13 @@
 ﻿using LabApi.Features.Wrappers;
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
 namespace SwiftArcadeMode.Utils.Primitives
 {
-    public class PrimitiveGroup(params Primitive[] primitives)
+    public class ToyGroup(params ToyBase[] primitives)
     {
-        public readonly List<Primitive> Toys = [.. primitives];
+        public readonly List<ToyBase> Toys = [.. primitives];
         public virtual void Spawn()
         {
             for (int i = 0; i < Toys.Count; i++)
@@ -24,27 +25,25 @@ namespace SwiftArcadeMode.Utils.Primitives
         }
     }
 
-    public abstract class Primitive(PrimitiveType toy, Transform parent = null)
+    public class ToyBase(AdminToy toy)
     {
-        public PrimitiveObjectToy Toy { get; private set; }
-        public readonly PrimitiveType Type = toy;
-        public readonly Transform Parent = parent;
+        public AdminToy Toy { get; private set; } = toy;
+        public Action TickAction { get; set; }
 
         public virtual void Spawn()
         {
             if (Toy != null)
                 return;
 
-            PrimitiveObjectToy t = PrimitiveObjectToy.Create(Parent, false);
-            t.Type = Type;
-            Toy = t;
             Init();
-            t.Spawn();
+            Toy.Spawn();
         }
 
-        public abstract void Init();
-        public abstract void Tick();
+        public virtual void Init() { }
+        public virtual void Tick() => TickAction?.Invoke();
 
         public virtual void Destroy() => Toy?.Destroy();
+
+        public static implicit operator ToyBase(AdminToy toy) => new(toy);
     }
 }

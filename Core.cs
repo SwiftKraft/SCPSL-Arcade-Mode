@@ -11,6 +11,7 @@ using SwiftArcadeMode.Features.Scoring;
 using SwiftArcadeMode.Features.Scoring.Saving;
 using SwiftArcadeMode.Features.SCPs.Upgrades;
 using SwiftArcadeMode.Features.ServerSpecificSettings;
+using SwiftArcadeMode.Utils.Effects;
 using SwiftArcadeMode.Utils.Projectiles;
 using System;
 using System.IO;
@@ -53,6 +54,7 @@ namespace SwiftArcadeMode
             RecipeManager.Enable();
             SSSManager.Enable();
             GameModeManager.Enable();
+            CustomEffectManager.Enable();
 
             ServerEvents.RoundEnded += OnRoundEnded;
             ServerEvents.RoundStarted += OnRoundStarted;
@@ -102,6 +104,7 @@ namespace SwiftArcadeMode
             ScoringManager.Disable();
             SSSManager.Disable();
             GameModeManager.Disable();
+            CustomEffectManager.Disable();
 
             ServerEvents.RoundEnded -= OnRoundEnded;
             ServerEvents.RoundStarted -= OnRoundStarted;
@@ -123,6 +126,7 @@ namespace SwiftArcadeMode
             PerkManager.Tick();
             ProjectileManager.Tick();
             ScoringManager.Tick();
+            CustomEffectManager.Tick();
         }
 
         /*
