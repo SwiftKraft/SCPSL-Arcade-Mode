@@ -52,10 +52,9 @@ namespace SwiftArcadeMode.Features.Game.Modes
             if (ForcedRound)
                 return;
 
-            //Current = null;
-            //if (Random.Range(0f, 1f) <= Chance && Registry.Count > 0)
-            //    Current = (GameModeBase)Activator.CreateInstance(Registry.GetRandom());
-            Current = new CasterBattle();
+            Current = null;
+            if (Random.Range(0f, 1f) <= Chance && Registry.Count > 0)
+                Current = (GameModeBase)Activator.CreateInstance(Registry.GetRandom());
         }
 
         public static void Disable()
