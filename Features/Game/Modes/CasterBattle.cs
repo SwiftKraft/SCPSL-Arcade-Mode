@@ -1,14 +1,11 @@
 ﻿using SwiftArcadeMode.Features.Humans.Perks;
+using SwiftArcadeMode.Features.Humans.Perks.Content;
 using SwiftArcadeMode.Features.Humans.Perks.Content.Caster;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace SwiftArcadeMode.Features.Game.Modes
 {
-    public class WizardBattle : GameModeBase
+    public class CasterBattle : GameModeBase
     {
         public override PerkSpawnRulesBase OverrideSpawnRules => new PerkRules();
 
@@ -21,6 +18,14 @@ namespace SwiftArcadeMode.Features.Game.Modes
         public class PerkRules : PerkSpawnRulesBasic
         {
             public static Type[] Pool = [
+                typeof(SuperRegeneration),
+                typeof(Regeneration),
+                typeof(PerkSlotUpgrade),
+                typeof(Ninjutsu),
+                typeof(Vampire),
+                typeof(Resilience),
+                typeof(Marathoner),
+                typeof(Streamer),
                 typeof(Wizard),
                 typeof(Druid),
                 typeof(Sorcerer)

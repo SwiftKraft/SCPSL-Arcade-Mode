@@ -1,4 +1,5 @@
-﻿using Footprinting;
+﻿using CustomPlayerEffects;
+using Footprinting;
 using LabApi.Features.Wrappers;
 using MEC;
 using PlayerRoles;
@@ -114,7 +115,8 @@ namespace SwiftArcadeMode.Features.Humans.Perks.Content.Caster
             {
                 if (player != null)
                 {
-                    player.playerStats.DealDamage(new ExplosionDamageHandler(new Footprint(Owner.ReferenceHub), InitialVelocity, 25f * (player.IsSCP() ? 3f : 1f), 100, ExplosionType.Disruptor));
+                    player.playerStats.DealDamage(new ExplosionDamageHandler(new Footprint(Owner.ReferenceHub), InitialVelocity, 32f * (player.IsSCP() ? 3f : 1f), 100, ExplosionType.Disruptor));
+                    player.playerEffectsController.EnableEffect<Burned>(3f, true);
 
                     if (player.roleManager.CurrentRole is IFpcRole role)
                     {
