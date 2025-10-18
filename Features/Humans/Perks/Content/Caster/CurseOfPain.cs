@@ -1,6 +1,8 @@
 ﻿using LabApi.Features.Wrappers;
+using PlayerRoles;
 using PlayerStatsSystem;
 using SwiftArcadeMode.Utils.Effects;
+using SwiftArcadeMode.Utils.Projectiles;
 using SwiftArcadeMode.Utils.Structures;
 using UnityEngine;
 
@@ -21,9 +23,47 @@ namespace SwiftArcadeMode.Features.Humans.Perks.Content.Caster
         public override void Cast()
         {
             Caster.Player.Damage(10f, "Out of Blood.");
+            ShootRay();
+        }
 
-            if (Physics.Raycast(Caster.Player.Camera.position, Caster.Player.Camera.forward, out RaycastHit _hit, 10f, CastMask, QueryTriggerInteraction.Ignore) && _hit.collider.transform.TryGetComponentInParent(out ReferenceHub hub))
+        public void ShootRay()
+        {
+            if (!Caster.Player.IsAlive)
+                return;
+
+            Vector3 origin = Caster.Player.Camera.position;
+            Vector3 direction = Caster.Player.Camera.forward;
+            float maxDistance = 20f;
+
+            RaycastHit[] hits = Physics.RaycastAll(origin, direction, maxDistance, CastMask, QueryTriggerInteraction.Ignore);
+
+            if (hits.Length == 0)
+                return;
+
+            System.Array.Sort(hits, (a, b) => a.distance.CompareTo(b.distance));
+
+            RaycastHit? validHit = null;
+
+            foreach (var hit in hits)
+            {
+                Transform t = hit.transform;
+                if (t == Caster.Player.GameObject.transform || t.IsChildOf(Caster.Player.GameObject.transform))
+                    continue;
+
+                validHit = hit;
+                break;
+            }
+
+            if (!validHit.HasValue)
+                return;
+
+            var _hit = validHit.Value;
+
+            if (_hit.collider.transform.TryGetComponentInParent(out ReferenceHub hub) && hub != Caster.Player.ReferenceHub)
+            {
                 Player.Get(hub)?.AddCustomEffect(new Effect(10f, this));
+                Caster.Player.SendHitMarker(0.5f);
+            }
         }
 
         public class Effect(float duration) : CustomEffectBase(duration)
