@@ -13,7 +13,7 @@ namespace SwiftArcadeMode.Features.Humans.Perks.Content
     {
         public override string Name => "Saiyan";
 
-        public override string Description => "Max out your microphone to power up!";
+        public override string Description => "Max out your microphone to power up!\nPlease do this responsibly.";
 
         public float Degree { get; private set; }
 

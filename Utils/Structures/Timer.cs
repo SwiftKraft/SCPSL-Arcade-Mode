@@ -54,7 +54,8 @@ namespace SwiftArcadeMode.Utils.Structures
 
         public Timer(float time, bool startEnded = true)
         {
-            Reset(time);
+            if (!startEnded)
+                Reset(time);
             Ended = startEnded;
         }
 
