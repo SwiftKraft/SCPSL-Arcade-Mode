@@ -1,5 +1,6 @@
 ﻿using LabApi.Features.Wrappers;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using Utils.NonAllocLINQ;
 
@@ -52,12 +53,14 @@ namespace SwiftArcadeMode.Utils.Effects
 
             bool canAdd = true;
 
-            if (ActiveEffects.TryGetFirst(c => c.GetType() == effect.GetType(), out CustomEffectBase f))
+            List<CustomEffectBase> existing = [.. ActiveEffects.Where(c => c.GetType() == effect.GetType())];
+
+            if (existing.Count > 0)
             {
-                if (!effect.CanStack)
-                    RemoveEffect(f);
+                if (effect.StackCount >= existing.Count)
+                    RemoveEffect(existing[0]);
                 else
-                    canAdd = effect.Stack(f);
+                    canAdd = effect.Stack(existing[0]);
             }
 
             if (canAdd)
