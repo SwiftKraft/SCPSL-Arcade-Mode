@@ -55,6 +55,7 @@ namespace SwiftArcadeMode.Utils.Projectiles
 
             Collider = Parent.GameObject.AddComponent<SphereCollider>();
             Collider.radius = CollisionRadius;
+            Collider.excludeLayers = LayerMask.GetMask("Hitbox");
 
             if (Owner != null && Owner.RoleBase is IFpcRole role)
                 Physics.IgnoreCollision(Collider, role.FpcModule.CharController, true);

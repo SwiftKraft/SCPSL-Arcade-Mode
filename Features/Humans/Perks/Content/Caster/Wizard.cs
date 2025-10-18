@@ -2,7 +2,7 @@
 
 namespace SwiftArcadeMode.Features.Humans.Perks.Content.Caster
 {
-    [Perk("Wizard", Rarity.Legendary)]
+    [Perk("Wizard", Rarity.Epic)]
     public class Wizard(PerkInventory inv) : CasterBase(inv)
     {
         public override string Name => "Wizard";

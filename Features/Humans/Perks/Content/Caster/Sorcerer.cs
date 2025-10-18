@@ -2,7 +2,7 @@
 
 namespace SwiftArcadeMode.Features.Humans.Perks.Content.Caster
 {
-    [Perk("Sorcerer", Rarity.Legendary)]
+    [Perk("Sorcerer", Rarity.Epic)]
     public class Sorcerer(PerkInventory inv) : CasterBase(inv)
     {
         public override float RegularCooldown => 10f;

@@ -2,10 +2,11 @@
 
 namespace SwiftArcadeMode.Features.Humans.Perks.Content.Caster
 {
-    [Perk("Warlock", Rarity.Legendary)]
+    [Perk("Warlock", Rarity.Epic)]
     public class Warlock(PerkInventory inv) : CasterBase(inv)
     {
         public override float RegularCooldown => 8f;
+        public override float LessItemsCooldown => 5f;
 
         public override string Name => "Warlock";
 

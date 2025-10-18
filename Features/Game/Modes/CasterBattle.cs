@@ -19,12 +19,10 @@ namespace SwiftArcadeMode.Features.Game.Modes
         {
             public static Type[] Pool = [
                 typeof(SuperRegeneration),
-                typeof(Regeneration),
                 typeof(PerkSlotUpgrade),
                 typeof(Ninjutsu),
                 typeof(Vampire),
                 typeof(Resilience),
-                typeof(Marathoner),
                 typeof(Streamer),
                 typeof(Wizard),
                 typeof(Druid),

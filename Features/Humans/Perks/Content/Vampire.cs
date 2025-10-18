@@ -2,7 +2,7 @@
 
 namespace SwiftArcadeMode.Features.Humans.Perks.Content
 {
-    [Perk("Vampire", Rarity.Epic, conflictPerks: [typeof(Reaper), typeof(Regeneration), typeof(SuperRegeneration)])]
+    [Perk("Vampire", Rarity.Epic, PerkRestriction.Human, conflictPerks: [typeof(Reaper), typeof(Regeneration), typeof(SuperRegeneration)])]
     public class Vampire(PerkInventory inv) : Reaper(inv)
     {
         public override string Name => "Vampire";

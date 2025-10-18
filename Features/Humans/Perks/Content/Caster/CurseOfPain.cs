@@ -35,7 +35,7 @@ namespace SwiftArcadeMode.Features.Humans.Perks.Content.Caster
             Vector3 direction = Caster.Player.Camera.forward;
             float maxDistance = 20f;
 
-            RaycastHit[] hits = Physics.RaycastAll(origin, direction, maxDistance, CastMask, QueryTriggerInteraction.Ignore);
+            RaycastHit[] hits = Physics.SphereCastAll(origin, 0.2f, direction, maxDistance, CastMask, QueryTriggerInteraction.Ignore);
 
             if (hits.Length == 0)
                 return;
@@ -113,7 +113,7 @@ namespace SwiftArcadeMode.Features.Humans.Perks.Content.Caster
                 if (light != null)
                 {
                     light.Position = Parent.Player.Position;
-                    light.Intensity = (Mathf.Sin(Time.time * 4f) + 1.5f) * 0.5f;
+                    light.Intensity = Mathf.Sin(Time.time * 4f) * 2f + 3f;
                 }
             }
         }

@@ -2,7 +2,7 @@
 
 namespace SwiftArcadeMode.Features.Humans.Perks.Content.Caster
 {
-    [Perk("Druid", Rarity.Legendary)]
+    [Perk("Druid", Rarity.Epic)]
     public class Druid(PerkInventory inv) : CasterBase(inv)
     {
         public override float RegularCooldown => 8f;

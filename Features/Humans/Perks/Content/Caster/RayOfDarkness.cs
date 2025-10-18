@@ -37,7 +37,7 @@ namespace SwiftArcadeMode.Features.Humans.Perks.Content.Caster
             UpdateRay();
             RayVisual.Spawn();
 
-            handle = Timing.CallPeriodically(5f, 0.05f, () =>
+            handle = Timing.CallPeriodically(3f, 0.05f, () =>
             {
                 ShootRay();
                 UpdateRay();
@@ -62,7 +62,7 @@ namespace SwiftArcadeMode.Features.Humans.Perks.Content.Caster
             Vector3 direction = Caster.Player.Camera.forward;
             float maxDistance = 20f;
 
-            RaycastHit[] hits = Physics.RaycastAll(origin, direction, maxDistance, CastMask, QueryTriggerInteraction.Ignore);
+            RaycastHit[] hits = Physics.SphereCastAll(origin, 0.1f, direction, maxDistance, CastMask, QueryTriggerInteraction.Ignore);
 
             if (hits.Length == 0)
             {
@@ -104,7 +104,7 @@ namespace SwiftArcadeMode.Features.Humans.Perks.Content.Caster
                     new ExplosionDamageHandler(
                         new(Caster.Player.ReferenceHub),
                         direction,
-                        2.5f * (hub.IsSCP() ? 2f : 1f),
+                        4f * (hub.IsSCP() ? 2f : 1f),
                         100,
                         ExplosionType.Disruptor
                     )
