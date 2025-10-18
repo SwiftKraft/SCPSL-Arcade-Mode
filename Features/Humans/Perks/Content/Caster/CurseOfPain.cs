@@ -59,7 +59,7 @@ namespace SwiftArcadeMode.Features.Humans.Perks.Content.Caster
 
             var _hit = validHit.Value;
 
-            if (_hit.collider.transform.TryGetComponentInParent(out ReferenceHub hub) && hub != Caster.Player.ReferenceHub)
+            if (_hit.collider.transform.TryGetComponentInParent(out ReferenceHub hub) && hub != Caster.Player.ReferenceHub && hub.GetFaction() != Caster.Player.Faction)
             {
                 Player.Get(hub)?.AddCustomEffect(new Effect(10f, this));
                 Caster.Player.SendHitMarker(0.5f);
