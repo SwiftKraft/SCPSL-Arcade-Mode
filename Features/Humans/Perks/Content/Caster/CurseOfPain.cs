@@ -33,7 +33,7 @@ namespace SwiftArcadeMode.Features.Humans.Perks.Content.Caster
 
             Vector3 origin = Caster.Player.Camera.position;
             Vector3 direction = Caster.Player.Camera.forward;
-            float maxDistance = 20f;
+            float maxDistance = 30f;
 
             RaycastHit[] hits = Physics.SphereCastAll(origin, 0.2f, direction, maxDistance, CastMask, QueryTriggerInteraction.Ignore);
 

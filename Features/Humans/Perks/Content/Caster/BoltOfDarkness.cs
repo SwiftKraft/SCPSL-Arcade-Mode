@@ -41,10 +41,10 @@ namespace SwiftArcadeMode.Features.Humans.Perks.Content.Caster
             {
                 if (player != null)
                 {
-                    float damage = 50f;
-                    player.playerEffectsController.EnableEffect<Sinkhole>(1f);
+                    float damage = 75f;
+                    player.playerEffectsController.EnableEffect<Sinkhole>(5f);
 
-                    player.playerStats.DealDamage(new ExplosionDamageHandler(new Footprint(Owner.ReferenceHub), InitialVelocity, damage * (player.IsSCP() ? 3f : 1f), 100, ExplosionType.Disruptor));
+                    player.playerStats.DealDamage(new ExplosionDamageHandler(new Footprint(Owner.ReferenceHub), InitialVelocity, damage * (player.IsSCP() ? 5f : 1f), 100, ExplosionType.Disruptor));
                     Owner?.SendHitMarker(2f);
                 }
 

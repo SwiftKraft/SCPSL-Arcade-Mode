@@ -23,7 +23,7 @@ namespace SwiftArcadeMode.Features.Humans.Perks.Content.Caster
 
         public override int RankIndex => 3;
 
-        public override float CastTime => 1f;
+        public override float CastTime => 0.5f;
 
         public override void Cast() => new Projectile(Caster.Player.Camera.position + Caster.Player.Camera.forward * 0.4f, Caster.Player.Camera.rotation, Caster.Player.Camera.forward * 35f, 10f, Caster.Player);
 
@@ -53,9 +53,9 @@ namespace SwiftArcadeMode.Features.Humans.Perks.Content.Caster
                     if (player.playerEffectsController.TryGetEffect<Ensnared>(out var playerEffect) && playerEffect != null)
                     {
                         if (!playerEffect.IsEnabled)
-                            player.playerEffectsController.EnableEffect<Ensnared>(2f);
+                            player.playerEffectsController.EnableEffect<Ensnared>(3f);
                         else
-                            damage = 90f;
+                            damage = 95f;
                     }
 
                     player.playerStats.DealDamage(new ExplosionDamageHandler(new Footprint(Owner.ReferenceHub), InitialVelocity, damage * (player.IsSCP() ? 3f : 1f), 100, ExplosionType.Disruptor));

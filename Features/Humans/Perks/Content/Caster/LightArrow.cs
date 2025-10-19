@@ -24,7 +24,7 @@ namespace SwiftArcadeMode.Features.Humans.Perks.Content.Caster
             const int maxBounces = 2;
             int currentBounces = 0;
             float speed;
-            float currentDamage = 60f;
+            float currentDamage = 75f;
             float currentScpMultiplier = 3f;
             Vector3 vel;
 

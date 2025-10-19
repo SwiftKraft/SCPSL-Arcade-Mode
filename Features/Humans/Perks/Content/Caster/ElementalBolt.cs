@@ -46,14 +46,14 @@ namespace SwiftArcadeMode.Features.Humans.Perks.Content.Caster
             {
                 if (player != null)
                 {
-                    float damage = 50f;
+                    float damage = 100f;
 
                     if (player.playerEffectsController.TryGetEffect<Burned>(out var playerEffect) && playerEffect != null)
                     {
                         if (!playerEffect.IsEnabled)
                             player.playerEffectsController.EnableEffect<Burned>(5f, true);
                         else
-                            damage = 65f;
+                            damage = 150f;
                     }
 
                     player.playerStats.DealDamage(new ExplosionDamageHandler(new Footprint(Owner.ReferenceHub), InitialVelocity, damage * (player.IsSCP() ? 3f : 1f), 100, ExplosionType.Disruptor));

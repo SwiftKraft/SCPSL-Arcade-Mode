@@ -19,12 +19,12 @@ namespace SwiftArcadeMode.Features.Humans.Perks.Content.Caster
 
         public class Projectile(Vector3 initialPosition, Quaternion initialRotation, Vector3 initialVelocity, float lifetime = 10f, Player owner = null) : CasterBase.MagicProjectileBase(initialPosition, initialRotation, initialVelocity, lifetime, owner)
         {
-            public override LightSourceToy[] CreateLights() => [LightSourceToy.Create(Vector3.down * 0.4f, Parent.Transform, false), LightSourceToy.Create(Vector3.up * 0.4f, Parent.Transform, false), LightSourceToy.Create(Vector3.left * 0.4f, Parent.Transform, false), LightSourceToy.Create(Vector3.forward * 0.4f, Parent.Transform, false), LightSourceToy.Create(Vector3.back * 0.4f, Parent.Transform, false), LightSourceToy.Create(Vector3.right * 0.4f, Parent.Transform, false)];
-            public override PrimitiveObjectToy[] CreateBalls() => [PrimitiveObjectToy.Create(default, Quaternion.identity, Vector3.one * 0.5f, Parent.Transform, false)];
+            public override LightSourceToy[] CreateLights() => [LightSourceToy.Create(Vector3.down * 0.3f, Parent.Transform, false), LightSourceToy.Create(Vector3.up * 0.3f, Parent.Transform, false), LightSourceToy.Create(Vector3.left * 0.3f, Parent.Transform, false), LightSourceToy.Create(Vector3.forward * 0.3f, Parent.Transform, false), LightSourceToy.Create(Vector3.back * 0.3f, Parent.Transform, false), LightSourceToy.Create(Vector3.right * 0.3f, Parent.Transform, false)];
+            public override PrimitiveObjectToy[] CreateBalls() => [PrimitiveObjectToy.Create(default, Quaternion.identity, Vector3.one * 0.3f, Parent.Transform, false)];
 
             public override void Construct()
             {
-                CollisionRadius = 0.2f;
+                CollisionRadius = 0.15f;
                 SpinSpeed = 720f;
                 BaseColor = new(1f, 0.5f, 0f);
                 LightColor = new(1f, 0.7f, 0f);

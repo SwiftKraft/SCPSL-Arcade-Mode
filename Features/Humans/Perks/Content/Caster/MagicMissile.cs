@@ -25,8 +25,7 @@ namespace SwiftArcadeMode.Features.Humans.Perks.Content.Caster
 
         public override void Cast()
         {
-            new Projectile(Caster.Player.Camera.position, Caster.Player.Camera.rotation, Caster.Player.Camera.forward * 13f, 10f, Caster.Player);
-
+            Shoot();
             coroutine = Timing.CallPeriodically(1.6f, 0.2f, () =>
             {
                 if (!Caster.Player.IsAlive)
@@ -35,8 +34,18 @@ namespace SwiftArcadeMode.Features.Humans.Perks.Content.Caster
                     return;
                 }
 
-                new Projectile(Caster.Player.Camera.position + Caster.Player.Camera.forward * 0.4f, Caster.Player.Camera.rotation, Caster.Player.Camera.forward * 13f, 10f, Caster.Player);
+                Shoot();
             });
+        }
+
+        public void Shoot()
+        {
+            for (int i = -1; i < 2; i++)
+            {
+                Quaternion rotation = Quaternion.Euler(0f, 10f * i, 0f);
+                Vector3 direction = rotation * Caster.Player.Camera.forward;
+                new Projectile(Caster.Player.Camera.position + direction * 0.3f, Quaternion.LookRotation(direction), direction * 13f, 10f, Caster.Player);
+            }
         }
 
         public class Projectile(Vector3 initialPosition, Quaternion initialRotation, Vector3 initialVelocity, float lifetime = 10f, Player owner = null) : CasterBase.MagicProjectileBase(initialPosition, initialRotation, initialVelocity, lifetime, owner)
@@ -53,7 +62,7 @@ namespace SwiftArcadeMode.Features.Humans.Perks.Content.Caster
 
             public override void Construct()
             {
-                CollisionRadius = 0.1f;
+                CollisionRadius = 0.05f;
                 SpinSpeed = 1200f;
                 BaseColor = new Color(1f, 0f, 1f, 1f);
                 LightColor = new Color(1f, 0f, 1f, 1f);
