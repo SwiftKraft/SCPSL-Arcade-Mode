@@ -48,6 +48,7 @@ namespace SwiftArcadeMode.Features.Humans.Perks.Content.Caster
         public override void Init()
         {
             base.Init();
+
             PlayerEvents.DroppingItem += OnDroppingItem;
             PlayerEvents.DroppedItem += OnDroppedItem;
             PlayerEvents.InspectingKeycard += OnInspectingKeycard;

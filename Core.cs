@@ -13,6 +13,7 @@ using SwiftArcadeMode.Features.SCPs.Upgrades;
 using SwiftArcadeMode.Features.ServerSpecificSettings;
 using SwiftArcadeMode.Utils.Effects;
 using SwiftArcadeMode.Utils.Projectiles;
+using SwiftArcadeMode.Utils.Sounds;
 using System;
 using System.IO;
 using Logger = LabApi.Features.Console.Logger;
@@ -37,15 +38,21 @@ namespace SwiftArcadeMode
         {
             Logger.Info($"Arcade Mode {Version} by SwiftKraft: Loaded!");
 
-            SaveManager.SaveDirectory = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "SCP Secret Laboratory", "Swift Arcade Mode", "Scoring");
+            SaveManager.GeneralDirectory = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "SCP Secret Laboratory", "Swift Arcade Mode");
+            SaveManager.SaveDirectory = Path.Combine(SaveManager.GeneralDirectory, "Scoring");
             SaveManager.SaveFileName = "scores.txt";
             SaveManager.SavePath = Path.Combine(SaveManager.SaveDirectory, SaveManager.SaveFileName);
+
+            string soundEffectDir = Path.Combine(SaveManager.GeneralDirectory, "Sounds");
+            Directory.CreateDirectory(soundEffectDir);
+            SoundEffectManager.BasePath = soundEffectDir;
 
             Logger.Info($"Scoring save file path: {SaveManager.SavePath}");
 
             Instance = this;
 
             StaticUnityMethods.OnFixedUpdate += FixedUpdate;
+
             PerkManager.Enable();
             PerkSpawner.Enable();
             UpgradePathManager.Enable();
@@ -97,6 +104,7 @@ namespace SwiftArcadeMode
         public override void Disable()
         {
             StaticUnityMethods.OnFixedUpdate -= FixedUpdate;
+
             PerkManager.Disable();
             PerkSpawner.Disable();
             UpgradePathManager.Disable();

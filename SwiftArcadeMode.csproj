@@ -16,6 +16,9 @@
 		<Reference Include="Assembly-CSharp">
 			<HintPath>$(SCPSLREFERENCES)\Assembly-CSharp-Publicized.dll</HintPath>
 		</Reference>
+		<Reference Include="AudioPlayerApi">
+		  <HintPath>C:\Users\shifu\AppData\Roaming\SCP Secret Laboratory\LabAPI\dependencies\global\AudioPlayerApi.dll</HintPath>
+		</Reference>
 		<Reference Include="CommandSystem.Core">
 			<HintPath>$(SCPSLREFERENCES)\CommandSystem.Core.dll</HintPath>
 		</Reference>

@@ -8,6 +8,7 @@ namespace SwiftArcadeMode.Features.Scoring.Saving
 {
     public static class SaveManager
     {
+        public static string GeneralDirectory;
         public static string SavePath;
         public static string SaveFileName;
         public static string SaveDirectory;
