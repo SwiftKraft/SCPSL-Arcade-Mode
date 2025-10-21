@@ -1,4 +1,5 @@
-﻿using SwiftArcadeMode.Features.Humans.Perks;
+﻿using LabApi.Features.Wrappers;
+using SwiftArcadeMode.Features.Humans.Perks;
 using SwiftArcadeMode.Features.Humans.Perks.Content;
 using SwiftArcadeMode.Features.Humans.Perks.Content.Caster;
 using System;
@@ -11,7 +12,7 @@ namespace SwiftArcadeMode.Features.Game.Modes
 
         public override void End() { }
 
-        public override void Start() { }
+        public override void Start() => Server.SendBroadcast("CASTER BATTLE MODE\nHas been activated.", 10, Broadcast.BroadcastFlags.Normal, true);
 
         public override void Tick() { }
 
