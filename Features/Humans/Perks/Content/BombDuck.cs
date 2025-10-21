@@ -4,11 +4,11 @@ using PlayerStatsSystem;
 namespace SwiftArcadeMode.Features.Humans.Perks.Content
 {
     [Perk("BombDuck", Rarity.Legendary, PerkRestriction.DontSpawn)]
-    public class BombDuck(PerkInventory inv) : BombHen(inv)
+    public class BombDuck(PerkInventory inv) : PerkBase(inv)
     {
         public override string Name => "Bomb Duck";
 
-        public override string PerkDescription => "Lay an explosive <i>duck</i> egg (your grenades don't damage you). ";
+        public override string Description => "Your grenades don't damage you. ";
 
         public override void Init()
         {

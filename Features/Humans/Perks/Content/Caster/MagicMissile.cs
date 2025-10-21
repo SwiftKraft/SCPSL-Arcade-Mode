@@ -40,12 +40,18 @@ namespace SwiftArcadeMode.Features.Humans.Perks.Content.Caster
 
         public void Shoot()
         {
+            List<SphereCollider> colliders = [];
+
             for (int i = -1; i < 2; i++)
             {
                 Quaternion rotation = Quaternion.Euler(0f, 10f * i, 0f);
                 Vector3 direction = rotation * Caster.Player.Camera.forward;
-                new Projectile(Caster.Player.Camera.position + direction * 0.3f, Quaternion.LookRotation(direction), direction * 13f, 10f, Caster.Player);
+                colliders.Add(new Projectile(Caster.Player.Camera.position + direction * 0.3f, Quaternion.LookRotation(direction), direction * 13f, 10f, Caster.Player).Collider);
             }
+
+            for (int i = 0; i < colliders.Count; i++)
+                for (int j = 0; j < colliders.Count; j++)
+                    Physics.IgnoreCollision(colliders[i], colliders[j], true);
         }
 
         public class Projectile(Vector3 initialPosition, Quaternion initialRotation, Vector3 initialVelocity, float lifetime = 10f, Player owner = null) : CasterBase.MagicProjectileBase(initialPosition, initialRotation, initialVelocity, lifetime, owner)
