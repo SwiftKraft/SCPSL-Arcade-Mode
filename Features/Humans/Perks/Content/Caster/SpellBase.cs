@@ -31,7 +31,7 @@ namespace SwiftArcadeMode.Features.Humans.Perks.Content.Caster
 
         public void PlaySound(Vector3 pos, string id, string name = "speaker", float volume = 1f, bool loop = false, float minDist = 5f, float maxDist = 15f) => SoundEffectManager.PlaySound(pos, GetType().Name + "." + id, name, volume, loop, minDist, maxDist);
 
-        public void PlaySound(string id, string name = "speaker", float volume = 1f, bool loop = false, bool destroyOnEnd = true, float minDist = 5f, float maxDist = 15f) => SoundEffectManager.PlaySound(Caster.Player, id, name, volume, loop, destroyOnEnd, minDist, maxDist);
+        public void PlaySound(string id, string name = "speaker", float volume = 1f, bool loop = false, bool destroyOnEnd = true, float minDist = 5f, float maxDist = 15f) => SoundEffectManager.PlaySound(Caster.Player, GetType().Name + "." + id, name, volume, loop, destroyOnEnd, minDist, maxDist);
 
         public abstract void Cast();
     }

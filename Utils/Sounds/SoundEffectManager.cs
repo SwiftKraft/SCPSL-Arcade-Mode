@@ -1,7 +1,7 @@
 ﻿using LabApi.Features.Wrappers;
-using System;
 using System.IO;
 using UnityEngine;
+using Logger = LabApi.Features.Console.Logger;
 
 namespace SwiftArcadeMode.Utils.Sounds
 {
@@ -12,23 +12,27 @@ namespace SwiftArcadeMode.Utils.Sounds
 
         public static void PreloadClip(string id, params string[] folders)
         {
-            if (Disabled || Type.GetType(nameof(AudioClipStorage)) == null)
+            if (Disabled || typeof(AudioClipStorage) == null)
             {
-                Disabled = true;
+                Disable();
                 return;
             }
 
             if (AudioClipStorage.AudioClips.ContainsKey(id))
                 return;
 
-            AudioClipStorage.LoadClip(Path.Combine(BasePath, Path.Combine(folders)), id);
+            string path = Path.Combine(BasePath, Path.Combine(folders));
+            if (AudioClipStorage.LoadClip(path, id))
+                Logger.Info("Successfully loaded sound clip at \"" + path + "\", ID: " + id);
+            else
+                Logger.Error("Failed to load sound clip at \"" + path + "\", ID: " + id);
         }
 
         public static void PlaySound(Player player, string id, string name = "speaker", float volume = 1f, bool loop = false, bool destroyOnEnd = true, float minDist = 5f, float maxDist = 15f)
         {
-            if (Disabled || Type.GetType(nameof(AudioPlayer)) == null)
+            if (Disabled || typeof(AudioPlayer) == null)
             {
-                Disabled = true;
+                Disable();
                 return;
             }
 
@@ -46,9 +50,9 @@ namespace SwiftArcadeMode.Utils.Sounds
 
         public static void PlaySound(Vector3 position, string id, string name = "speaker", float volume = 1f, bool loop = false, float minDist = 5f, float maxDist = 15f)
         {
-            if (Disabled || Type.GetType(nameof(AudioPlayer)) == null)
+            if (Disabled || typeof(AudioPlayer) == null)
             {
-                Disabled = true;
+                Disable();
                 return;
             }
 
@@ -59,6 +63,15 @@ namespace SwiftArcadeMode.Utils.Sounds
             });
 
             audioPlayer.AddClip(id, volume, loop, true);
+        }
+
+        public static void Disable(string error = "Failed to find SCPSL Audio API, perks will not play custom sounds.")
+        {
+            if (!Disabled)
+            {
+                Disabled = true;
+                Logger.Error(error);
+            }
         }
     }
 }
