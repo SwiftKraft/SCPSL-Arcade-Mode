@@ -26,7 +26,8 @@ namespace SwiftArcadeMode.Features.Humans.Perks.Content.Caster
         public override void Cast()
         {
             Shoot();
-            coroutine = Timing.CallPeriodically(1.6f, 0.2f, () =>
+
+            coroutine = Timing.CallPeriodically(1.62f, 0.2f, () =>
             {
                 if (!Caster.Player.IsAlive)
                 {
