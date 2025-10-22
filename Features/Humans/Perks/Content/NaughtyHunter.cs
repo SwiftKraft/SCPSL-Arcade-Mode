@@ -2,13 +2,11 @@
 using InventorySystem.Items.Firearms;
 using InventorySystem.Items.Firearms.Modules;
 using LabApi.Events.Handlers;
-using LabApi.Features.Console;
 using LabApi.Features.Wrappers;
 using MEC;
-using System.Collections;
+using SwiftArcadeMode.Utils.Extensions;
 using System.Collections.Generic;
 using UnityEngine;
-using Logger = LabApi.Features.Console.Logger;
 
 namespace SwiftArcadeMode.Features.Humans.Perks.Content
 {
@@ -65,10 +63,11 @@ namespace SwiftArcadeMode.Features.Humans.Perks.Content
             if (ev.Attacker == null || ev.Attacker.CurrentItem == null || ev.Attacker.CurrentItem.Serial != CurrentGun)
                 return;
 
-            Timing.RunCoroutine(NaughtyCoroutine(ev.Player, ev.Player.Position));
+            Elevator el = ev.Player.GetElevator();
+            Timing.RunCoroutine(NaughtyCoroutine(ev.Player, el == null ? ev.Player.Position : ev.Player.Position - el.Base.transform.position, el));
         }
 
-        private IEnumerator<float> NaughtyCoroutine(Player p, Vector3 original)
+        private IEnumerator<float> NaughtyCoroutine(Player p, Vector3 original, Elevator trackedElevator)
         {
             yield return Timing.WaitForSeconds(0.1f);
             p.Position = Location;
@@ -81,7 +80,7 @@ namespace SwiftArcadeMode.Features.Humans.Perks.Content
 
                 yield return Timing.WaitForSeconds(1f);
             }
-            p.Position = original;
+            p.Position = trackedElevator == null ? original : original + trackedElevator.Base.transform.position;
         }
 
         private void GiveItem()
