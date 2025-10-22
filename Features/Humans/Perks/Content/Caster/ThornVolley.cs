@@ -24,6 +24,7 @@ namespace SwiftArcadeMode.Features.Humans.Perks.Content.Caster
         public override void Cast()
         {
             new ThornShot.Projectile(Caster.Player.Camera.position, Caster.Player.Camera.rotation, Caster.Player.Camera.forward * 60f, 10f, Caster.Player);
+            PlaySound("cast");
 
             coroutine = Timing.CallPeriodically(0.6f, 0.05f, () =>
             {
@@ -34,6 +35,7 @@ namespace SwiftArcadeMode.Features.Humans.Perks.Content.Caster
                 }
 
                 new ThornShot.Projectile(Caster.Player.Camera.position + Caster.Player.Camera.forward * 0.4f + Random.insideUnitSphere * 0.3f, Caster.Player.Camera.rotation, Caster.Player.Camera.forward * 60f, 10f, Caster.Player);
+                PlaySound("cast");
             });
         }
     }

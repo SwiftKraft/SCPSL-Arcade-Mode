@@ -51,7 +51,7 @@ namespace SwiftArcadeMode.Features.Humans.Perks.Content.Caster
             }, RayVisual.Destroy);
         }
 
-        public void UpdateRay() => StretchBetween(RayVisual, Caster.Player.Camera.position + (Caster.Player.Camera.rotation * new Vector3(0.1f, -0.1f, 0.1f)), hitPos, 0.05f);
+        public void UpdateRay() => StretchBetween(RayVisual, Caster.Player.Camera.position + (Caster.Player.Camera.rotation * new Vector3(0.1f, -0.1f, 0.1f)), hitPos, Mathf.Sin(Time.time * 32f) * 0.025f + 0.05f);
 
         public void ShootRay()
         {

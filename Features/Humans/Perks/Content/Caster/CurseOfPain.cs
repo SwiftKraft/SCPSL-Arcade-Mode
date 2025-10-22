@@ -24,6 +24,7 @@ namespace SwiftArcadeMode.Features.Humans.Perks.Content.Caster
         {
             Caster.Player.Damage(10f, "Out of Blood.");
             ShootRay();
+            PlaySound("cast");
         }
 
         public void ShootRay()

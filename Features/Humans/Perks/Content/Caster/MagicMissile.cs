@@ -53,6 +53,8 @@ namespace SwiftArcadeMode.Features.Humans.Perks.Content.Caster
             for (int i = 0; i < colliders.Count; i++)
                 for (int j = 0; j < colliders.Count; j++)
                     Physics.IgnoreCollision(colliders[i], colliders[j], true);
+
+            PlaySound("cast");
         }
 
         public class Projectile(Vector3 initialPosition, Quaternion initialRotation, Vector3 initialVelocity, float lifetime = 10f, Player owner = null) : CasterBase.MagicProjectileBase(initialPosition, initialRotation, initialVelocity, lifetime, owner)

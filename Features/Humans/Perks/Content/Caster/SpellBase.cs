@@ -13,7 +13,7 @@ namespace SwiftArcadeMode.Features.Humans.Perks.Content.Caster
         public abstract int RankIndex { get; }
         public abstract float CastTime { get; }
 
-        public virtual string[] SoundList => [];
+        public virtual string[] SoundList => ["cast"];
 
         public virtual void Init(CasterBase caster)
         {
