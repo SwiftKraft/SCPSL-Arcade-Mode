@@ -24,6 +24,9 @@ namespace SwiftArcadeMode.Features.Humans.Perks.Content
 
         protected override void OnPlayerDeath(PlayerDeathEventArgs ev)
         {
+            if (ev.Player != Player)
+                return;
+
             TimedGrenadeProjectile proj = TimedGrenadeProjectile.SpawnActive(savedPositon, ItemType.GrenadeHE, Player, 1.75f);
             if (proj.Base is ExplosionGrenade gr)
                 gr.ScpDamageMultiplier = 1.5f;

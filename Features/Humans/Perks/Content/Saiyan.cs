@@ -18,7 +18,7 @@ namespace SwiftArcadeMode.Features.Humans.Perks.Content
         public float Degree { get; private set; }
 
         public virtual float DecayRate => 0.5f;
-        public virtual float GainRate => 2f;
+        public virtual float GainRate => 3f;
 
         LightSourceToy toy;
         bool ascended = true;
@@ -89,7 +89,7 @@ namespace SwiftArcadeMode.Features.Humans.Perks.Content
                 return;
 
             float loudnessDb = VoiceDecoding.CalculateLoudnessDB(ev.Message.ToPcm().Array);
-            if (loudnessDb > -22f)
+            if (loudnessDb > -30f)
                 Degree += Time.fixedDeltaTime * GainRate;
         }
     }

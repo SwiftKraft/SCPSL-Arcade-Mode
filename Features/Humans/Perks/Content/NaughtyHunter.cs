@@ -36,7 +36,7 @@ namespace SwiftArcadeMode.Features.Humans.Perks.Content
             PlayerEvents.Death += OnDeath;
             PlayerEvents.ReloadingWeapon += OnReloadingWeapon;
             PlayerEvents.UnloadingWeapon += OnUnloadingWeapon;
-            PlayerEvents.Spawned += OnSpawned;
+            PlayerEvents.ChangedRole += OnRoleChanged;
             PlayerEvents.Hurting += OnHurting;
             PlayerEvents.ChangedItem += OnChangedItem;
         }
@@ -47,7 +47,7 @@ namespace SwiftArcadeMode.Features.Humans.Perks.Content
             PlayerEvents.Death -= OnDeath;
             PlayerEvents.ReloadingWeapon -= OnReloadingWeapon;
             PlayerEvents.UnloadingWeapon -= OnUnloadingWeapon;
-            PlayerEvents.Spawned -= OnSpawned;
+            PlayerEvents.ChangedRole -= OnRoleChanged;
             PlayerEvents.Hurting -= OnHurting;
             PlayerEvents.ChangedItem -= OnChangedItem;
         }
@@ -65,6 +65,14 @@ namespace SwiftArcadeMode.Features.Humans.Perks.Content
 
             Elevator el = ev.Player.GetElevator();
             Timing.RunCoroutine(NaughtyCoroutine(ev.Player, el == null ? ev.Player.Position : ev.Player.Position - el.Base.transform.position, el));
+        }
+
+        private void OnRoleChanged(LabApi.Events.Arguments.PlayerEvents.PlayerChangedRoleEventArgs ev)
+        {
+            if (ev.Player != Player || !Player.IsAlive)
+                return;
+
+            GiveItem();
         }
 
         private IEnumerator<float> NaughtyCoroutine(Player p, Vector3 original, Elevator trackedElevator)
@@ -94,15 +102,6 @@ namespace SwiftArcadeMode.Features.Humans.Perks.Content
                     mod.ServerModifyAmmo(-mod.AmmoMax);
             }
         }
-
-        private void OnSpawned(LabApi.Events.Arguments.PlayerEvents.PlayerSpawnedEventArgs ev)
-        {
-            if (ev.Player != Player)
-                return;
-
-            GiveItem();
-        }
-
         private void OnReloadingWeapon(LabApi.Events.Arguments.PlayerEvents.PlayerReloadingWeaponEventArgs ev)
         {
             if (ev.FirearmItem.Serial != CurrentGun)
