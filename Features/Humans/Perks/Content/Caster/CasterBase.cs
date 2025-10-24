@@ -2,6 +2,7 @@
 using LabApi.Features.Wrappers;
 using MEC;
 using SwiftArcadeMode.Utils.Projectiles;
+using SwiftArcadeMode.Utils.Structures;
 using System;
 using System.Linq;
 using UnityEngine;
@@ -44,6 +45,7 @@ namespace SwiftArcadeMode.Features.Humans.Perks.Content.Caster
         int currentSpellIndex;
 
         bool casting;
+        readonly Timer castDuration = new();
 
         public override void Init()
         {
@@ -54,6 +56,8 @@ namespace SwiftArcadeMode.Features.Humans.Perks.Content.Caster
             PlayerEvents.InspectingKeycard += OnInspectingKeycard;
             PlayerEvents.Death += OnDeath;
             PlayerEvents.ChangingItem += OnChangingItem;
+
+            castDuration.OnTimerEnd += OnCastTimerEnded;
 
             Spells = ListSpells();
 
@@ -72,6 +76,8 @@ namespace SwiftArcadeMode.Features.Humans.Perks.Content.Caster
             PlayerEvents.Death -= OnDeath;
             PlayerEvents.ChangingItem -= OnChangingItem;
 
+            castDuration.OnTimerEnd -= OnCastTimerEnded;
+
             RemoveCurrentSpellItem();
         }
 
@@ -79,7 +85,15 @@ namespace SwiftArcadeMode.Features.Humans.Perks.Content.Caster
         {
             if (CurrentSpellItem == null || !Player.Items.Any(i => i.Serial == CurrentSpellItemSerial))
                 base.Tick();
+
+            if (!castDuration.Ended)
+            {
+                castDuration.Tick(Time.fixedDeltaTime);
+                CurrentSpell?.Tick();
+            }
         }
+
+        private void OnCastTimerEnded() => CurrentSpell?.End();
 
         private void OnDroppedItem(LabApi.Events.Arguments.PlayerEvents.PlayerDroppedItemEventArgs ev)
         {
@@ -94,15 +108,13 @@ namespace SwiftArcadeMode.Features.Humans.Perks.Content.Caster
             if (ev.Player == Player && ev.NewItem == CurrentSpellItem)
                 SendMessage("Equipped " + CurrentSpell.Name);
 
-            if (!casting || ev.Player != Player || ev.OldItem != CurrentSpellItem)
-                return;
-
-            ev.IsAllowed = false;
+            if (casting && ev.Player == Player && ev.OldItem == CurrentSpellItem)
+                ev.IsAllowed = false;
         }
 
         private void OnInspectingKeycard(LabApi.Events.Arguments.PlayerEvents.PlayerInspectingKeycardEventArgs ev)
         {
-            if (casting || ev.Player != Player || ev.KeycardItem != CurrentSpellItem)
+            if (casting || !castDuration.Ended || ev.Player != Player || ev.KeycardItem != CurrentSpellItem)
                 return;
 
             SendMessage("Casting " + CurrentSpell.Name, CurrentSpell.CastTime);
@@ -114,6 +126,10 @@ namespace SwiftArcadeMode.Features.Humans.Perks.Content.Caster
                     return;
 
                 CurrentSpell.Cast();
+
+                if (CurrentSpell.CastDuration > 0f)
+                    castDuration.Reset(CurrentSpell.CastDuration);
+
                 RemoveCurrentSpellItem();
                 SendMessage("Casted " + CurrentSpell.Name, 1f);
             });
@@ -145,17 +161,21 @@ namespace SwiftArcadeMode.Features.Humans.Perks.Content.Caster
 
         private void OnDroppingItem(LabApi.Events.Arguments.PlayerEvents.PlayerDroppingItemEventArgs ev)
         {
-            if (casting || ev.Player != Player || ev.Item != CurrentSpellItem)
+            if (ev.Player != Player || ev.Item != CurrentSpellItem)
                 return;
 
             ev.IsAllowed = false;
-            CurrentSpellIndex++;
-            bool held = ev.Player.CurrentItem == CurrentSpellItem;
 
-            Item it = GiveItem();
+            if (castDuration.Ended && !casting)
+            {
+                CurrentSpellIndex++;
+                bool held = ev.Player.CurrentItem == CurrentSpellItem;
 
-            if (held)
-                ev.Player.CurrentItem = it;
+                Item it = GiveItem();
+
+                if (held)
+                    ev.Player.CurrentItem = it;
+            }
         }
 
         public override Item GiveItem()

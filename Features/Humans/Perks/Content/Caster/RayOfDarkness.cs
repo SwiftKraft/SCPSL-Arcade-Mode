@@ -3,6 +3,7 @@ using MEC;
 using PlayerRoles;
 using PlayerStatsSystem;
 using SwiftArcadeMode.Utils.Projectiles;
+using SwiftArcadeMode.Utils.Structures;
 using UnityEngine;
 
 namespace SwiftArcadeMode.Features.Humans.Perks.Content.Caster
@@ -21,9 +22,11 @@ namespace SwiftArcadeMode.Features.Humans.Perks.Content.Caster
 
         public override float CastTime => 1f;
 
+        public override float CastDuration => 3f;
+
         Vector3 hitPos;
 
-        CoroutineHandle handle;
+        readonly Timer timer = new(0.05f);
 
         public override void Cast()
         {
@@ -36,19 +39,32 @@ namespace SwiftArcadeMode.Features.Humans.Perks.Content.Caster
             RayVisual.MovementSmoothing = 1;
             UpdateRay();
             RayVisual.Spawn();
+        }
 
-            handle = Timing.CallPeriodically(3f, 0.05f, () =>
+        public override void Tick()
+        {
+            base.Tick();
+
+            UpdateRay();
+
+            timer.Tick(Time.fixedDeltaTime);
+            if (timer.Ended)
             {
                 ShootRay();
-                UpdateRay();
+                timer.Reset();
 
                 if (!Caster.Player.IsAlive)
                 {
-                    Timing.KillCoroutines(handle);
-                    RayVisual.Destroy();
+                    RayVisual?.Destroy();
                     return;
                 }
-            }, RayVisual.Destroy);
+            }
+        }
+
+        public override void End()
+        {
+            base.End();
+            RayVisual?.Destroy();
         }
 
         public void UpdateRay() => StretchBetween(RayVisual, Caster.Player.Camera.position + (Caster.Player.Camera.rotation * new Vector3(0.1f, -0.1f, 0.1f)), hitPos, Mathf.Sin(Time.time * 32f) * 0.025f + 0.05f);
@@ -115,6 +131,9 @@ namespace SwiftArcadeMode.Features.Humans.Perks.Content.Caster
 
         public static void StretchBetween(PrimitiveObjectToy t, Vector3 start, Vector3 end, float radius)
         {
+            if (t == null)
+                return;
+
             Vector3 direction = end - start;
             float length = direction.magnitude;
 
