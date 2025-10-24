@@ -4,6 +4,7 @@ using InventorySystem.Items.Firearms.Modules;
 using LabApi.Events.Handlers;
 using LabApi.Features.Wrappers;
 using MEC;
+using PlayerStatsSystem;
 using SwiftArcadeMode.Utils.Extensions;
 using System.Collections.Generic;
 using UnityEngine;
@@ -60,7 +61,7 @@ namespace SwiftArcadeMode.Features.Humans.Perks.Content
 
         private void OnHurting(LabApi.Events.Arguments.PlayerEvents.PlayerHurtingEventArgs ev)
         {
-            if (ev.Attacker == null || ev.Attacker.CurrentItem == null || ev.Attacker.CurrentItem.Serial != CurrentGun)
+            if (ev.Attacker == null || ev.DamageHandler is not FirearmDamageHandler || ev.Attacker.CurrentItem == null || ev.Attacker.CurrentItem.Serial != CurrentGun)
                 return;
 
             Elevator el = ev.Player.GetElevator();
