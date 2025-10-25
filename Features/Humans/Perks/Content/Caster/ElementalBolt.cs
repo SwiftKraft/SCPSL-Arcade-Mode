@@ -21,7 +21,7 @@ namespace SwiftArcadeMode.Features.Humans.Perks.Content.Caster
 
         public override int RankIndex => 1;
 
-        public override float CastTime => 1.1f;
+        public override float CastTime => 1f;
 
         public override void Cast()
         {
