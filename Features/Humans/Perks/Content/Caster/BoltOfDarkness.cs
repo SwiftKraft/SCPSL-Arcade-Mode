@@ -36,7 +36,7 @@ namespace SwiftArcadeMode.Features.Humans.Perks.Content.Caster
             {
                 if (player != null)
                 {
-                    float damage = 75f;
+                    float damage = 90f;
                     player.playerEffectsController.EnableEffect<Sinkhole>(5f);
 
                     player.playerStats.DealDamage(new ExplosionDamageHandler(new Footprint(Owner.ReferenceHub), InitialVelocity, damage * (player.IsSCP() ? 5f : 1f), 100, ExplosionType.Disruptor));

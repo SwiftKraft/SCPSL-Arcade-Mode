@@ -33,7 +33,7 @@ namespace SwiftArcadeMode.Features.Humans.Perks.Content.Caster
             new Projectile(Caster.Player.Camera.position, Caster.Player.Camera.rotation, Caster.Player.Camera.forward * 25f, 10f, Caster.Player);
             PlaySound("cast");
 
-            coroutine = Timing.CallPeriodically(0.42f, 0.2f, () =>
+            coroutine = Timing.CallPeriodically(0.42f, 0.1f, () =>
             {
                 if (!Caster.Player.IsAlive)
                 {

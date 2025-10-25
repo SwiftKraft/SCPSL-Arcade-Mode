@@ -120,7 +120,7 @@ namespace SwiftArcadeMode.Features.Humans.Perks.Content.Caster
                     new ExplosionDamageHandler(
                         new(Caster.Player.ReferenceHub),
                         direction,
-                        5f * (hub.IsSCP() ? 2f : 1f),
+                        6f * (hub.IsSCP() ? 2f : 1f),
                         100,
                         ExplosionType.Disruptor
                     )

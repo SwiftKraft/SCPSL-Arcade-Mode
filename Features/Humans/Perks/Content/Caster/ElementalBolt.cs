@@ -46,7 +46,7 @@ namespace SwiftArcadeMode.Features.Humans.Perks.Content.Caster
                             damage = 150f;
                     }
 
-                    player.playerStats.DealDamage(new ExplosionDamageHandler(new Footprint(Owner.ReferenceHub), InitialVelocity, damage * (player.IsSCP() ? 3f : 1f), 100, ExplosionType.Disruptor));
+                    player.playerStats.DealDamage(new ExplosionDamageHandler(new Footprint(Owner.ReferenceHub), InitialVelocity, damage * (player.IsSCP() ? 4f : 1f), 100, ExplosionType.Disruptor));
                     Owner?.SendHitMarker(2f);
                 }
 

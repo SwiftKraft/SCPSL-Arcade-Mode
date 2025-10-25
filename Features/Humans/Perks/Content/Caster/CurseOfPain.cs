@@ -107,7 +107,7 @@ namespace SwiftArcadeMode.Features.Humans.Perks.Content.Caster
                 {
                     Ticker.Reset();
                     ParentSpell.Caster.Player.Heal(2f);
-                    Parent.Player.Damage(2f * (Parent.Player.IsSCP ? 3f : 1f), ParentSpell.Caster.Player, default, 100);
+                    Parent.Player.Damage(3f * (Parent.Player.IsSCP ? 3f : 1f), ParentSpell.Caster.Player, default, 100);
                     ParentSpell.Caster.Player.SendHitMarker(0.3f);
                 }
 

@@ -27,7 +27,7 @@ namespace SwiftArcadeMode.Features.Humans.Perks.Content.Caster
         {
             Shoot();
 
-            coroutine = Timing.CallPeriodically(1.62f, 0.2f, () =>
+            coroutine = Timing.CallPeriodically(1.78f, 0.25f, () =>
             {
                 if (!Caster.Player.IsAlive)
                 {
@@ -120,7 +120,7 @@ namespace SwiftArcadeMode.Features.Humans.Perks.Content.Caster
             {
                 if (player != null)
                 {
-                    player.playerStats.DealDamage(new ExplosionDamageHandler(new Footprint(Owner.ReferenceHub), InitialVelocity, 20f * (player.IsSCP() ? 3f : 1f), 100, ExplosionType.Disruptor));
+                    player.playerStats.DealDamage(new ExplosionDamageHandler(new Footprint(Owner.ReferenceHub), InitialVelocity, 15f * (player.IsSCP() ? 2.25f : 1f), 100, ExplosionType.Disruptor));
 
                     if (player.roleManager.CurrentRole is IFpcRole role)
                     {
