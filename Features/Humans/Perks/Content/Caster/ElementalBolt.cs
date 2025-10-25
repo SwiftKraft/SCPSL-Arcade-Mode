@@ -31,20 +31,9 @@ namespace SwiftArcadeMode.Features.Humans.Perks.Content.Caster
 
         public class Projectile(Vector3 initialPosition, Quaternion initialRotation, Vector3 initialVelocity, float lifetime = 10f, Player owner = null) : CasterBase.MagicProjectileBase(initialPosition, initialRotation, initialVelocity, lifetime, owner)
         {
-            public override PrimitiveObjectToy[] CreateBalls() => [PrimitiveObjectToy.Create(Vector3.up * 0.1f, Quaternion.identity, new(0.05f, 0.05f, 0.4f), Parent.Transform, false), PrimitiveObjectToy.Create(Vector3.down * 0.1f, Quaternion.identity, new(0.05f, 0.05f, 0.4f), Parent.Transform, false), PrimitiveObjectToy.Create(Vector3.left * 0.1f, Quaternion.identity, new(0.05f, 0.05f, 0.4f), Parent.Transform, false), PrimitiveObjectToy.Create(Vector3.right * 0.1f, Quaternion.identity, new(0.05f, 0.05f, 0.4f), Parent.Transform, false)];
+            public override float CollisionRadius => 0.2f;
 
-            public override LightSourceToy[] CreateLights() => [LightSourceToy.Create(Parent.Transform, false), LightSourceToy.Create(new(0.1f, 0.1f, 0f), Parent.Transform, false), LightSourceToy.Create(new(-0.1f, 0.1f, 0f), Parent.Transform, false), LightSourceToy.Create(new(0.1f, -0.1f, 0f), Parent.Transform, false), LightSourceToy.Create(new(-0.1f, -0.1f, 0f), Parent.Transform, false)];
-
-            public override void Construct()
-            {
-                CollisionRadius = 0.2f;
-                SpinSpeed = -300f;
-                BaseColor = new(0.7f, 0.3f, 0f);
-                LightColor = new(1f, 1f, 1f);
-                LightIntensity = 10f;
-                UseGravity = false;
-                base.Construct();
-            }
+            public override bool UseGravity => false;
 
             public override void Hit(Collision col, ReferenceHub player)
             {
@@ -65,7 +54,7 @@ namespace SwiftArcadeMode.Features.Humans.Perks.Content.Caster
                 }
 
                 LightSourceToy toy = LightSourceToy.Create(Rigidbody.position, null, false);
-                toy.Color = BaseColor;
+                toy.Color = Color.white;
                 toy.Intensity = 15f;
 
                 LightExplosion.Create(toy, 30f);

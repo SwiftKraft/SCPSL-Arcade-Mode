@@ -65,20 +65,9 @@ namespace SwiftArcadeMode.Features.Humans.Perks.Content.Caster
 
             List<Player> targets;
 
-            public override PrimitiveObjectToy[] CreateBalls() => [PrimitiveObjectToy.Create(default, Quaternion.identity, new(0.2f, 0.2f, 0.5f), Parent.Transform, false)];
+            public override bool UseGravity => false;
 
-            public override LightSourceToy[] CreateLights() => [LightSourceToy.Create(new(0.2f, 0f, 0.2f), Parent.Transform, false), LightSourceToy.Create(new(-0.2f, 0f, 0.2f), Parent.Transform, false)];
-
-            public override void Construct()
-            {
-                CollisionRadius = 0.05f;
-                SpinSpeed = 1200f;
-                BaseColor = new Color(1f, 0f, 1f, 1f);
-                LightColor = new Color(1f, 0f, 1f, 1f);
-                LightIntensity = 0.1f;
-                UseGravity = false;
-                base.Construct();
-            }
+            public override float CollisionRadius => 0.05f;
 
             public override void Init()
             {
@@ -140,7 +129,7 @@ namespace SwiftArcadeMode.Features.Humans.Perks.Content.Caster
                 }
 
                 LightSourceToy toy = LightSourceToy.Create(Rigidbody.position, null, false);
-                toy.Color = BaseColor;
+                toy.Color = Color.magenta;
                 toy.Intensity = 10f;
                 LightExplosion.Create(toy, 40f);
                 Destroy();

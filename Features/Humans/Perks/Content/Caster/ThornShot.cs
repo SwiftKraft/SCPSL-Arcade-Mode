@@ -45,11 +45,11 @@ namespace SwiftArcadeMode.Features.Humans.Perks.Content.Caster
 
         public class Projectile(Vector3 initialPosition, Quaternion initialRotation, Vector3 initialVelocity, float lifetime = 10, Player owner = null) : CasterBase.MagicProjectileBase(initialPosition, initialRotation, initialVelocity, lifetime, owner)
         {
-            public override PrimitiveObjectToy[] CreateBalls() => [PrimitiveObjectToy.Create(default, Quaternion.identity, new(0.02f, 0.02f, 0.5f), Parent.Transform, false)];
-
-            public override LightSourceToy[] CreateLights() => [LightSourceToy.Create(new(0f, 0.05f, 0f), Parent.Transform, false)];
-
             public bool Sticked { get; private set; }
+
+            public override bool UseGravity => false;
+
+            public override float CollisionRadius => 0.01f;
 
             public override void Tick()
             {
@@ -61,17 +61,6 @@ namespace SwiftArcadeMode.Features.Humans.Perks.Content.Caster
                     if (Lifetime.Ended)
                         EndLife();
                 }
-            }
-
-            public override void Construct()
-            {
-                CollisionRadius = 0.01f;
-                SpinSpeed = 180f;
-                BaseColor = new(0f, 1f, 0f, 1f);
-                LightColor = new(0f, 1f, 0f, 1f);
-                LightIntensity = 0.2f;
-                UseGravity = true;
-                base.Construct();
             }
 
             public override void Hit(Collision col, ReferenceHub hit)
@@ -92,7 +81,6 @@ namespace SwiftArcadeMode.Features.Humans.Perks.Content.Caster
                 {
                     Lifetime.Reset();
                     Sticked = true;
-                    DestroyLights();
                     Rigidbody.isKinematic = true;
                     Rigidbody.detectCollisions = false;
                 }

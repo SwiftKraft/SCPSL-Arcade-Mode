@@ -2,10 +2,8 @@
 using PlayerRoles.FirstPersonControl;
 using ProjectMER.Features;
 using ProjectMER.Features.Objects;
+using SwiftArcadeMode.Utils.Extensions;
 using SwiftArcadeMode.Utils.Structures;
-using System.Collections.Generic;
-using System.Diagnostics.Contracts;
-using System.Linq;
 using UnityEngine;
 using Logger = LabApi.Features.Console.Logger;
 
@@ -21,7 +19,7 @@ namespace SwiftArcadeMode.Utils.Projectiles
         public Vector3 InitialPosition { get; private set; }
         public Quaternion InitialRotation { get; private set; }
         public Vector3 InitialVelocity { get; private set; }
-        public float CollisionRadius { get; set; }
+        public abstract float CollisionRadius { get; }
         public Rigidbody Rigidbody { get; private set; }
         public SphereCollider Collider { get; private set; }
         public readonly Timer Lifetime = new();
@@ -49,35 +47,35 @@ namespace SwiftArcadeMode.Utils.Projectiles
             Parent.Flags = AdminToys.PrimitiveFlags.None;
             Parent.MovementSmoothing = 1;
             Parent.SyncInterval = 0f;
-            Parent.Type = PrimitiveType.Sphere;
+            Parent.Type = PrimitiveType.Cube;
             Parent.IsStatic = false;
-
-            Collider[] cols = Parent.Transform.GetComponentsInChildren<Collider>();
-            for (int i = 0; i < cols.Length; i++)
-                cols[i].enabled = false;
 
             Rigidbody = Parent.GameObject.AddComponent<Rigidbody>();
             Rigidbody.collisionDetectionMode = CollisionDetectionMode.ContinuousDynamic;
             Rigidbody.interpolation = RigidbodyInterpolation.Interpolate;
             Rigidbody.linearVelocity = InitialVelocity;
 
+            Parent.Spawn();
+
             if (!string.IsNullOrWhiteSpace(SchematicName))
             {
-                Schematic = ObjectSpawner.SpawnSchematic(SchematicName, InitialPosition, InitialRotation);
-                Schematic.transform.parent = Parent.Transform;
+                Schematic = ObjectSpawner.SpawnSchematic(SchematicName.ApplySchematicPrefix(), default, Quaternion.identity);
+                Schematic?.transform.SetParent(Parent.Transform, false);
             }
 
             Construct();
 
             Collider = Parent.GameObject.AddComponent<SphereCollider>();
-            Collider.radius = CollisionRadius;
+            if (CollisionRadius > 0f)
+                Collider.radius = CollisionRadius;
+            else
+                Logger.Error("Collision radius is non-positive for projectile " + GetType().FullName);
             Collider.excludeLayers = LayerMask.GetMask("Hitbox");
 
             if (Owner != null && Owner.RoleBase is IFpcRole role)
                 Physics.IgnoreCollision(Collider, role.FpcModule.CharController, true);
 
             Parent.GameObject.AddComponent<ProjectileComponent>().projectile = this;
-            Parent.Spawn();
         }
         public virtual void Construct() { }
         public virtual void Tick()

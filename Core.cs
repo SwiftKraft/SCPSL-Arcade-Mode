@@ -1,8 +1,11 @@
-﻿using CustomPlayerEffects;
+﻿using AdminToys;
+using CustomPlayerEffects;
 using LabApi.Events.Handlers;
 using LabApi.Features;
 using LabApi.Loader.Features.Plugins;
 using MEC;
+using ProjectMER;
+using ProjectMER.Events.Arguments;
 using SwiftArcadeMode.Features;
 using SwiftArcadeMode.Features.Game.Modes;
 using SwiftArcadeMode.Features.Humans.Perks;
@@ -16,6 +19,7 @@ using SwiftArcadeMode.Utils.Projectiles;
 using SwiftArcadeMode.Utils.Sounds;
 using System;
 using System.IO;
+using System.Linq;
 using Logger = LabApi.Features.Console.Logger;
 
 namespace SwiftArcadeMode
@@ -71,8 +75,22 @@ namespace SwiftArcadeMode
             PlayerEvents.UpdatedEffect += OnUpdatedEffect;
             PlayerEvents.ChangedRole += OnChangedRole;
             PlayerEvents.Left += OnLeft;
+            ProjectMER.Events.Handlers.Schematic.SchematicSpawned += OnSchematicSpawned;
 
             SaveManager.LoadScores();
+        }
+
+        public void OnSchematicSpawned(SchematicSpawnedEventArgs ev)
+        {
+            if (!Config.SpeedUpSchematics)
+                return;
+
+            ev.Schematic.gameObject.GetComponent<AdminToyBase>().syncInterval = 0;
+
+            foreach (AdminToyBase toyBase in ev.Schematic.AdminToyBases.Where(toy => toy.name.StartsWith("anim_")))
+            {
+                toyBase.syncInterval = 0;
+            }
         }
 
         private void OnRoundRestarted() => SaveManager.SaveScores();
@@ -122,6 +140,8 @@ namespace SwiftArcadeMode
             PlayerEvents.UpdatedEffect -= OnUpdatedEffect;
             PlayerEvents.ChangedRole -= OnChangedRole;
             PlayerEvents.Left -= OnLeft;
+
+            ProjectMER.Events.Handlers.Schematic.SchematicSpawned -= OnSchematicSpawned;
 
             SaveManager.SaveScores();
         }

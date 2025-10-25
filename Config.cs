@@ -6,7 +6,9 @@
         public bool AllowPerkSpawning { get; set; } = true;
         public bool AllowCustomGameModes { get; set; } = true;
         public bool AllowScpLeveling { get; set; } = true;
+        public bool SpeedUpSchematics { get; set; } = true;
         public bool SkeletonBalance { get; set; } = true;
         public bool Replace096 { get; set; } = true;
+        public string SchematicPrefix { get; set; } = "SAM-";
     }
 }

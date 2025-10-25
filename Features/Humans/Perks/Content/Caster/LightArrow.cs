@@ -32,25 +32,15 @@ namespace SwiftArcadeMode.Features.Humans.Perks.Content.Caster
             float currentScpMultiplier = 3f;
             Vector3 vel;
 
-            public override PrimitiveObjectToy[] CreateBalls() => [PrimitiveObjectToy.Create(default, Quaternion.identity, new(0.05f, 0.05f, 0.4f), Parent.Transform, false)];
-            public override LightSourceToy[] CreateLights() => [LightSourceToy.Create(Vector3.left * 0.1f, Parent.Transform, false), LightSourceToy.Create(Vector3.forward * 0.4f, Parent.Transform, false), LightSourceToy.Create(Vector3.back * 0.4f, Parent.Transform, false), LightSourceToy.Create(Vector3.right * 0.1f, Parent.Transform, false)];
+            public override bool UseGravity => false;
+
+            public override float CollisionRadius => 0.08f;
 
             public override void Init()
             {
                 speed = InitialVelocity.magnitude;
                 vel = InitialVelocity;
                 base.Init();
-            }
-
-            public override void Construct()
-            {
-                CollisionRadius = 0.08f;
-                SpinSpeed = 1500f;
-                BaseColor = new(1f, 1f, 1f, 1f);
-                LightColor = new(1f, 1f, 1f, 1f);
-                LightIntensity = 3f;
-                UseGravity = false;
-                base.Construct();
             }
 
             public override void Tick()

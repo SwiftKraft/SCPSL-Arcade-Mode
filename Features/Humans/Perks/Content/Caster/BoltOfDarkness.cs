@@ -26,20 +26,9 @@ namespace SwiftArcadeMode.Features.Humans.Perks.Content.Caster
 
         public class Projectile(Vector3 initialPosition, Quaternion initialRotation, Vector3 initialVelocity, float lifetime = 10f, Player owner = null) : CasterBase.MagicProjectileBase(initialPosition, initialRotation, initialVelocity, lifetime, owner)
         {
-            public override PrimitiveObjectToy[] CreateBalls() => [PrimitiveObjectToy.Create(default, Quaternion.identity, new(0.2f, 0.2f, 0.7f), Parent.Transform, false)];
+            public override float CollisionRadius => 0.1f;
 
-            public override LightSourceToy[] CreateLights() => [LightSourceToy.Create(new(0.125f, 0f, 0f), Parent.Transform, false), LightSourceToy.Create(new(-0.125f, 0f, 0f), Parent.Transform, false)];
-
-            public override void Construct()
-            {
-                CollisionRadius = 0.1f;
-                SpinSpeed = 400f;
-                BaseColor = new(0f, 0f, 0f, 1f);
-                LightColor = new(1f, 1f, 1f, 1f);
-                LightIntensity = 0.1f;
-                UseGravity = false;
-                base.Construct();
-            }
+            public override bool UseGravity => false;
 
             public override void Hit(Collision col, ReferenceHub player)
             {
@@ -53,7 +42,7 @@ namespace SwiftArcadeMode.Features.Humans.Perks.Content.Caster
                 }
 
                 LightSourceToy toy = LightSourceToy.Create(Rigidbody.position, null, false);
-                toy.Color = LightColor;
+                toy.Color = Color.white;
                 toy.Intensity = 1f;
                 LightExplosion.Create(toy, 15f);
 

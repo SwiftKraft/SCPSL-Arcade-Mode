@@ -193,77 +193,12 @@ namespace SwiftArcadeMode.Features.Humans.Perks.Content.Caster
 
         public abstract class MagicProjectileBase(Vector3 initialPosition, Quaternion initialRotation, Vector3 initialVelocity, float lifetime = 10, Player owner = null) : ProjectileBase(initialPosition, initialRotation, initialVelocity, lifetime, owner)
         {
-            protected PrimitiveObjectToy[] balls;
-            protected LightSourceToy[] lights;
-
-            public bool UseGravity { get; protected set; }
-            public float SpinSpeed { get; protected set; }
-            public float LightIntensity { get; protected set; }
-            public Color BaseColor { get; protected set; }
-            public Color LightColor { get; protected set; }
-
-            public abstract LightSourceToy[] CreateLights();
-            public abstract PrimitiveObjectToy[] CreateBalls();
-
-            public override void Construct()
-            {
-                balls = CreateBalls();
-                lights = CreateLights();
-                Rigidbody.useGravity = UseGravity;
-            }
+            public abstract bool UseGravity { get; }
 
             public override void Init()
             {
                 base.Init();
-
-                if (balls != null)
-                    foreach (var ball in balls)
-                    {
-                        ball.Type = PrimitiveType.Sphere;
-                        ball.Color = BaseColor;
-                        ball.Flags = AdminToys.PrimitiveFlags.Visible;
-                        ball.Spawn();
-                    }
-
-                if (lights != null)
-                    foreach (var light in lights)
-                    {
-                        light.Color = LightColor;
-                        light.Intensity = LightIntensity;
-                        light.Spawn();
-                    }
-            }
-
-            public override void Tick()
-            {
-                base.Tick();
-                Rigidbody?.transform.Rotate(Vector3.forward * (Time.fixedDeltaTime * SpinSpeed), Space.Self);
-            }
-
-            public override void Destroy()
-            {
-                base.Destroy();
-
-                DestroyBalls();
-                DestroyLights();
-            }
-
-            public void DestroyBalls()
-            {
-                if (balls != null)
-                    foreach (var ball in balls)
-                        if (ball.GameObject != null)
-                            ball.Destroy();
-                balls = null;
-            }
-
-            public void DestroyLights()
-            {
-                if (lights != null)
-                    foreach (var light in lights)
-                        if (light.GameObject != null)
-                            light.Destroy();
-                lights = null;
+                Rigidbody.useGravity = UseGravity;
             }
         }
     }
