@@ -11,6 +11,8 @@ namespace SwiftArcadeMode.Features.Game.Modes
 {
     public static class GameModeManager
     {
+        public static bool Allow { get; set; } = true;
+
         public static readonly List<Type> Registry = [];
 
         public static float Chance = 0.25f;
@@ -35,6 +37,8 @@ namespace SwiftArcadeMode.Features.Game.Modes
 
         public static void Enable()
         {
+            Allow = Core.Instance.Config.AllowCustomGameModes;
+
             RegisterModes();
 
             ServerEvents.RoundStarted += OnRoundStarted;
@@ -49,7 +53,7 @@ namespace SwiftArcadeMode.Features.Game.Modes
 
         private static void OnRoundStarted()
         {
-            if (ForcedRound)
+            if (ForcedRound || !Allow)
                 return;
 
             Current = null;
