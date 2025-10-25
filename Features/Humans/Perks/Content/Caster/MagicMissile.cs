@@ -59,6 +59,8 @@ namespace SwiftArcadeMode.Features.Humans.Perks.Content.Caster
 
         public class Projectile(Vector3 initialPosition, Quaternion initialRotation, Vector3 initialVelocity, float lifetime = 10f, Player owner = null) : CasterBase.MagicProjectileBase(initialPosition, initialRotation, initialVelocity, lifetime, owner)
         {
+            public override string SchematicName => "MagicMissile";
+
             const float homingRangeSqr = 25f;
             float initialSpeed;
             Player homing;

@@ -1,16 +1,8 @@
 ﻿using CustomPlayerEffects;
 using Footprinting;
-using InventorySystem.Items.ThrowableProjectiles;
 using LabApi.Features.Wrappers;
 using PlayerRoles;
-using PlayerRoles.FirstPersonControl;
 using PlayerStatsSystem;
-using SwiftArcadeMode.Utils.Projectiles;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using UnityEngine;
 
 namespace SwiftArcadeMode.Features.Humans.Perks.Content.Caster
@@ -27,12 +19,14 @@ namespace SwiftArcadeMode.Features.Humans.Perks.Content.Caster
 
         public override void Cast()
         {
-            new Projectile(Caster.Player.Camera.position + Caster.Player.Camera.forward * 0.4f, Caster.Player.Camera.rotation, Caster.Player.Camera.forward * 35f, 10f, Caster.Player);
+            new Projectile(Caster.Player.Camera.position + Caster.Player.Camera.forward * 0.4f, Caster.Player.Camera.rotation, Caster.Player.Camera.forward * 30f, 10f, Caster.Player);
             PlaySound("cast");
         }
 
         public class Projectile(Vector3 initialPosition, Quaternion initialRotation, Vector3 initialVelocity, float lifetime = 10f, Player owner = null) : CasterBase.MagicProjectileBase(initialPosition, initialRotation, initialVelocity, lifetime, owner)
         {
+            public override string SchematicName => "IceBolt";
+
             public override float CollisionRadius => 0.1f;
 
             public override bool UseGravity => false;

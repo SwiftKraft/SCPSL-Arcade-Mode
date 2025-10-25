@@ -25,6 +25,8 @@ namespace SwiftArcadeMode.Features.Humans.Perks.Content.Caster
 
         public class Projectile(Vector3 initialPosition, Quaternion initialRotation, Vector3 initialVelocity, float lifetime = 10f, Player owner = null) : CasterBase.MagicProjectileBase(initialPosition, initialRotation, initialVelocity, lifetime, owner)
         {
+            public override string SchematicName => "OrbOfNature";
+
             public override bool UseGravity => false;
 
             public override float CollisionRadius => 0.1f;

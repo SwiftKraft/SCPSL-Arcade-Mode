@@ -54,6 +54,8 @@ namespace SwiftArcadeMode.Features.Humans.Perks.Content.Caster
 
             List<Player> targets;
 
+            public override string SchematicName => "FireArrow";
+
             public override bool UseGravity => false;
 
             public override float CollisionRadius => 0.05f;

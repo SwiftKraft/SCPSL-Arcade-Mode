@@ -4,11 +4,6 @@ using LabApi.Features.Wrappers;
 using PlayerRoles;
 using PlayerStatsSystem;
 using SwiftArcadeMode.Utils.Projectiles;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using UnityEngine;
 
 namespace SwiftArcadeMode.Features.Humans.Perks.Content.Caster
@@ -31,6 +26,8 @@ namespace SwiftArcadeMode.Features.Humans.Perks.Content.Caster
 
         public class Projectile(Vector3 initialPosition, Quaternion initialRotation, Vector3 initialVelocity, float lifetime = 10f, Player owner = null) : CasterBase.MagicProjectileBase(initialPosition, initialRotation, initialVelocity, lifetime, owner)
         {
+            public override string SchematicName => "ElementalBolt";
+
             public override float CollisionRadius => 0.2f;
 
             public override bool UseGravity => false;

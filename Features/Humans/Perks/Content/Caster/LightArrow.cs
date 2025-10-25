@@ -1,3 +1,4 @@
+using CustomPlayerEffects;
 using Footprinting;
 using LabApi.Features.Wrappers;
 using PlayerRoles;
@@ -25,6 +26,8 @@ namespace SwiftArcadeMode.Features.Humans.Perks.Content.Caster
 
         public class Projectile(Vector3 initialPosition, Quaternion initialRotation, Vector3 initialVelocity, float lifetime = 3f, Player owner = null) : CasterBase.MagicProjectileBase(initialPosition, initialRotation, initialVelocity, lifetime, owner)
         {
+            public override string SchematicName => "LightArrow";
+
             const int maxBounces = 2;
             int currentBounces = 0;
             float speed;
@@ -74,6 +77,7 @@ namespace SwiftArcadeMode.Features.Humans.Perks.Content.Caster
                     if (hit != null)
                     {
                         hit.playerStats.DealDamage(new ExplosionDamageHandler(new Footprint(Owner.ReferenceHub), InitialVelocity, currentDamage * (hit.IsSCP() ? currentScpMultiplier : 1f), 100, ExplosionType.Disruptor));
+                        hit.playerEffectsController.EnableEffect<Flashed>(3f, true);
 
                         if (hit.roleManager.CurrentRole is IFpcRole role)
                         {
