@@ -1,7 +1,10 @@
 ﻿using LabApi.Features.Wrappers;
 using PlayerRoles.FirstPersonControl;
+using ProjectMER.Features;
+using ProjectMER.Features.Objects;
 using SwiftArcadeMode.Utils.Structures;
 using System.Collections.Generic;
+using System.Diagnostics.Contracts;
 using System.Linq;
 using UnityEngine;
 using Logger = LabApi.Features.Console.Logger;
@@ -14,6 +17,7 @@ namespace SwiftArcadeMode.Utils.Projectiles
         public static readonly LayerMask IgnoreRaycastLayer = LayerMask.GetMask("Ignore Raycast");
         public Player Owner { get; private set; }
         public PrimitiveObjectToy Parent { get; set; }
+        public SchematicObject Schematic { get; private set; }
         public Vector3 InitialPosition { get; private set; }
         public Quaternion InitialRotation { get; private set; }
         public Vector3 InitialVelocity { get; private set; }
@@ -21,6 +25,11 @@ namespace SwiftArcadeMode.Utils.Projectiles
         public Rigidbody Rigidbody { get; private set; }
         public SphereCollider Collider { get; private set; }
         public readonly Timer Lifetime = new();
+
+        /// <summary>
+        /// Leave empty for invisible projectile.
+        /// </summary>
+        public virtual string SchematicName => "";
 
         public ProjectileBase(Vector3 initialPosition, Quaternion initialRotation, Vector3 initialVelocity, float lifetime = 10f, Player owner = null)
         {
@@ -30,6 +39,7 @@ namespace SwiftArcadeMode.Utils.Projectiles
             Lifetime.Reset(lifetime);
             Owner = owner;
             ProjectileManager.All.Add(this);
+
             Init();
         }
 
@@ -51,6 +61,12 @@ namespace SwiftArcadeMode.Utils.Projectiles
             Rigidbody.interpolation = RigidbodyInterpolation.Interpolate;
             Rigidbody.linearVelocity = InitialVelocity;
 
+            if (!string.IsNullOrWhiteSpace(SchematicName))
+            {
+                Schematic = ObjectSpawner.SpawnSchematic(SchematicName, InitialPosition, InitialRotation);
+                Schematic.transform.parent = Parent.Transform;
+            }
+
             Construct();
 
             Collider = Parent.GameObject.AddComponent<SphereCollider>();
@@ -63,7 +79,7 @@ namespace SwiftArcadeMode.Utils.Projectiles
             Parent.GameObject.AddComponent<ProjectileComponent>().projectile = this;
             Parent.Spawn();
         }
-        public abstract void Construct();
+        public virtual void Construct() { }
         public virtual void Tick()
         {
             Lifetime.Tick(Time.fixedDeltaTime);

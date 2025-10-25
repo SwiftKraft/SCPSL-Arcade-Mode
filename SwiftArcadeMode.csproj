@@ -31,6 +31,9 @@
 		<Reference Include="Pooling">
 			<HintPath>$(SCPSLREFERENCES)\Pooling.dll</HintPath>
 		</Reference>
+		<Reference Include="ProjectMER">
+		  <HintPath>C:\Users\shifu\AppData\Roaming\SCP Secret Laboratory\LabAPI\plugins\7777\ProjectMER.dll</HintPath>
+		</Reference>
 		<Reference Include="UnityEngine">
 			<HintPath>$(SCPSLREFERENCES)\UnityEngine.dll</HintPath>
 		</Reference>
