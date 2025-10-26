@@ -29,6 +29,7 @@ namespace SwiftArcadeMode.Features.Humans.Perks.Content.Caster
                     return;
                 }
 
+                PlaySound("cast");
                 new ThornShot.Projectile(this, Caster.Player.Camera.position + Caster.Player.Camera.forward * 0.4f + Random.insideUnitSphere * 0.3f, Caster.Player.Camera.rotation, Caster.Player.Camera.forward * 60f, 10f, Caster.Player);
             });
         }

@@ -30,6 +30,8 @@ namespace SwiftArcadeMode.Features.Humans.Perks.Content.Caster
 
         public override void Cast()
         {
+            PlaySound("cast");
+
             ShootRay();
             RayVisual = PrimitiveObjectToy.Create(null, false);
             RayVisual.Type = PrimitiveType.Cylinder;
