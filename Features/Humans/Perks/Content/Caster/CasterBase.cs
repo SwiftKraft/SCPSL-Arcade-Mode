@@ -191,8 +191,10 @@ namespace SwiftArcadeMode.Features.Humans.Perks.Content.Caster
             return CurrentSpellItem;
         }
 
-        public abstract class MagicProjectileBase(Vector3 initialPosition, Quaternion initialRotation, Vector3 initialVelocity, float lifetime = 10, Player owner = null) : ProjectileBase(initialPosition, initialRotation, initialVelocity, lifetime, owner)
+        public abstract class MagicProjectileBase(SpellBase spell, Vector3 initialPosition, Quaternion initialRotation, Vector3 initialVelocity, float lifetime = 10, Player owner = null) : ProjectileBase(initialPosition, initialRotation, initialVelocity, lifetime, owner)
         {
+            public readonly SpellBase Spell = spell;
+
             public abstract bool UseGravity { get; }
 
             public override void Init()

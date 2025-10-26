@@ -14,7 +14,7 @@ namespace SwiftArcadeMode.Features.Humans.Perks.Content.Caster
         public abstract float CastTime { get; }
         public virtual float CastDuration => 0f;
 
-        public virtual string[] SoundList => ["cast"];
+        public virtual string[] SoundList => ["cast", "hit"];
 
         public virtual void Init(CasterBase caster)
         {

@@ -20,6 +20,8 @@ namespace SwiftArcadeMode.Features.Humans.Perks.Content.Caster
 
         public override float CastTime => 0.5f;
 
+        public override string[] SoundList => ["cast", "curse"];
+
         public override void Cast()
         {
             Caster.Player.Damage(10f, "Out of Blood.");
@@ -63,6 +65,7 @@ namespace SwiftArcadeMode.Features.Humans.Perks.Content.Caster
             if (_hit.collider.transform.TryGetComponentInParent(out ReferenceHub hub) && hub != Caster.Player.ReferenceHub && hub.GetFaction() != Caster.Player.Faction)
             {
                 Player.Get(hub)?.AddCustomEffect(new Effect(10f, this));
+                PlaySound(hub.transform.position, "curse");
                 Caster.Player.SendHitMarker(0.5f);
             }
         }

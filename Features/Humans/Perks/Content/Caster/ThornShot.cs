@@ -33,7 +33,7 @@ namespace SwiftArcadeMode.Features.Humans.Perks.Content.Caster
                 Quaternion rotation = Quaternion.Euler(0f, currentAngle, 0f);
                 Vector3 direction = rotation * Caster.Player.Camera.forward;
 
-                colliders.Add(new Projectile(Caster.Player.Camera.position + direction * 0.25f, Quaternion.LookRotation(direction), direction * 40f, 15f, Caster.Player).Collider);
+                colliders.Add(new Projectile(this, Caster.Player.Camera.position + direction * 0.25f, Quaternion.LookRotation(direction), direction * 40f, 15f, Caster.Player).Collider);
             }
 
             for (int i = 0; i < colliders.Count; i++)
@@ -43,7 +43,7 @@ namespace SwiftArcadeMode.Features.Humans.Perks.Content.Caster
             PlaySound("cast");
         }
 
-        public class Projectile(Vector3 initialPosition, Quaternion initialRotation, Vector3 initialVelocity, float lifetime = 10, Player owner = null) : CasterBase.MagicProjectileBase(initialPosition, initialRotation, initialVelocity, lifetime, owner)
+        public class Projectile(SpellBase spell, Vector3 initialPosition, Quaternion initialRotation, Vector3 initialVelocity, float lifetime = 10f, Player owner = null) : CasterBase.MagicProjectileBase(spell, initialPosition, initialRotation, initialVelocity, lifetime, owner)
         {
             public override string SchematicName => "ThornShot";
 
