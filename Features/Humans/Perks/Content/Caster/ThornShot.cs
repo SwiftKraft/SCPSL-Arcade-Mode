@@ -49,6 +49,10 @@ namespace SwiftArcadeMode.Features.Humans.Perks.Content.Caster
 
             public bool Sticked { get; private set; }
 
+            public ReferenceHub StuckPlayer { get; private set; }
+            public Vector3 StuckOffset { get; private set; }
+            public Quaternion StuckRotation { get; private set; }
+
             public override bool UseGravity => false;
 
             public override float CollisionRadius => 0.01f;
@@ -59,6 +63,12 @@ namespace SwiftArcadeMode.Features.Humans.Perks.Content.Caster
                     base.Tick();
                 else
                 {
+                    if (StuckPlayer != null)
+                    {
+                        Rigidbody.position = StuckPlayer.transform.position + StuckPlayer.transform.rotation * StuckOffset;
+                        Rigidbody.rotation = StuckPlayer.transform.rotation * StuckRotation;
+                    }
+
                     Lifetime.Tick(Time.fixedDeltaTime);
                     if (Lifetime.Ended)
                         EndLife();
@@ -69,7 +79,7 @@ namespace SwiftArcadeMode.Features.Humans.Perks.Content.Caster
             {
                 if (hit != null)
                 {
-                    hit.playerStats.DealDamage(new ExplosionDamageHandler(new Footprint(Owner.ReferenceHub), InitialVelocity, 25f * (hit.IsSCP() ? 3f : 1f), 60, ExplosionType.Disruptor));
+                    hit.playerStats.DealDamage(new ExplosionDamageHandler(new Footprint(Owner.ReferenceHub), InitialVelocity, 20f * (hit.IsSCP() ? 3f : 1f), 60, ExplosionType.Disruptor));
 
                     if (hit.roleManager.CurrentRole is IFpcRole role)
                     {
@@ -77,15 +87,20 @@ namespace SwiftArcadeMode.Features.Humans.Perks.Content.Caster
                     }
 
                     Owner?.SendHitMarker();
-                    Destroy();
+                    StuckPlayer = hit;
+                    StuckOffset = Rigidbody.position - StuckPlayer.transform.position;
+                    StuckRotation = Quaternion.Inverse(StuckPlayer.transform.rotation) * Rigidbody.rotation;
                 }
-                else
-                {
-                    Lifetime.Reset();
-                    Sticked = true;
-                    Rigidbody.isKinematic = true;
-                    Rigidbody.detectCollisions = false;
-                }
+
+                Stick();
+            }
+
+            public void Stick()
+            {
+                Lifetime.Reset();
+                Sticked = true;
+                Rigidbody.isKinematic = true;
+                Rigidbody.detectCollisions = false;
             }
         }
     }

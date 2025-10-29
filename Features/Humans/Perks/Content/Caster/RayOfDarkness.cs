@@ -22,7 +22,7 @@ namespace SwiftArcadeMode.Features.Humans.Perks.Content.Caster
 
         public override float CastTime => 1f;
 
-        public override float CastDuration => 3f;
+        public override float CastDuration => 4f;
 
         Vector3 hitPos;
 
@@ -122,7 +122,7 @@ namespace SwiftArcadeMode.Features.Humans.Perks.Content.Caster
                     new ExplosionDamageHandler(
                         new(Caster.Player.ReferenceHub),
                         direction,
-                        6f * (hub.IsSCP() ? 2f : 1f),
+                        4f * (hub.IsSCP() ? 1.5f : 1f),
                         100,
                         ExplosionType.Disruptor
                     )
