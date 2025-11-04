@@ -1,6 +1,6 @@
 # Installation
 
-Download and place the `.dll` file in `%appdata%/SCP Secret Laboratory/LabAPI/plugins/%port%`, do **NOT** place the EXILED version in the EXILED plugins folder.
+Download and place the `.dll` file in `%appdata%/SCP Secret Laboratory/LabAPI/plugins/%port%`, do **NOT** place it in the EXILED plugins folder.
 
 Please also install these requirements: [ProjectMER](https://github.com/Michal78900/ProjectMER/releases) & [SCPSL Audio API](https://github.com/Killers0992/AudioPlayerApi/releases/tag/1.1.2)
 
