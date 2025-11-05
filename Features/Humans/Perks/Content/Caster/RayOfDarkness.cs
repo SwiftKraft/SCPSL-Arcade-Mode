@@ -2,6 +2,10 @@
 using MEC;
 using PlayerRoles;
 using PlayerStatsSystem;
+using ProjectMER.Events.Handlers;
+using ProjectMER.Features;
+using ProjectMER.Features.Objects;
+using SwiftArcadeMode.Utils.Extensions;
 using SwiftArcadeMode.Utils.Projectiles;
 using SwiftArcadeMode.Utils.Structures;
 using UnityEngine;
@@ -13,6 +17,9 @@ namespace SwiftArcadeMode.Features.Humans.Perks.Content.Caster
         public static readonly LayerMask CastMask = LayerMask.GetMask("Default", "Door", "Glass", "Hitbox");
 
         public PrimitiveObjectToy RayVisual;
+        public SchematicObject Schematic;
+
+        public string SchematicName => "RayOfDarkness";
 
         public override string Name => "Ray of Darkness";
 
@@ -34,13 +41,16 @@ namespace SwiftArcadeMode.Features.Humans.Perks.Content.Caster
 
             ShootRay();
             RayVisual = PrimitiveObjectToy.Create(null, false);
-            RayVisual.Type = PrimitiveType.Cylinder;
-            RayVisual.Color = new(0f, 0f, 0f, 0.9f);
-            RayVisual.Flags = AdminToys.PrimitiveFlags.Visible;
-            RayVisual.SyncInterval = 0;
-            RayVisual.MovementSmoothing = 1;
+            RayVisual.Flags = AdminToys.PrimitiveFlags.None;
             UpdateRay();
             RayVisual.Spawn();
+
+            Schematic = ObjectSpawner.SpawnSchematic(SchematicName.ApplySchematicPrefix(), default, Quaternion.identity, Vector3.one);
+            if (Schematic != null)
+            {
+                Schematic.transform.SetParent(RayVisual.Transform, false);
+                Schematic.transform.localScale = Vector3.one;
+            }
         }
 
         public override void Tick()
