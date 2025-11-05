@@ -15,6 +15,8 @@ namespace SwiftArcadeMode.Features.Humans.Perks.Content.Caster
 
         public override float CastTime => 1.3f;
 
+        public override string[] SoundList => ["cast"];
+
         public override void Cast()
         {
             new Projectile(this, Caster.Player.Camera.position + (Caster.Player.Camera.forward * 0.5f), Caster.Player.Camera.rotation, Caster.Player.Camera.forward * 11f, 15f, Caster.Player);

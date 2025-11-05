@@ -30,7 +30,7 @@ namespace SwiftArcadeMode.Features.Humans.Perks.Content.Caster
 
         public override void Cast()
         {
-            new Projectile(this, Caster.Player.Camera.position, Caster.Player.Camera.rotation, Caster.Player.Camera.forward * 25f, 10f, Caster.Player);
+            new Projectile(this, Caster.Player.Camera.position, Caster.Player.Camera.rotation, Caster.Player.Camera.forward * 20f, 10f, Caster.Player);
             PlaySound("cast");
 
             coroutine = Timing.CallPeriodically(0.42f, 0.1f, () =>
@@ -41,7 +41,7 @@ namespace SwiftArcadeMode.Features.Humans.Perks.Content.Caster
                     return;
                 }
 
-                new Projectile(this, Caster.Player.Camera.position + Caster.Player.Camera.forward * 0.4f, Caster.Player.Camera.rotation, Caster.Player.Camera.forward * 25f, 10f, Caster.Player);
+                new Projectile(this, Caster.Player.Camera.position + Caster.Player.Camera.forward * 0.4f, Caster.Player.Camera.rotation, Caster.Player.Camera.forward * 20f, 10f, Caster.Player);
                 PlaySound("cast");
             });
         }
@@ -94,7 +94,7 @@ namespace SwiftArcadeMode.Features.Humans.Perks.Content.Caster
                 {
                     Vector3 dir = (homing.Position - Rigidbody.position).normalized;
                     Quaternion lookRot = Quaternion.LookRotation(dir);
-                    Rigidbody.MoveRotation(Quaternion.RotateTowards(Rigidbody.rotation, lookRot, 360f * Time.fixedDeltaTime));
+                    Rigidbody.MoveRotation(Quaternion.RotateTowards(Rigidbody.rotation, lookRot, 320f * Time.fixedDeltaTime));
                     Rigidbody.linearVelocity = Rigidbody.transform.forward * initialSpeed;
 
                     if (!homing.IsAlive)
