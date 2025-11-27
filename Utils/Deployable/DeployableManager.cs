@@ -8,6 +8,7 @@ namespace SwiftArcadeMode.Utils.Deployable
 {
     public static class DeployableManager
     {
+        public static readonly List<DeployableBase> AllDeployables = [];
 
     }
 }
