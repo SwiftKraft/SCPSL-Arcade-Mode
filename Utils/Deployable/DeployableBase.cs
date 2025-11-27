@@ -55,6 +55,13 @@ namespace SwiftArcadeMode.Utils.Deployable
             Rotation = rotation;
             Dummy.EnableEffect<Fade>(byte.MaxValue);
             DeployableManager.AllDeployables.Add(this);
+            Dummy.ReferenceHub.playerStats.OnThisPlayerDied += OnDummyDied;
+        }
+
+        private void OnDummyDied(PlayerStatsSystem.DamageHandlerBase obj)
+        {
+            Dummy.ReferenceHub.playerStats.OnThisPlayerDied -= OnDummyDied;
+            Destroy();
         }
 
         public abstract void Tick();
