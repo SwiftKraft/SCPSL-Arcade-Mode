@@ -18,7 +18,8 @@ namespace SwiftArcadeMode.Features.Humans.Perks.Content.Caster
 
         public override void Cast()
         {
-            new Pylon("Pylon", "Pylon".ApplySchematicPrefix(), Caster.Player.Role, new Vector3(1f, 0.5f, 1f), Caster.Player.Position, Quaternion.identity).Owner = Caster.Player;
+            if (Physics.Raycast(Caster.Player.Camera.position, Vector3.down, out RaycastHit hit, 4f, LayerMask.GetMask("Default"), QueryTriggerInteraction.Ignore))
+                new Pylon("Pylon", "Pylon".ApplySchematicPrefix(), Caster.Player.Role, new Vector3(1f, 0.5f, 1f), hit.point, Quaternion.identity).Owner = Caster.Player;
         }
 
         public class Pylon(string name, string schematicName, RoleTypeId role, Vector3 colliderScale, Vector3 position, Quaternion rotation) : DeployableBase(name, schematicName, role, colliderScale, position, rotation)
