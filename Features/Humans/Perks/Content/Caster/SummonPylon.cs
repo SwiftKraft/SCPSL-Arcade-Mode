@@ -2,11 +2,6 @@
 using PlayerRoles;
 using SwiftArcadeMode.Utils.Deployable;
 using SwiftArcadeMode.Utils.Extensions;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using UnityEngine;
 
 namespace SwiftArcadeMode.Features.Humans.Perks.Content.Caster
@@ -39,7 +34,7 @@ namespace SwiftArcadeMode.Features.Humans.Perks.Content.Caster
 
             public override void Tick()
             {
-                
+
             }
         }
     }
