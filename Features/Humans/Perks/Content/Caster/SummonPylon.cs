@@ -1,4 +1,5 @@
-﻿using PlayerRoles;
+﻿using LabApi.Features.Wrappers;
+using PlayerRoles;
 using SwiftArcadeMode.Utils.Deployable;
 using SwiftArcadeMode.Utils.Extensions;
 using System;
@@ -22,11 +23,13 @@ namespace SwiftArcadeMode.Features.Humans.Perks.Content.Caster
 
         public override void Cast()
         {
-            new Pylon("Pylon", "Pylon".ApplySchematicPrefix(), Caster.Player.Role, new Vector3(1f, 0.5f, 1f), Caster.Player.Position, Quaternion.identity);
+            new Pylon("Pylon", "Pylon".ApplySchematicPrefix(), Caster.Player.Role, new Vector3(1f, 0.5f, 1f), Caster.Player.Position, Quaternion.identity).Owner = Caster.Player;
         }
 
         public class Pylon(string name, string schematicName, RoleTypeId role, Vector3 colliderScale, Vector3 position, Quaternion rotation) : DeployableBase(name, schematicName, role, colliderScale, position, rotation)
         {
+            public Player Owner { get; set; }
+
             public override void Initialize()
             {
                 base.Initialize();
