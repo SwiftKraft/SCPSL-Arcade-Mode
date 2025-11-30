@@ -12,7 +12,8 @@ namespace SwiftArcadeMode.Features.Humans.Perks.Content.Caster
         public override Type[] ListSpells() => [
             typeof(ThornShot),
             typeof(OrbOfNature),
-            typeof(ThornVolley)
+            typeof(ThornVolley),
+            typeof(SummonPylon)
             ];
     }
 }

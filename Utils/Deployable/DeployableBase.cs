@@ -1,5 +1,6 @@
 ﻿using CustomPlayerEffects;
 using LabApi.Features.Wrappers;
+using MEC;
 using Mirror;
 using NetworkManagerUtils.Dummies;
 using PlayerRoles;
@@ -47,15 +48,19 @@ namespace SwiftArcadeMode.Utils.Deployable
         {
             Name = name;
             Dummy = Player.Get(DummyUtils.SpawnDummy(Name));
-            Dummy.CustomInfo = TypeName;
-            Dummy.Role = role;
-            Dummy.Scale = colliderScale;
+            Timing.CallDelayed(Time.deltaTime, () =>
+            {
+                Dummy.SetRole(role, RoleChangeReason.None, RoleSpawnFlags.None);
+                Dummy.CustomInfo = TypeName;
+                Dummy.Scale = colliderScale;
+                Dummy.EnableEffect<Fade>(byte.MaxValue);
+                Dummy.ReferenceHub.playerStats.OnThisPlayerDied += OnDummyDied;
+                Position = position;
+                Rotation = rotation;
+                Initialize();
+            });
             Schematic = ObjectSpawner.SpawnSchematic(schematicName, position, rotation);
-            Position = position;
-            Rotation = rotation;
-            Dummy.EnableEffect<Fade>(byte.MaxValue);
             DeployableManager.AllDeployables.Add(this);
-            Dummy.ReferenceHub.playerStats.OnThisPlayerDied += OnDummyDied;
         }
 
         private void OnDummyDied(PlayerStatsSystem.DamageHandlerBase obj)
@@ -63,6 +68,8 @@ namespace SwiftArcadeMode.Utils.Deployable
             Dummy.ReferenceHub.playerStats.OnThisPlayerDied -= OnDummyDied;
             Destroy();
         }
+
+        public virtual void Initialize() { }
 
         public abstract void Tick();
 
