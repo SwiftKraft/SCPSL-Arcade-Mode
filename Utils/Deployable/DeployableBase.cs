@@ -4,8 +4,10 @@ using MEC;
 using Mirror;
 using NetworkManagerUtils.Dummies;
 using PlayerRoles;
+using PlayerRoles.FirstPersonControl;
 using ProjectMER.Features;
 using ProjectMER.Features.Objects;
+using System.Linq;
 using UnityEngine;
 
 namespace SwiftArcadeMode.Utils.Deployable
@@ -57,6 +59,15 @@ namespace SwiftArcadeMode.Utils.Deployable
                 Dummy.ReferenceHub.playerStats.OnThisPlayerDied += OnDummyDied;
                 Position = position;
                 Rotation = rotation;
+                //if (Dummy.RoleBase is IFpcRole r)
+                //{
+                //    HitboxIdentity identity = r.FpcModule.CharacterModelInstance.Hitboxes.FirstOrDefault(h => h.HitboxType == HitboxType.Body);
+                //    if (identity != null)
+                //    {
+                //        Collider col = identity.TargetColliders.FirstOrDefault();
+                //        col.transform.localScale = Vector3.one * 3f;
+                //    }
+                //}
                 Initialize();
             });
             Schematic = ObjectSpawner.SpawnSchematic(schematicName, position, rotation);

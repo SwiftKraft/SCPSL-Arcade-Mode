@@ -1,5 +1,8 @@
-﻿using LabApi.Features.Wrappers;
+﻿using CustomPlayerEffects;
+using LabApi.Features.Wrappers;
 using PlayerRoles;
+using PlayerRoles.FirstPersonControl;
+using PlayerRoles.FirstPersonControl.Thirdperson;
 using SwiftArcadeMode.Utils.Deployable;
 using SwiftArcadeMode.Utils.Extensions;
 using UnityEngine;
