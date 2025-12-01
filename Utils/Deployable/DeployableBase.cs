@@ -1,13 +1,12 @@
 ﻿using CustomPlayerEffects;
+using LabApi.Events.Handlers;
 using LabApi.Features.Wrappers;
 using MEC;
 using Mirror;
 using NetworkManagerUtils.Dummies;
 using PlayerRoles;
-using PlayerRoles.FirstPersonControl;
 using ProjectMER.Features;
 using ProjectMER.Features.Objects;
-using System.Linq;
 using UnityEngine;
 
 namespace SwiftArcadeMode.Utils.Deployable
@@ -20,27 +19,29 @@ namespace SwiftArcadeMode.Utils.Deployable
 
         public Vector3 Position
         {
-            get => position;
+            get => Dummy.Position;
             set
             {
-                position = value;
-                Dummy.Position = position;
-                Schematic.Position = position;
+                if (Dummy != null)
+                    Dummy.Position = value;
+                if (Schematic != null)
+                    Schematic.Position = Dummy.Position;
             }
         }
-        private Vector3 position;
 
         public Quaternion Rotation
         {
-            get => rotation;
+            get => Dummy.Rotation;
             set
             {
-                rotation = value;
-                Dummy.Rotation = rotation;
-                Schematic.Rotation = rotation;
+                if (Dummy != null)
+                    Dummy.Rotation = value;
+                if (Schematic != null)
+                    Schematic.Rotation = Dummy.Rotation;
             }
         }
-        private Quaternion rotation;
+
+        public bool Destroyed { get; private set; } = false;
 
         public SchematicObject Schematic { get; set; }
 
@@ -56,6 +57,7 @@ namespace SwiftArcadeMode.Utils.Deployable
                 Dummy.CustomInfo = TypeName;
                 Dummy.Scale = colliderScale;
                 Dummy.EnableEffect<Fade>(byte.MaxValue);
+                Dummy.EnableEffect<Flashed>();
                 Dummy.ReferenceHub.playerStats.OnThisPlayerDied += OnDummyDied;
                 Position = position;
                 Rotation = rotation;
@@ -72,6 +74,13 @@ namespace SwiftArcadeMode.Utils.Deployable
             });
             Schematic = ObjectSpawner.SpawnSchematic(schematicName, position, rotation);
             DeployableManager.AllDeployables.Add(this);
+            Scp096Events.AddingTarget += On096AddingTarget;
+        }
+
+        private void On096AddingTarget(LabApi.Events.Arguments.Scp096Events.Scp096AddingTargetEventArgs ev)
+        {
+            if (ev.Target == Dummy)
+                ev.IsAllowed = false;
         }
 
         private void OnDummyDied(PlayerStatsSystem.DamageHandlerBase obj)
@@ -82,13 +91,15 @@ namespace SwiftArcadeMode.Utils.Deployable
 
         public virtual void Initialize() { }
 
-        public abstract void Tick();
+        public virtual void Tick() => Schematic?.transform.SetPositionAndRotation(Dummy.Position, Dummy.Rotation);
 
         public virtual void Destroy()
         {
             DeployableManager.AllDeployables.Remove(this);
             NetworkServer.Destroy(Dummy.GameObject);
             Schematic.Destroy();
+            Scp096Events.AddingTarget -= On096AddingTarget;
+            Destroyed = true;
         }
     }
 }

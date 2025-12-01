@@ -14,6 +14,7 @@ using SwiftArcadeMode.Features.Scoring;
 using SwiftArcadeMode.Features.Scoring.Saving;
 using SwiftArcadeMode.Features.SCPs.Upgrades;
 using SwiftArcadeMode.Features.ServerSpecificSettings;
+using SwiftArcadeMode.Utils.Deployable;
 using SwiftArcadeMode.Utils.Effects;
 using SwiftArcadeMode.Utils.Projectiles;
 using SwiftArcadeMode.Utils.Sounds;
@@ -155,6 +156,7 @@ namespace SwiftArcadeMode
             ProjectileManager.Tick();
             ScoringManager.Tick();
             CustomEffectManager.Tick();
+            DeployableManager.Tick();
         }
 
         /*

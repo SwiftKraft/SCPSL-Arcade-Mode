@@ -1,8 +1,5 @@
-﻿using System;
+﻿using LabApi.Features.Console;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace SwiftArcadeMode.Utils.Deployable
 {
@@ -10,5 +7,17 @@ namespace SwiftArcadeMode.Utils.Deployable
     {
         public static readonly List<DeployableBase> AllDeployables = [];
 
+        public static void Tick()
+        {
+            for (int i = 0; i < AllDeployables.Count; i++)
+                try
+                {
+                    AllDeployables[i].Tick();
+                }
+                catch (System.Exception ex)
+                {
+                    Logger.Error(ex);
+                }
+        }
     }
 }

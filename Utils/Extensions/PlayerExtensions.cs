@@ -7,7 +7,7 @@ namespace SwiftArcadeMode.Utils.Extensions
     {
         public static Elevator GetElevator(this Player player)
         {
-            foreach (Elevator e in Elevator.List.Where(e => e.WorldSpaceBounds.Contains(player.Position)))
+            foreach (Elevator e in Elevator.List.Where(e => e.WorldSpaceRelativeBounds.Bounds.Contains(player.Position)))
                 return e;
             return null;
         }
