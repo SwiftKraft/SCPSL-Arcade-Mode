@@ -16,7 +16,7 @@ namespace SwiftArcadeMode.Features.Humans.Perks.Content.Caster
     {
         public override string Name => "Summon Arcane Golem";
 
-        public override Color BaseColor => new(0.8f, 0f, 0.8f);
+        public override Color BaseColor => new(0.3f, 0f, 0.4f);
 
         public override int RankIndex => 2;
 
