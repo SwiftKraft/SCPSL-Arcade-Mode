@@ -59,17 +59,9 @@ namespace SwiftArcadeMode.Utils.Deployable
                 Dummy.EnableEffect<Fade>(byte.MaxValue);
                 Dummy.EnableEffect<Flashed>();
                 Dummy.ReferenceHub.playerStats.OnThisPlayerDied += OnDummyDied;
+                Dummy.ReferenceHub.serverRoles.TryHideTag();
                 Position = position;
                 Rotation = rotation;
-                //if (Dummy.RoleBase is IFpcRole r)
-                //{
-                //    HitboxIdentity identity = r.FpcModule.CharacterModelInstance.Hitboxes.FirstOrDefault(h => h.HitboxType == HitboxType.Body);
-                //    if (identity != null)
-                //    {
-                //        Collider col = identity.TargetColliders.FirstOrDefault();
-                //        col.transform.localScale = Vector3.one * 3f;
-                //    }
-                //}
                 Initialize();
             });
             Schematic = ObjectSpawner.SpawnSchematic(schematicName, position, rotation);

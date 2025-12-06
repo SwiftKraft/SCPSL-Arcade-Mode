@@ -1,9 +1,6 @@
-﻿using CustomPlayerEffects;
-using InventorySystem.Items.ThrowableProjectiles;
+﻿using InventorySystem.Items.ThrowableProjectiles;
 using LabApi.Features.Wrappers;
 using PlayerRoles;
-using PlayerRoles.FirstPersonControl;
-using PlayerRoles.FirstPersonControl.Thirdperson;
 using SwiftArcadeMode.Utils.Deployable;
 using SwiftArcadeMode.Utils.Extensions;
 using SwiftArcadeMode.Utils.Structures;
@@ -30,10 +27,10 @@ namespace SwiftArcadeMode.Features.Humans.Perks.Content.Caster
             {
                 Vector3 loc = hit.point + Vector3.up;
                 if (currentPylon == null || currentPylon.Destroyed)
-                currentPylon = new(Caster.Player.DisplayName + "'s Pylon", "Pylon".ApplySchematicPrefix(), Caster.Player.Role, new Vector3(1f, 0.5f, 1f), loc, Quaternion.identity)
-                {
-                    Owner = Caster.Player
-                };
+                    currentPylon = new(Caster.Player.DisplayName + "'s Pylon", "Pylon".ApplySchematicPrefix(), Caster.Player.Role, new Vector3(1f, 0.5f, 1f), loc, Quaternion.identity)
+                    {
+                        Owner = Caster.Player
+                    };
                 else
                     currentPylon.Position = loc;
             }

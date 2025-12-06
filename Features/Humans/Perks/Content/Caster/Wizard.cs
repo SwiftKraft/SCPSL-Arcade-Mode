@@ -12,7 +12,8 @@ namespace SwiftArcadeMode.Features.Humans.Perks.Content.Caster
         public override Type[] ListSpells() => [
             typeof(Fireball),
             typeof(IceBolt),
-            typeof(MagicMissile)
+            typeof(MagicMissile),
+            typeof(SummonArcaneGolem)
             ];
     }
 }
