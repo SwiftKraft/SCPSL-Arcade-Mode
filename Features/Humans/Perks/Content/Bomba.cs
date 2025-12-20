@@ -12,14 +12,14 @@ namespace SwiftArcadeMode.Features.Humans.Perks.Content
 
         public override string Description => "You drop a short fused grenade upon death.\nThis grenade deals less damage to SCPs.";
 
-        Vector3 savedPositon;
+        Vector3 savedPosition;
 
         protected override void OnPlayerDying(PlayerDyingEventArgs ev)
         {
             if (ev.Player != Player)
                 return;
 
-            savedPositon = Player.Position;
+            savedPosition = Player.Position;
         }
 
         protected override void OnPlayerDeath(PlayerDeathEventArgs ev)
@@ -27,7 +27,7 @@ namespace SwiftArcadeMode.Features.Humans.Perks.Content
             if (ev.Player != Player)
                 return;
 
-            TimedGrenadeProjectile proj = TimedGrenadeProjectile.SpawnActive(savedPositon, ItemType.GrenadeHE, Player, 1.75f);
+            TimedGrenadeProjectile proj = TimedGrenadeProjectile.SpawnActive(savedPosition, ItemType.GrenadeHE, Player, 1.75f);
             if (proj.Base is ExplosionGrenade gr)
                 gr.ScpDamageMultiplier = 1.5f;
         }

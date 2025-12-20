@@ -5,6 +5,8 @@ using Mirror;
 using NetworkManagerUtils.Dummies;
 using PlayerRoles;
 using PlayerRoles.FirstPersonControl;
+using PlayerRoles.Spectating;
+using SwiftArcadeMode.Utils.Interfaces;
 using UnityEngine;
 
 namespace SwiftArcadeMode.Features.SCPs.Upgrades.Content.SCP173.Scouter
@@ -59,7 +61,11 @@ namespace SwiftArcadeMode.Features.SCPs.Upgrades.Content.SCP173.Scouter
             Vector3 pos = Player.Position;
 
             if (phantom == null)
+            {
                 phantom = DummyUtils.SpawnDummy(Player.DisplayName + " (Phantom)");
+                phantom.serverRoles.NetworkHideFromPlayerList = true;
+                SpectatableVisibilityManager.SetHidden(phantom, true);
+            }
 
             Timing.CallDelayed(0.1f, () =>
             {
