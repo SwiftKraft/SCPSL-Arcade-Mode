@@ -16,7 +16,7 @@ namespace SwiftArcadeMode.Features.Humans.Perks.Content.Caster
 
         public override float CastTime => 1f;
 
-        public override int Limit => 2;
+        public override int Limit => 1;
 
         public override DeployableBase Create(Vector3 loc) => new Golem(Caster.Player.DisplayName + "'s Golem", "ArcaneGolem".ApplySchematicPrefix(), Caster.Player.Role, new Vector3(1f, 0.5f, 1f), loc, Quaternion.identity)
         {

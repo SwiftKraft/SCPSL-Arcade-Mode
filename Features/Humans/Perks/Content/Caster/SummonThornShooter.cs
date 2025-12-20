@@ -16,6 +16,8 @@ namespace SwiftArcadeMode.Features.Humans.Perks.Content.Caster
 
         public override float CastTime => 1f;
 
+        public override int Limit => 2;
+
         public override DeployableBase Create(Vector3 loc) => new Shooter(Caster.Player.DisplayName + "'s Thorn Shooter", "ThornShooter".ApplySchematicPrefix(), Caster.Player.Role, new Vector3(1f, 0.5f, 1f), loc, Quaternion.identity)
         {
             Owner = Caster.Player
@@ -30,8 +32,8 @@ namespace SwiftArcadeMode.Features.Humans.Perks.Content.Caster
 
             public override void Attack(Player target)
             {
-                Vector3 direction = (target.Position - Dummy.Camera.position).normalized;
-                new ThornShot.Projectile(null, Dummy.Camera.position, Quaternion.LookRotation(direction), direction * 10f, 4f, Dummy);
+                Vector3 direction = Quaternion.Euler(Random.insideUnitCircle * 5f) * (target.Camera.position - Dummy.Camera.position).normalized;
+                new ThornShot.Projectile(null, Dummy.Camera.position, Quaternion.LookRotation(direction), direction * 40f, 4f, Dummy);
             }
         }
     }

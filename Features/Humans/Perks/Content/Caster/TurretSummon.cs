@@ -1,11 +1,8 @@
 ﻿using LabApi.Features.Wrappers;
 using PlayerRoles;
 using SwiftArcadeMode.Utils.Structures;
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using UnityEngine;
 
 namespace SwiftArcadeMode.Features.Humans.Perks.Content.Caster
@@ -32,7 +29,7 @@ namespace SwiftArcadeMode.Features.Humans.Perks.Content.Caster
             if (Timer.Ended)
             {
                 Timer.Reset(Delay);
-                IEnumerable<Player> targets = Player.GetAll().Where(p => p.IsAlive && p.Faction != Dummy.Faction && (Position - p.Position).sqrMagnitude <= Range * Range && CheckLOS(p.Camera.position));
+                IEnumerable<Player> targets = Player.GetAll().Where(p => p.IsAlive && p.Faction != Dummy.Faction && !p.IsDisarmed && (Position - p.Position).sqrMagnitude <= Range * Range && CheckLOS(p.Camera.position));
                 if (targets.Count() <= 0)
                     return;
 

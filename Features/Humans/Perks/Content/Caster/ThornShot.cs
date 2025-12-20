@@ -53,7 +53,7 @@ namespace SwiftArcadeMode.Features.Humans.Perks.Content.Caster
             public Vector3 StuckOffset { get; private set; }
             public Quaternion StuckRotation { get; private set; }
 
-            public override bool UseGravity => false;
+            public override bool UseGravity => true;
 
             public override float CollisionRadius => 0.01f;
 
@@ -80,11 +80,6 @@ namespace SwiftArcadeMode.Features.Humans.Perks.Content.Caster
                 if (hit != null)
                 {
                     hit.playerStats.DealDamage(new ExplosionDamageHandler(new Footprint(Owner.ReferenceHub), InitialVelocity, 20f * (hit.IsSCP() ? 3f : 1f), 60, ExplosionType.Disruptor));
-
-                    if (hit.roleManager.CurrentRole is IFpcRole role)
-                    {
-                        role.FpcModule.Motor.JumpController.ForceJump(1f);
-                    }
 
                     Owner?.SendHitMarker();
                     StuckPlayer = hit;
