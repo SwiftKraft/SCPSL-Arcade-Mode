@@ -1,4 +1,5 @@
-﻿using InventorySystem.Items.ThrowableProjectiles;
+﻿using Hints;
+using InventorySystem.Items.ThrowableProjectiles;
 using LabApi.Features.Wrappers;
 using PlayerRoles;
 using SwiftArcadeMode.Utils.Deployable;
@@ -9,7 +10,7 @@ using UnityEngine;
 
 namespace SwiftArcadeMode.Features.Humans.Perks.Content.Caster
 {
-    public class SummonPylon : SpellBase
+    public class SummonPylon : SummonSpell
     {
         public override string Name => "Summon Pylon";
 
@@ -19,36 +20,22 @@ namespace SwiftArcadeMode.Features.Humans.Perks.Content.Caster
 
         public override float CastTime => 1f;
 
-        Pylon currentPylon;
-
-        public override void Cast()
+        public override DeployableBase Create(Vector3 loc) => new Pylon(Caster.Player.DisplayName + "'s Pylon", "Pylon".ApplySchematicPrefix(), Caster.Player.Role, new(1f, 0.5f, 1f), loc, Quaternion.identity)
         {
-            if (Physics.Raycast(Caster.Player.Camera.position, Vector3.down, out RaycastHit hit, 4f, LayerMask.GetMask("Default"), QueryTriggerInteraction.Ignore))
-            {
-                Vector3 loc = hit.point + Vector3.up;
-                if (currentPylon == null || currentPylon.Destroyed)
-                    currentPylon = new(Caster.Player.DisplayName + "'s Pylon", "Pylon".ApplySchematicPrefix(), Caster.Player.Role, new Vector3(1f, 0.5f, 1f), loc, Quaternion.identity)
-                    {
-                        Owner = Caster.Player
-                    };
-                else
-                    currentPylon.Position = loc;
-            }
-        }
+            Owner = Caster.Player
+        };
 
-        public class Pylon(string name, string schematicName, RoleTypeId role, Vector3 colliderScale, Vector3 position, Quaternion rotation) : DeployableBase(name, schematicName, role, colliderScale, position, rotation)
+        public class Pylon(string name, string schematicName, RoleTypeId role, Vector3 colliderScale, Vector3 position, Quaternion rotation) : Summon(name, schematicName, role, colliderScale, position, rotation)
         {
             public override string TypeName => "Healing Pylon";
 
-            public Player Owner { get; set; }
-
             public Timer HealDelay = new();
+
+            public override float Health => 500f;
 
             public override void Initialize()
             {
                 base.Initialize();
-                Dummy.MaxHealth = 500f;
-                Dummy.Health = 500f;
                 HealDelay.Reset(2f);
             }
 

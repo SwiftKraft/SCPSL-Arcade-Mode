@@ -1,0 +1,42 @@
+﻿using LabApi.Features.Wrappers;
+using PlayerRoles;
+using SwiftArcadeMode.Utils.Deployable;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using UnityEngine;
+
+namespace SwiftArcadeMode.Features.Humans.Perks.Content.Caster
+{
+    public class SummonThornShooter : SummonSpell
+    {
+        public override string Name => "Summon Thorn Shooter";
+
+        public override Color BaseColor => new(0f, 0.6f, 0.1f);
+
+        public override int RankIndex => 1;
+
+        public override float CastTime => 1f;
+
+        public override DeployableBase Create(Vector3 loc)
+        {
+            throw new NotImplementedException();
+        }
+
+        public class Shooter(string name, string schematicName, RoleTypeId role, Vector3 colliderScale, Vector3 position, Quaternion rotation) : TurretSummon(name, schematicName, role, colliderScale, position, rotation)
+        {
+            public override string TypeName => "Thorn Shooter";
+            public override float Health => 200f;
+            public override float Range => 10f;
+            public override float Delay => 0.25f;
+
+            public override void Attack(Player target)
+            {
+                Vector3 direction = (target.Position - Dummy.Camera.position).normalized;
+                new ThornShot.Projectile(null, Dummy.Camera.position, Quaternion.LookRotation(direction), direction * 10f, 4f, Dummy);
+            }
+        }
+    }
+}

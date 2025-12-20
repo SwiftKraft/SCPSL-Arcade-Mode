@@ -7,6 +7,7 @@ using NetworkManagerUtils.Dummies;
 using PlayerRoles;
 using ProjectMER.Features;
 using ProjectMER.Features.Objects;
+using SwiftArcadeMode.Utils.Extensions;
 using UnityEngine;
 
 namespace SwiftArcadeMode.Utils.Deployable
@@ -83,7 +84,13 @@ namespace SwiftArcadeMode.Utils.Deployable
 
         public virtual void Initialize() { }
 
-        public virtual void Tick() => Schematic?.transform.SetPositionAndRotation(Dummy.Position, Dummy.Rotation);
+        public virtual void Tick()
+        {
+            Schematic?.transform.SetPositionAndRotation(Dummy.Position, Dummy.Rotation);
+
+            Dummy.ReapplyEffect<Fade>(byte.MaxValue);
+            Dummy.ReapplyEffect<Flashed>();
+        }
 
         public virtual void Destroy()
         {
