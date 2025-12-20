@@ -60,7 +60,6 @@ namespace SwiftArcadeMode.Utils.Deployable
                 Dummy.CustomInfo = TypeName;
                 Dummy.Scale = colliderScale;
                 Dummy.EnableEffect<Fade>(byte.MaxValue);
-                Dummy.EnableEffect<Flashed>();
                 Dummy.ReferenceHub.playerStats.OnThisPlayerDied += OnDummyDied;
                 Dummy.ReferenceHub.serverRoles.TryHideTag();
                 Position = position;
@@ -91,7 +90,6 @@ namespace SwiftArcadeMode.Utils.Deployable
             Schematic?.transform.SetPositionAndRotation(Dummy.Position, Dummy.Rotation);
 
             Dummy.ReapplyEffect<Fade>(byte.MaxValue);
-            Dummy.ReapplyEffect<Flashed>();
         }
 
         public virtual void Destroy()
