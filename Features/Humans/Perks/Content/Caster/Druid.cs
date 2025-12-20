@@ -13,7 +13,8 @@ namespace SwiftArcadeMode.Features.Humans.Perks.Content.Caster
             typeof(ThornShot),
             typeof(OrbOfNature),
             typeof(ThornVolley),
-            typeof(SummonPylon)
+            typeof(SummonPylon),
+            typeof(SummonThornShooter)
             ];
     }
 }
