@@ -52,6 +52,8 @@ namespace SwiftArcadeMode.Utils.Deployable
         {
             Name = name;
             Dummy = Player.Get(DummyUtils.SpawnDummy(Name));
+            Dummy.ReferenceHub.serverRoles.NetworkHideFromPlayerList = true;
+            Dummy.IsSpectatable = false;
             Timing.CallDelayed(Time.deltaTime, () =>
             {
                 Dummy.SetRole(role, RoleChangeReason.None, RoleSpawnFlags.None);
