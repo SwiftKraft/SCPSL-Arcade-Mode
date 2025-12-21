@@ -46,6 +46,8 @@ namespace SwiftArcadeMode.Utils.Deployable
 
         public SchematicObject Schematic { get; set; }
 
+        public AnimationController Animator => Schematic.AnimationController;
+
         public Player Dummy { get; set; }
 
         public DeployableBase(string name, string schematicName, RoleTypeId role, Vector3 colliderScale, Vector3 position, Quaternion rotation)
