@@ -13,7 +13,8 @@ namespace SwiftArcadeMode.Features.Humans.Perks.Content.Caster
         public override Type[] ListSpells() => [
             typeof(CurseOfPain),
             typeof(BoltOfDarkness),
-            typeof(RayOfDarkness)
+            typeof(RayOfDarkness),
+            typeof(SummonAltar)
             ];
     }
 }
