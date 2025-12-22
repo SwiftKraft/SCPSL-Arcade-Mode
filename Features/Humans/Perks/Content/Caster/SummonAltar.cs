@@ -23,7 +23,7 @@ namespace SwiftArcadeMode.Features.Humans.Perks.Content.Caster
 
         public override float CastTime => 3f;
 
-        public override DeployableBase Create(Vector3 loc) => new Altar(Caster.Player.DisplayName + "'s Altar", "Altar".ApplySchematicPrefix(), Caster.Player.Role, new Vector3(1f, 0.5f, 1f), loc, Quaternion.identity)
+        public override DeployableBase Create(Vector3 loc) => new Altar(Caster.Player.DisplayName + "'s Altar", "Altar".ApplySchematicPrefix(), Caster.Player.Role, new Vector3(1f, 0.25f, 1f), loc, Quaternion.identity)
         {
             Owner = Caster.Player
         };
@@ -52,10 +52,7 @@ namespace SwiftArcadeMode.Features.Humans.Perks.Content.Caster
 
                 SpawnTimer.Tick(Time.fixedDeltaTime);
                 if (SpawnTimer.Ended && Spawn())
-                {
                     SpawnTimer.Reset();
-                    Logger.Info("resetting spawn timer");
-                }
             }
 
             public bool Spawn()
@@ -89,8 +86,8 @@ namespace SwiftArcadeMode.Features.Humans.Perks.Content.Caster
 
                 public override void Attack(Player target)
                 {
-                    Vector3 direction = Quaternion.Euler(Random.insideUnitSphere * 0.5f) * (target.Camera.position - Dummy.Camera.position).normalized;
-                    new Projectile(null, Dummy.Camera.position, Quaternion.LookRotation(direction), direction * 10f, 4f, Dummy);
+                    Vector3 direction = (target.Camera.position - Dummy.Camera.position).normalized;
+                    new Projectile(null, Dummy.Camera.position, Quaternion.LookRotation(direction), direction * 15f, 5f, Dummy);
                 }
 
                 public override void Destroy()
@@ -101,17 +98,23 @@ namespace SwiftArcadeMode.Features.Humans.Perks.Content.Caster
 
                 public class Projectile(SpellBase spell, Vector3 initialPosition, Quaternion initialRotation, Vector3 initialVelocity, float lifetime = 10, Player owner = null) : CasterBase.MagicProjectileBase(spell, initialPosition, initialRotation, initialVelocity, lifetime, owner)
                 {
-                    public override bool UseGravity => true;
+                    public override bool UseGravity => false;
 
                     public override float CollisionRadius => 0.1f;
 
                     public override string SchematicName => "GhoulProjectile";
 
+                    public override void Init()
+                    {
+                        base.Init();
+                        Collider.material = new PhysicsMaterial() { bounciness = 1f, bounceCombine = PhysicsMaterialCombine.Maximum, dynamicFriction = 0f, staticFriction = 0f, frictionCombine = PhysicsMaterialCombine.Multiply };
+                    }
+
                     public override void Hit(Collision col, ReferenceHub hit)
                     {
                         if (hit != null)
                         {
-                            hit.playerStats.DealDamage(new ExplosionDamageHandler(new Footprint(Owner.ReferenceHub), InitialVelocity, 15f * (hit.IsSCP() ? 3f : 1f), 50, ExplosionType.Disruptor));
+                            hit.playerStats.DealDamage(new ExplosionDamageHandler(new Footprint(Owner.ReferenceHub), InitialVelocity, 10f * (hit.IsSCP() ? 2f : 1f), 50, ExplosionType.Disruptor));
                             Owner?.SendHitMarker(0.5f);
                         }
                     }
