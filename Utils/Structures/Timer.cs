@@ -56,6 +56,7 @@ namespace SwiftArcadeMode.Utils.Structures
         {
             if (!startEnded)
                 Reset(time);
+            MaxValue = time;
             Ended = startEnded;
         }
 
