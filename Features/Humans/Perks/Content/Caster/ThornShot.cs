@@ -79,7 +79,7 @@ namespace SwiftArcadeMode.Features.Humans.Perks.Content.Caster
             {
                 if (hit != null)
                 {
-                    hit.playerStats.DealDamage(new ExplosionDamageHandler(new Footprint(Owner.ReferenceHub), InitialVelocity, 20f * (hit.IsSCP() ? 3f : 1f), 25, ExplosionType.Disruptor));
+                    hit.playerStats.DealDamage(new ExplosionDamageHandler(new Footprint(Owner.ReferenceHub), InitialVelocity, 20f * (hit.IsSCP() ? 3f : 1f), 25, ExplosionType.Grenade));
 
                     Owner?.SendHitMarker();
                     StuckPlayer = hit;
