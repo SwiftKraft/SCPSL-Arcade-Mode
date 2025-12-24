@@ -26,13 +26,13 @@ namespace SwiftArcadeMode.Features.Humans.Perks.Content.Caster
         public class Shooter(string name, string schematicName, RoleTypeId role, Vector3 colliderScale, Vector3 position, Quaternion rotation) : TurretSummon(name, schematicName, role, colliderScale, position, rotation)
         {
             public override string TypeName => "Thorn Shooter";
-            public override float Health => 200f;
-            public override float Range => 10f;
-            public override float Delay => 0.2f;
+            public override float Health => 150f;
+            public override float Range => 15f;
+            public override float Delay => 0.1f;
 
             public override void Attack(Player target)
             {
-                Vector3 direction = Quaternion.Euler(Random.insideUnitSphere * 6f) * (target.Camera.position - Dummy.Camera.position).normalized;
+                Vector3 direction = Quaternion.Euler(Random.insideUnitSphere * 5f) * (target.Camera.position - Dummy.Camera.position).normalized;
                 new ThornShot.Projectile(null, Dummy.Camera.position, Quaternion.LookRotation(direction), direction * 40f, 4f, Dummy);
             }
         }

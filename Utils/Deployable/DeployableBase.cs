@@ -87,12 +87,7 @@ namespace SwiftArcadeMode.Utils.Deployable
 
         public virtual void Initialize() { }
 
-        public virtual void Tick()
-        {
-            Schematic?.transform.SetPositionAndRotation(Dummy.Position, Dummy.Rotation);
-
-            Dummy.ReapplyEffect<Fade>(byte.MaxValue);
-        }
+        public virtual void Tick() => Schematic?.transform.SetPositionAndRotation(Dummy.Position, Dummy.Rotation);
 
         public virtual void Destroy()
         {

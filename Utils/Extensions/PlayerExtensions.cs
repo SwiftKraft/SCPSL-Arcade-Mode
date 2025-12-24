@@ -15,7 +15,7 @@ namespace SwiftArcadeMode.Utils.Extensions
 
         public static void ReapplyEffect<T>(this Player player, byte intensity = 1, float duration = 0, bool addDuration = false) where T : StatusEffectBase
         {
-            if (player.TryGetEffect(out T flashed) && !flashed.IsEnabled)
+            if (player.TryGetEffect(out T effect) && (!effect.IsEnabled || effect.Intensity != intensity))
                 player.EnableEffect<T>(intensity, duration, addDuration);
         }
     }
