@@ -18,12 +18,12 @@ namespace SwiftArcadeMode.Features.Humans.Perks.Content.Caster
 
         public override int Limit => 2;
 
-        public override DeployableBase Create(Vector3 loc) => new Shooter(Caster.Player.DisplayName + "'s Thorn Shooter", "ThornShooter".ApplySchematicPrefix(), Caster.Player.Role, new Vector3(1f, 0.5f, 1f), loc, Quaternion.identity)
+        public override DeployableBase Create(Vector3 loc) => new Shooter(this, Caster.Player.DisplayName + "'s Thorn Shooter", "ThornShooter".ApplySchematicPrefix(), Caster.Player.Role, new Vector3(1f, 0.5f, 1f), loc, Quaternion.identity)
         {
             Owner = Caster.Player
         };
 
-        public class Shooter(string name, string schematicName, RoleTypeId role, Vector3 colliderScale, Vector3 position, Quaternion rotation) : TurretSummon(name, schematicName, role, colliderScale, position, rotation)
+        public class Shooter(SpellBase spell, string name, string schematicName, RoleTypeId role, Vector3 colliderScale, Vector3 position, Quaternion rotation) : TurretSummon(spell, name, schematicName, role, colliderScale, position, rotation)
         {
             public override string TypeName => "Thorn Shooter";
             public override float Health => 150f;

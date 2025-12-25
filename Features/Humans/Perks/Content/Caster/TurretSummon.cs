@@ -7,7 +7,7 @@ using UnityEngine;
 
 namespace SwiftArcadeMode.Features.Humans.Perks.Content.Caster
 {
-    public abstract class TurretSummon(string name, string schematicName, RoleTypeId role, Vector3 colliderScale, Vector3 position, Quaternion rotation) : Summon(name, schematicName, role, colliderScale, position, rotation)
+    public abstract class TurretSummon(SpellBase spell, string name, string schematicName, RoleTypeId role, Vector3 colliderScale, Vector3 position, Quaternion rotation) : Summon(spell, name, schematicName, role, colliderScale, position, rotation)
     {
         public static readonly LayerMask LOSMask = LayerMask.GetMask("Default", "Door", "Glass");
 

@@ -10,6 +10,10 @@ namespace SwiftArcadeMode.Utils.Visuals
         public static SchematicEffect Create(string schematicName, Vector3 position, Quaternion rotation, Vector3 scale, float lifetime)
         {
             SchematicObject obj = ObjectSpawner.SpawnSchematic(schematicName, position, rotation, scale);
+
+            if (obj == null)
+                return null;
+
             SchematicEffect effect = obj.gameObject.AddComponent<SchematicEffect>();
             effect.Schematic = obj;
             effect.lifetime.Reset(lifetime);

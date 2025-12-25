@@ -23,12 +23,12 @@ namespace SwiftArcadeMode.Features.Humans.Perks.Content.Caster
 
         public override float CastTime => 3f;
 
-        public override DeployableBase Create(Vector3 loc) => new Altar(Caster.Player.DisplayName + "'s Altar", "Altar".ApplySchematicPrefix(), Caster.Player.Role, new Vector3(1f, 0.25f, 1f), loc, Quaternion.identity)
+        public override DeployableBase Create(Vector3 loc) => new Altar(this, Caster.Player.DisplayName + "'s Altar", "Altar".ApplySchematicPrefix(), Caster.Player.Role, new Vector3(1f, 0.25f, 1f), loc, Quaternion.identity)
         {
             Owner = Caster.Player
         };
 
-        public class Altar(string name, string schematicName, RoleTypeId role, Vector3 colliderScale, Vector3 position, Quaternion rotation) : Summon(name, schematicName, role, colliderScale, position, rotation)
+        public class Altar(SpellBase spell, string name, string schematicName, RoleTypeId role, Vector3 colliderScale, Vector3 position, Quaternion rotation) : Summon(spell, name, schematicName, role, colliderScale, position, rotation)
         {
             public Timer SpawnTimer = new(10f);
 
@@ -63,7 +63,7 @@ namespace SwiftArcadeMode.Features.Humans.Perks.Content.Caster
                 if (Physics.Raycast(horizontalPos, Vector3.down, out RaycastHit hit, MaxHeight, LayerMask.GetMask("Default"), QueryTriggerInteraction.Ignore))
                 {
                     Vector3 spawnPos = hit.point + Vector3.up;
-                    Ghoul summon = spawned.Count > 0 && spawned.Count >= Limit ? spawned[0] : new(Owner.DisplayName + "'s Ghoul", "Ghoul".ApplySchematicPrefix(), Owner.Role, new Vector3(0.5f, 0.5f, 0.5f), spawnPos, Quaternion.identity) { Owner = Owner };
+                    Ghoul summon = spawned.Count > 0 && spawned.Count >= Limit ? spawned[0] : new(Spell, Owner.DisplayName + "'s Ghoul", "Ghoul".ApplySchematicPrefix(), Dummy.Role, new Vector3(0.5f, 0.5f, 0.5f), spawnPos, Quaternion.identity) { Owner = Owner };
                     spawned.Remove(summon);
                     spawned.Add(summon);
                     summon.Position = spawnPos;
@@ -74,7 +74,7 @@ namespace SwiftArcadeMode.Features.Humans.Perks.Content.Caster
                 return false;
             }
 
-            public class Ghoul(string name, string schematicName, RoleTypeId role, Vector3 colliderScale, Vector3 position, Quaternion rotation) : TurretSummon(name, schematicName, role, colliderScale, position, rotation)
+            public class Ghoul(SpellBase spell, string name, string schematicName, RoleTypeId role, Vector3 colliderScale, Vector3 position, Quaternion rotation) : TurretSummon(spell, name, schematicName, role, colliderScale, position, rotation)
             {
                 public Altar Parent { get; set; }
 

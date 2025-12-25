@@ -20,12 +20,12 @@ namespace SwiftArcadeMode.Features.Humans.Perks.Content.Caster
 
         public override float CastTime => 1f;
 
-        public override DeployableBase Create(Vector3 loc) => new Pylon(Caster.Player.DisplayName + "'s Pylon", "Pylon".ApplySchematicPrefix(), Caster.Player.Role, new(1f, 0.5f, 1f), loc, Quaternion.identity)
+        public override DeployableBase Create(Vector3 loc) => new Pylon(this, Caster.Player.DisplayName + "'s Pylon", "Pylon".ApplySchematicPrefix(), Caster.Player.Role, new(1f, 0.5f, 1f), loc, Quaternion.identity)
         {
             Owner = Caster.Player
         };
 
-        public class Pylon(string name, string schematicName, RoleTypeId role, Vector3 colliderScale, Vector3 position, Quaternion rotation) : Summon(name, schematicName, role, colliderScale, position, rotation)
+        public class Pylon(SpellBase spell, string name, string schematicName, RoleTypeId role, Vector3 colliderScale, Vector3 position, Quaternion rotation) : Summon(spell, name, schematicName, role, colliderScale, position, rotation)
         {
             public override string TypeName => "Healing Pylon";
 

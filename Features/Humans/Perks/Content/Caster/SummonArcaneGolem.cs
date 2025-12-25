@@ -18,12 +18,12 @@ namespace SwiftArcadeMode.Features.Humans.Perks.Content.Caster
 
         public override int Limit => 1;
 
-        public override DeployableBase Create(Vector3 loc) => new Golem(Caster.Player.DisplayName + "'s Golem", "ArcaneGolem".ApplySchematicPrefix(), Caster.Player.Role, new Vector3(1f, 0.5f, 1f), loc, Quaternion.identity)
+        public override DeployableBase Create(Vector3 loc) => new Golem(this, Caster.Player.DisplayName + "'s Golem", "ArcaneGolem".ApplySchematicPrefix(), Caster.Player.Role, new Vector3(1f, 0.5f, 1f), loc, Quaternion.identity)
         {
             Owner = Caster.Player
         };
 
-        public class Golem(string name, string schematicName, RoleTypeId role, Vector3 colliderScale, Vector3 position, Quaternion rotation) : TurretSummon(name, schematicName, role, colliderScale, position, rotation)
+        public class Golem(SpellBase spell, string name, string schematicName, RoleTypeId role, Vector3 colliderScale, Vector3 position, Quaternion rotation) : TurretSummon(spell, name, schematicName, role, colliderScale, position, rotation)
         {
             public override string TypeName => "Arcane Golem";
 

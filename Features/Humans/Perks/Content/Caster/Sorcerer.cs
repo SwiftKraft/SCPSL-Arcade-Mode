@@ -13,6 +13,7 @@ namespace SwiftArcadeMode.Features.Humans.Perks.Content.Caster
             typeof(ElementalBolt),
             typeof(LightArrow),
             typeof(FireArrow),
+            typeof(SummonRockGolem)
             ];
     }
 }

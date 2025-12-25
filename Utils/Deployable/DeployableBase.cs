@@ -71,6 +71,13 @@ namespace SwiftArcadeMode.Utils.Deployable
             Schematic = ObjectSpawner.SpawnSchematic(schematicName, position, rotation);
             DeployableManager.AllDeployables.Add(this);
             Scp096Events.AddingTarget += On096AddingTarget;
+            Scp173Events.AddingObserver += On173AddingObserver;
+        }
+
+        private void On173AddingObserver(LabApi.Events.Arguments.Scp173Events.Scp173AddingObserverEventArgs ev)
+        {
+            if (ev.Target == Dummy)
+                ev.IsAllowed = false;
         }
 
         private void On096AddingTarget(LabApi.Events.Arguments.Scp096Events.Scp096AddingTargetEventArgs ev)
@@ -95,6 +102,7 @@ namespace SwiftArcadeMode.Utils.Deployable
             NetworkServer.Destroy(Dummy.GameObject);
             Schematic.Destroy();
             Scp096Events.AddingTarget -= On096AddingTarget;
+            Scp173Events.AddingObserver -= On173AddingObserver;
             Destroyed = true;
         }
     }
