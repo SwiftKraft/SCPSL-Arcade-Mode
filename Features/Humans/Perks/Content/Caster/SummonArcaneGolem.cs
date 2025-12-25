@@ -36,7 +36,7 @@ namespace SwiftArcadeMode.Features.Humans.Perks.Content.Caster
             public override void Attack(Player target)
             {
                 Vector3 direction = (target.Position - Dummy.Camera.position).normalized;
-                new MagicMissile.Projectile(null, Dummy.Camera.position, Quaternion.LookRotation(direction), direction * 9f, 5f, Dummy);
+                new MagicMissile.Projectile(Spell, Dummy.Camera.position, Quaternion.LookRotation(direction), direction * 9f, 5f, Dummy);
             }
         }
     }

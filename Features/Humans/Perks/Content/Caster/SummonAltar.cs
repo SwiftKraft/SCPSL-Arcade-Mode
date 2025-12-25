@@ -87,7 +87,7 @@ namespace SwiftArcadeMode.Features.Humans.Perks.Content.Caster
                 public override void Attack(Player target)
                 {
                     Vector3 direction = (target.Camera.position - Dummy.Camera.position).normalized;
-                    new Projectile(null, Dummy.Camera.position, Quaternion.LookRotation(direction), direction * 15f, 5f, Dummy);
+                    new Projectile(Spell, Dummy.Camera.position, Quaternion.LookRotation(direction), direction * 15f, 5f, Dummy);
                 }
 
                 public override void Destroy()

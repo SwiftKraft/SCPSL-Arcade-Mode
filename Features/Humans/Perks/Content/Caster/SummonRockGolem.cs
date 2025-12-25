@@ -42,12 +42,16 @@ namespace SwiftArcadeMode.Features.Humans.Perks.Content.Caster
                     return;
 
                 Vector3 direction = vel.normalized;
-                new Projectile(null, Dummy.Camera.position, Quaternion.LookRotation(direction), direction * 12f, 5f, Dummy);
+                new Projectile(Spell, Dummy.Camera.position, Quaternion.LookRotation(direction), direction * 12f, 5f, Dummy);
             }
 
             public override void Tick()
             {
                 base.Tick();
+
+                if (prevTarget == null)
+                    return;
+
                 damp = Vector3.SmoothDamp(damp, prevTarget.Velocity, ref vel, 0.2f);
             }
 
@@ -69,6 +73,7 @@ namespace SwiftArcadeMode.Features.Humans.Perks.Content.Caster
                     }
 
                     SchematicEffect.Create("RockHit".ApplySchematicPrefix(), Rigidbody.position, Rigidbody.rotation, Vector3.one, 0.4f);
+                    Spell?.PlaySound(Rigidbody.position, "hit");
                     Destroy();
                 }
             }
