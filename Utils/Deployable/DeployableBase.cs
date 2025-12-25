@@ -7,7 +7,6 @@ using NetworkManagerUtils.Dummies;
 using PlayerRoles;
 using ProjectMER.Features;
 using ProjectMER.Features.Objects;
-using SwiftArcadeMode.Utils.Extensions;
 using UnityEngine;
 
 namespace SwiftArcadeMode.Utils.Deployable
