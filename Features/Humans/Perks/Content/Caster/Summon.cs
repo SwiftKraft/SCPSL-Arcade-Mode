@@ -1,4 +1,5 @@
-﻿using LabApi.Features.Wrappers;
+﻿using LabApi.Events.Handlers;
+using LabApi.Features.Wrappers;
 using PlayerRoles;
 using SwiftArcadeMode.Utils.Deployable;
 using UnityEngine;
@@ -12,11 +13,24 @@ namespace SwiftArcadeMode.Features.Humans.Perks.Content.Caster
 
         public abstract float Health { get; }
 
+        public virtual bool DieOnOwnerDeath => true;
+
         public override void Initialize()
         {
             base.Initialize();
             Dummy.MaxHealth = Health;
             Dummy.Health = Health;
+
+            if (DieOnOwnerDeath)
+                PlayerEvents.Death += OnOwnerDied;
+        }
+
+        protected virtual void OnOwnerDied(LabApi.Events.Arguments.PlayerEvents.PlayerDeathEventArgs ev)
+        {
+            if (ev.Player != Owner)
+                return;
+            PlayerEvents.Death -= OnOwnerDied;
+            Destroy();
         }
     }
 }

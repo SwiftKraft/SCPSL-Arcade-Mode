@@ -93,13 +93,23 @@ namespace SwiftArcadeMode.Utils.Deployable
 
         public virtual void Initialize() { }
 
-        public virtual void Tick() => Schematic?.transform.SetPositionAndRotation(Dummy.Position, Dummy.Rotation);
+        public virtual void Tick()
+        {
+            if (Schematic == null || Dummy == null)
+            {
+                Destroy();
+                return;
+            }
+
+            Schematic.transform.SetPositionAndRotation(Dummy.Position, Dummy.Rotation);
+        }
 
         public virtual void Destroy()
         {
             DeployableManager.AllDeployables.Remove(this);
-            NetworkServer.Destroy(Dummy.GameObject);
-            Schematic.Destroy();
+            if (Dummy != null)
+                NetworkServer.Destroy(Dummy.GameObject);
+            Schematic?.Destroy();
             Scp096Events.AddingTarget -= On096AddingTarget;
             Scp173Events.AddingObserver -= On173AddingObserver;
             Destroyed = true;
